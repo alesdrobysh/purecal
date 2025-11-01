@@ -29,6 +29,7 @@ class _SearchScreenState extends State<SearchScreen> {
   bool _isSearching = false;
   String? _errorMessage;
   Timer? _debounceTimer;
+  int _searchId = 0;
 
   @override
   void initState() {
@@ -71,14 +72,15 @@ class _SearchScreenState extends State<SearchScreen> {
     });
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      _performSearch(query);
+      _searchId++;
+      _performSearch(query, _searchId);
     });
   }
 
-  Future<void> _performSearch(String query) async {
+  Future<void> _performSearch(String query, int searchId) async {
     try {
       final results = await _productService.searchProducts(query);
-      if (mounted) {
+      if (mounted && searchId == _searchId) {
         setState(() {
           _searchResults = results;
           _isSearching = false;
@@ -88,7 +90,7 @@ class _SearchScreenState extends State<SearchScreen> {
         });
       }
     } catch (e) {
-      if (mounted) {
+      if (mounted && searchId == _searchId) {
         setState(() {
           _isSearching = false;
           _errorMessage = 'Error searching: ${e.toString()}';
@@ -117,7 +119,8 @@ class _SearchScreenState extends State<SearchScreen> {
     final navigator = Navigator.of(context);
     final result = await navigator.push(
       MaterialPageRoute(
-        builder: (context) => ScannerScreen(mealType: widget.preselectedMealType),
+        builder: (context) =>
+            ScannerScreen(mealType: widget.preselectedMealType),
       ),
     );
 
