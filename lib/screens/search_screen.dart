@@ -192,11 +192,6 @@ class _SearchScreenState extends State<SearchScreen> {
             icon: const Icon(Icons.inventory_2),
             tooltip: 'My Products',
           ),
-          IconButton(
-            onPressed: _openScanner,
-            icon: const Icon(Icons.qr_code_scanner),
-            tooltip: 'Scan barcode',
-          ),
         ],
       ),
       body: Column(
@@ -209,15 +204,11 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: InputDecoration(
                 hintText: 'Search products...',
                 prefixIcon: const Icon(Icons.search),
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          _searchController.clear();
-                          _onSearchChanged('');
-                        },
-                      )
-                    : null,
+                suffixIcon: IconButton(
+                  onPressed: _openScanner,
+                  icon: const Icon(Icons.barcode_reader),
+                  tooltip: 'Scan barcode',
+                ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
