@@ -32,7 +32,8 @@ class ProductService {
     }
   }
 
-  /// Search products - merges local and OFF results, prioritizing local products
+  /// Search products - searches local products only
+  /// OFF free text search is way too slow
   Future<List<FoodProduct>> searchProducts(
     String query, {
     int page = 1,
@@ -46,30 +47,7 @@ class ProductService {
       // Search local products
       final localProducts = await _dbService.searchLocalProducts(query);
 
-      // Search OFF API
-      List<FoodProduct> offProducts = [];
-      try {
-        offProducts = await _offApiService.searchProducts(
-          query,
-          page: page,
-          pageSize: pageSize,
-        );
-      } catch (e) {
-        // If OFF API fails, continue with local products only
-      }
-
-      // Merge results: local products first, then OFF products
-      // Remove duplicates by barcode (keep local version)
-      final localBarcodes = localProducts
-          .where((p) => p.barcode.isNotEmpty)
-          .map((p) => p.barcode)
-          .toSet();
-
-      final uniqueOffProducts = offProducts
-          .where((p) => p.barcode.isEmpty || !localBarcodes.contains(p.barcode))
-          .toList();
-
-      return [...localProducts, ...uniqueOffProducts];
+      return localProducts;
     } catch (e) {
       // Return empty list on error
       return [];
@@ -77,7 +55,8 @@ class ProductService {
   }
 
   /// Get all local products only
-  Future<List<FoodProduct>> getLocalProducts({bool includeDeleted = false}) async {
+  Future<List<FoodProduct>> getLocalProducts(
+      {bool includeDeleted = false}) async {
     return await _dbService.getAllLocalProducts(includeDeleted: includeDeleted);
   }
 
