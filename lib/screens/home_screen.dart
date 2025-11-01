@@ -120,18 +120,12 @@ class HomeScreen extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () => _selectDate(context, provider),
-            child: Row(
-              children: [
-                Text(
-                  DateFormat('EEEE, MMM d, yyyy').format(provider.selectedDate),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                const Icon(Icons.calendar_today, size: 18),
-              ],
+            child: Text(
+              DateFormat('EEEE, MMM d, yyyy').format(provider.selectedDate),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           Row(
@@ -160,7 +154,7 @@ class HomeScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Today\'s Summary',
+            'Summary',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
@@ -217,9 +211,17 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
-            Text(
-              '${current.toStringAsFixed(0)} / ${goal.toStringAsFixed(0)}',
-              style: TextStyle(color: Colors.grey[600]),
+            Row(
+              children: [
+                Text(
+                  current.toStringAsFixed(0),
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  ' / ${goal.toStringAsFixed(0)}',
+                  style: TextStyle(color: Colors.grey[600]),
+                ),
+              ],
             ),
           ],
         ),
@@ -256,16 +258,23 @@ class HomeScreen extends StatelessWidget {
           minHeight: 6,
         ),
         const SizedBox(height: 4),
-        Text(
-          '${current.toStringAsFixed(0)}g',
-          style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+        Row(
+          children: [
+            Text(
+              '${current.toStringAsFixed(0)}g',
+              style: TextStyle(fontWeight: FontWeight.w500),
+            ),
+            Text(
+              ' /${goal.toStringAsFixed(0)}g',
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+          ],
         ),
       ],
     );
   }
 
-  Future<void> _selectDate(
-      BuildContext context, DiaryProvider provider) async {
+  Future<void> _selectDate(BuildContext context, DiaryProvider provider) async {
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: provider.selectedDate,
