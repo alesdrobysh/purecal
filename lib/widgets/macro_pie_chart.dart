@@ -61,113 +61,78 @@ class MacroPieChart extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            SizedBox(
-              height: 250,
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: PieChart(
-                      PieChartData(
-                        sections: [
-                          PieChartSectionData(
-                            value: summary.proteins,
-                            title: '${proteinPercentage.toStringAsFixed(1)}%',
-                            color: Colors.red,
-                            radius: 100,
-                            titleStyle: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 200,
+                  child: PieChart(
+                    PieChartData(
+                      sections: [
+                        PieChartSectionData(
+                          value: summary.proteins,
+                          title: '${proteinPercentage.toStringAsFixed(1)}%',
+                          color: Colors.red,
+                          radius: 80,
+                          titleStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          PieChartSectionData(
-                            value: summary.fat,
-                            title: '${fatPercentage.toStringAsFixed(1)}%',
-                            color: Colors.yellow[700]!,
-                            radius: 100,
-                            titleStyle: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                        ),
+                        PieChartSectionData(
+                          value: summary.fat,
+                          title: '${fatPercentage.toStringAsFixed(1)}%',
+                          color: Colors.yellow[700]!,
+                          radius: 80,
+                          titleStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
-                          PieChartSectionData(
-                            value: summary.carbs,
-                            title: '${carbsPercentage.toStringAsFixed(1)}%',
-                            color: Colors.blue,
-                            radius: 100,
-                            titleStyle: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                        sectionsSpace: 2,
-                        centerSpaceRadius: 0,
-                        pieTouchData: PieTouchData(
-                          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildLegendItem(
-                          'Protein',
-                          '${summary.proteins.toStringAsFixed(1)}g',
-                          Colors.red,
-                        ),
-                        const SizedBox(height: 12),
-                        _buildLegendItem(
-                          'Fat',
-                          '${summary.fat.toStringAsFixed(1)}g',
-                          Colors.yellow[700]!,
-                        ),
-                        const SizedBox(height: 12),
-                        _buildLegendItem(
-                          'Carbs',
-                          '${summary.carbs.toStringAsFixed(1)}g',
-                          Colors.blue,
-                        ),
-                        const SizedBox(height: 24),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.orange[50],
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Total',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                '${summary.calories.toStringAsFixed(0)} kcal',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.orange,
-                                ),
-                              ),
-                            ],
+                        PieChartSectionData(
+                          value: summary.carbs,
+                          title: '${carbsPercentage.toStringAsFixed(1)}%',
+                          color: Colors.blue,
+                          radius: 80,
+                          titleStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ],
+                      sectionsSpace: 2,
+                      centerSpaceRadius: 0,
+                      pieTouchData: PieTouchData(
+                        touchCallback:
+                            (FlTouchEvent event, pieTouchResponse) {},
+                      ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildLegendItem(
+                      'Protein',
+                      '${summary.proteins.toStringAsFixed(1)}g',
+                      Colors.red,
+                    ),
+                    _buildLegendItem(
+                      'Fat',
+                      '${summary.fat.toStringAsFixed(1)}g',
+                      Colors.yellow[700]!,
+                    ),
+                    _buildLegendItem(
+                      'Carbs',
+                      '${summary.carbs.toStringAsFixed(1)}g',
+                      Colors.blue,
+                    ),
+                  ],
+                )
+              ],
             ),
           ],
         ),
@@ -177,6 +142,7 @@ class MacroPieChart extends StatelessWidget {
 
   Widget _buildLegendItem(String label, String value, Color color) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           width: 16,
@@ -187,26 +153,24 @@ class MacroPieChart extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey,
-                ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                fontSize: 12,
+                color: Colors.grey,
               ),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
