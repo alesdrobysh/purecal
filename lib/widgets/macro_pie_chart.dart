@@ -1,0 +1,214 @@
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+import '../services/database_service.dart';
+
+class MacroPieChart extends StatelessWidget {
+  final DailySummary summary;
+
+  const MacroPieChart({super.key, required this.summary});
+
+  @override
+  Widget build(BuildContext context) {
+    final totalMacros = summary.proteins + summary.fat + summary.carbs;
+
+    // Handle case with no data
+    if (totalMacros == 0) {
+      return Card(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.pie_chart_outline, size: 64, color: Colors.grey[400]),
+              const SizedBox(height: 16),
+              Text(
+                'No macro data for today',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Add some food to see your macro breakdown',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[500],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final proteinPercentage = (summary.proteins / totalMacros * 100);
+    final fatPercentage = (summary.fat / totalMacros * 100);
+    final carbsPercentage = (summary.carbs / totalMacros * 100);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Today\'s Macro Breakdown',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              height: 250,
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: PieChart(
+                      PieChartData(
+                        sections: [
+                          PieChartSectionData(
+                            value: summary.proteins,
+                            title: '${proteinPercentage.toStringAsFixed(1)}%',
+                            color: Colors.red,
+                            radius: 100,
+                            titleStyle: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          PieChartSectionData(
+                            value: summary.fat,
+                            title: '${fatPercentage.toStringAsFixed(1)}%',
+                            color: Colors.yellow[700]!,
+                            radius: 100,
+                            titleStyle: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          PieChartSectionData(
+                            value: summary.carbs,
+                            title: '${carbsPercentage.toStringAsFixed(1)}%',
+                            color: Colors.blue,
+                            radius: 100,
+                            titleStyle: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                        sectionsSpace: 2,
+                        centerSpaceRadius: 0,
+                        pieTouchData: PieTouchData(
+                          touchCallback: (FlTouchEvent event, pieTouchResponse) {},
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildLegendItem(
+                          'Protein',
+                          '${summary.proteins.toStringAsFixed(1)}g',
+                          Colors.red,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildLegendItem(
+                          'Fat',
+                          '${summary.fat.toStringAsFixed(1)}g',
+                          Colors.yellow[700]!,
+                        ),
+                        const SizedBox(height: 12),
+                        _buildLegendItem(
+                          'Carbs',
+                          '${summary.carbs.toStringAsFixed(1)}g',
+                          Colors.blue,
+                        ),
+                        const SizedBox(height: 24),
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.orange[50],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Total',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                '${summary.calories.toStringAsFixed(0)} kcal',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLegendItem(String label, String value, Color color) {
+    return Row(
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
