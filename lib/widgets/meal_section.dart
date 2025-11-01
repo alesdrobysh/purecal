@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../models/diary_entry.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
+import 'package:foodiefit/screens/quick_add_screen.dart';
+
 import '../screens/search_screen.dart';
 
 class MealSection extends StatefulWidget {
@@ -33,6 +35,15 @@ class _MealSectionState extends State<MealSection> {
       context,
       MaterialPageRoute(
         builder: (context) => SearchScreen(preselectedMealType: widget.mealType),
+      ),
+    );
+  }
+
+  void _openQuickAdd(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuickAddScreen(mealType: widget.mealType),
       ),
     );
   }
@@ -101,17 +112,30 @@ class _MealSectionState extends State<MealSection> {
                 const Divider(height: 1),
                 Padding(
                   padding: const EdgeInsets.all(16),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () => _openSearch(context),
-                      icon: const Icon(Icons.add),
-                      style: IconButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.all(12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () => _openSearch(context),
+                        icon: const Icon(Icons.add),
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.all(12),
+                        ),
+                        tooltip: 'Add product',
                       ),
-                      tooltip: 'Add product',
-                    ),
+                      const SizedBox(width: 16),
+                      OutlinedButton.icon(
+                        onPressed: () => _openQuickAdd(context),
+                        icon: const Icon(Icons.bolt),
+                        label: const Text('Quick Add'),
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 if (entries.isEmpty)

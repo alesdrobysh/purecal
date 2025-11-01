@@ -104,6 +104,30 @@ class DiaryProvider with ChangeNotifier {
     await loadEntriesForDate(_selectedDate);
   }
 
+  Future<void> addQuickEntry({
+    required String productName,
+    required double calories,
+    required double proteins,
+    required double fat,
+    required double carbs,
+    required MealType mealType,
+  }) async {
+    final entry = DiaryEntry(
+      barcode: '', // No barcode for quick add
+      productName: productName,
+      date: _selectedDate,
+      portionGrams: 1,
+      calories: calories,
+      proteins: proteins,
+      fat: fat,
+      carbs: carbs,
+      mealType: mealType,
+    );
+
+    await _dbService.insertEntry(entry);
+    await loadEntriesForDate(_selectedDate);
+  }
+
   Future<void> updateEntry(DiaryEntry entry, double newPortionGrams) async {
     final product = FoodProduct(
       barcode: entry.barcode,
