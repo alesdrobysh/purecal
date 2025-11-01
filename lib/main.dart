@@ -1,3 +1,4 @@
+import 'package:foodiefit/services/off_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'services/diary_provider.dart';
@@ -5,6 +6,7 @@ import 'screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  OFFApiService.initialize();
   runApp(const FoodieApp());
 }
 

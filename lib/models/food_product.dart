@@ -1,3 +1,5 @@
+import 'package:openfoodfacts/openfoodfacts.dart';
+
 class FoodProduct {
   final String barcode;
   final String name;
@@ -34,27 +36,23 @@ class FoodProduct {
   });
 
   factory FoodProduct.fromJson(Map<String, dynamic> json) {
-    final product = json['product'] as Map<String, dynamic>? ?? {};
-    final nutriments = product['nutriments'] as Map<String, dynamic>? ?? {};
+    final product = Product.fromJson(json['product']);
+    return FoodProduct.fromOFF(product);
+  }
 
-    String parseServingSize(dynamic value) {
-      if (value == null) return '100';
-      final str = value.toString().toLowerCase();
-      final match = RegExp(r'(\d+(?:\.\d+)?)').firstMatch(str);
-      return match?.group(1) ?? '100';
-    }
+  factory FoodProduct.fromOFF(Product product) {
+    final nutriments = product.nutriments;
 
     return FoodProduct(
-      barcode: json['code']?.toString() ?? '',
-      name: product['product_name']?.toString() ?? 'Unknown Product',
-      brand: product['brands']?.toString(),
-      caloriesPer100g: (nutriments['energy-kcal_100g'] ?? 0).toDouble(),
-      proteinsPer100g: (nutriments['proteins_100g'] ?? 0).toDouble(),
-      fatPer100g: (nutriments['fat_100g'] ?? 0).toDouble(),
-      carbsPer100g: (nutriments['carbohydrates_100g'] ?? 0).toDouble(),
-      servingSize: double.tryParse(parseServingSize(product['serving_size'])),
-      imageUrl: product['image_front_url']?.toString() ??
-          product['image_url']?.toString(),
+      barcode: product.barcode ?? '',
+      name: product.productName ?? 'Unknown Product',
+      brand: product.brands,
+      caloriesPer100g: nutriments?.getValue(Nutrient.energyKCal, PerSize.oneHundredGrams) ?? 0,
+      proteinsPer100g: nutriments?.getValue(Nutrient.proteins, PerSize.oneHundredGrams) ?? 0,
+      fatPer100g: nutriments?.getValue(Nutrient.fat, PerSize.oneHundredGrams) ?? 0,
+      carbsPer100g: nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams) ?? 0,
+      servingSize: double.tryParse(product.servingSize ?? '100'),
+      imageUrl: product.imageFrontUrl,
     );
   }
 

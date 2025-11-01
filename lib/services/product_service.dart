@@ -32,8 +32,7 @@ class ProductService {
     }
   }
 
-  /// Search products - searches local products only
-  /// OFF free text search is way too slow
+  /// Search products - searches both local and OFF
   Future<List<FoodProduct>> searchProducts(
     String query, {
     int page = 1,
@@ -44,10 +43,15 @@ class ProductService {
     }
 
     try {
-      // Search local products
-      final localProducts = await _dbService.searchLocalProducts(query);
+      final localProductsFuture = _dbService.searchLocalProducts(query);
+      final offProductsFuture =
+          _offApiService.searchProducts(query, page: page, pageSize: pageSize);
 
-      return localProducts;
+      // Combine and return results
+      final combined =
+          await Future.wait([localProductsFuture, offProductsFuture]);
+
+      return [...combined[0], ...combined[1]];
     } catch (e) {
       // Return empty list on error
       return [];

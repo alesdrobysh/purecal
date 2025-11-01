@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/food_product.dart';
 import '../models/meal_type.dart';
+import '../services/off_api_service.dart';
 import '../services/product_service.dart';
 import '../services/diary_provider.dart';
 import '../widgets/add_product_dialog.dart';
@@ -62,6 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
       setState(() {
         _searchResults = [];
         _errorMessage = null;
+        _isSearching = false;
       });
       return;
     }
@@ -80,6 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<void> _performSearch(String query, int searchId) async {
     try {
       final results = await _productService.searchProducts(query);
+
       if (mounted && searchId == _searchId) {
         setState(() {
           _searchResults = results;
