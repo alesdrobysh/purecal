@@ -45,6 +45,10 @@ class FoodieApp extends StatelessWidget {
             ],
             supportedLocales: const [
               Locale('en'),
+              Locale('es'),
+              Locale('ru'),
+              Locale('pl'),
+              Locale('be'),
             ],
             localeResolutionCallback: (locale, supportedLocales) {
               if (locale == null) {

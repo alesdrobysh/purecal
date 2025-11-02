@@ -23,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
           _buildMyProductsOption(context),
           const Divider(),
           _buildSectionHeader(l10n.appearance),
+          _buildLanguageOption(context),
           _buildThemeOption(context),
           const Divider(),
           _buildSectionHeader(l10n.dataManagement),
@@ -68,6 +69,16 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
+  Widget _buildLanguageOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.language, color: Colors.blue),
+      title: Text(l10n.language),
+      subtitle: Text(_getLanguageSubtitle(context)),
+      onTap: () => _showLanguageDialog(context),
+    );
+  }
+
   Widget _buildThemeOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
@@ -104,7 +115,8 @@ class SettingsScreen extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              final provider = Provider.of<DiaryProvider>(context, listen: false);
+              final provider =
+                  Provider.of<DiaryProvider>(context, listen: false);
               await provider.clearFrequentProductsCache();
 
               if (context.mounted) {
@@ -136,7 +148,8 @@ class SettingsScreen extends StatelessWidget {
           context: context,
           applicationName: l10n.appTitle,
           applicationVersion: '1.0.0',
-          applicationIcon: Icon(Icons.restaurant, size: 48, color: AppColors.green),
+          applicationIcon:
+              Icon(Icons.restaurant, size: 48, color: AppColors.green),
           children: [
             Text(
               l10n.appDescription,
@@ -160,8 +173,9 @@ class SettingsScreen extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: Text(l10n.openFoodFacts),
             content: Text(
-              l10n.openFoodFactsDescription + '\n\n'
-              'Visit: https://world.openfoodfacts.org',
+              l10n.openFoodFactsDescription +
+                  '\n\n'
+                      'Visit: https://world.openfoodfacts.org',
             ),
             actions: [
               TextButton(
@@ -173,6 +187,28 @@ class SettingsScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _getLanguageSubtitle(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Provider.of<SettingsProvider>(context).locale;
+    if (locale == null) {
+      return l10n.systemDefault;
+    }
+    switch (locale.languageCode) {
+      case 'en':
+        return 'English';
+      case 'es':
+        return 'Español';
+      case 'ru':
+        return 'Русский';
+      case 'pl':
+        return 'Polski';
+      case 'be':
+        return 'Беларуская';
+      default:
+        return locale.languageCode;
+    }
   }
 
   String _getThemeSubtitle(BuildContext context) {
@@ -189,8 +225,83 @@ class SettingsScreen extends StatelessWidget {
     }
   }
 
+  void _showLanguageDialog(BuildContext context) {
+    final settingsProvider =
+        Provider.of<SettingsProvider>(context, listen: false);
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.chooseLanguage),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<Locale?>(
+                title: Text(l10n.systemDefault),
+                value: null,
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<Locale?>(
+                title: const Text('English'),
+                value: const Locale('en'),
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<Locale?>(
+                title: const Text('Español'),
+                value: const Locale('es'),
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<Locale?>(
+                title: const Text('Русский'),
+                value: const Locale('ru'),
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<Locale?>(
+                title: const Text('Polski'),
+                value: const Locale('pl'),
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+              RadioListTile<Locale?>(
+                title: const Text('Беларуская'),
+                value: const Locale('be'),
+                groupValue: settingsProvider.locale,
+                onChanged: (value) {
+                  settingsProvider.setLocale(value);
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void _showThemeDialog(BuildContext context) {
-    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    final settingsProvider =
+        Provider.of<SettingsProvider>(context, listen: false);
     final l10n = AppLocalizations.of(context)!;
 
     showDialog(
