@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
+import 'decorations.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: Colors.green,
+    primarySwatch: AppColors.green,
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
       foregroundColor: Colors.white,
@@ -12,7 +12,7 @@ class AppTheme {
 
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primarySwatch: Colors.green,
+    primarySwatch: AppColors.green,
     useMaterial3: true,
     appBarTheme: const AppBarTheme(
       foregroundColor: Colors.white,

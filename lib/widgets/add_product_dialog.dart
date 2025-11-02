@@ -4,6 +4,7 @@ import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
 import 'custom_input_decoration.dart';
+import '../config/decorations.dart';
 
 class AddProductDialog extends StatefulWidget {
   final FoodProduct product;
@@ -51,7 +52,6 @@ class _AddProductDialogState extends State<AddProductDialog> {
   @override
   Widget build(BuildContext context) {
     final nutrition = widget.product.calculateNutrition(_currentPortion);
-    final theme = Theme.of(context);
 
     return AlertDialog(
       title: const Text('Add to Diary'),
@@ -158,10 +158,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: AppShapes.greenInfoBox(context),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -207,7 +204,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
+            backgroundColor: AppColors.green,
             foregroundColor: Colors.white,
           ),
           child: const Text('Add'),

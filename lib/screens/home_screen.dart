@@ -7,6 +7,7 @@ import '../widgets/meal_section.dart';
 import 'goals_screen.dart';
 import 'charts_screen.dart';
 import 'settings_screen.dart';
+import '../config/decorations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('FoodieFit'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
         actions: [
           IconButton(
             icon: const Icon(Icons.flag),

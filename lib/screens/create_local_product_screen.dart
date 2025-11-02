@@ -6,6 +6,7 @@ import 'package:path/path.dart' as path;
 import '../models/food_product.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../config/decorations.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product;
@@ -237,7 +238,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_isEditMode ? 'Edit Product' : 'Create Local Product'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: Form(
         key: _formKey,
@@ -391,7 +392,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             ElevatedButton(
               onPressed: _isSaving ? null : _saveProduct,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.green,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: _isSaving

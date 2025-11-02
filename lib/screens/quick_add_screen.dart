@@ -4,6 +4,7 @@ import 'package:foodiefit/services/diary_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/custom_input_decoration.dart';
+import '../config/decorations.dart';
 
 class QuickAddScreen extends StatefulWidget {
   final MealType? mealType;
@@ -58,7 +59,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Quick Add to ${_selectedMealType.displayName}'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: Form(
         key: _formKey,

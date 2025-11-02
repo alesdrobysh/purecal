@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/food_product.dart';
 import '../services/product_service.dart';
 import 'create_local_product_screen.dart';
+import '../config/decorations.dart';
 
 class LocalProductsListScreen extends StatefulWidget {
   const LocalProductsListScreen({super.key});
@@ -76,7 +77,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Products'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -235,16 +236,13 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                     horizontal: 8,
                                     vertical: 4,
                                   ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue[100],
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                                  decoration: AppShapes.greenBadge(context),
                                   child: Text(
                                     'Custom',
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.blue[700],
+                                      color: AppColors.badgeText(context),
                                     ),
                                   ),
                                 ),

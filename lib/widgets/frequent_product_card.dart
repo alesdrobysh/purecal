@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/decorations.dart';
 
 class FrequentProductCard extends StatelessWidget {
   final String barcode;
@@ -18,11 +19,7 @@ class FrequentProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final backgroundColor = isDark ? Colors.green[900] : Colors.green[50];
-    final borderColor = isDark ? Colors.green[600] : Colors.green[300];
-    final iconColor = isDark ? Colors.green[300] : Colors.green[700];
+    final iconColor = AppColors.iconAccent(context);
 
     return GestureDetector(
       onTap: onTap,
@@ -35,11 +32,7 @@ class FrequentProductCard extends StatelessWidget {
                 ? Container(
                     width: 60,
                     height: 60,
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: borderColor!, width: 2),
-                    ),
+                    decoration: AppShapes.greenContainer(context),
                     child: Center(
                       child: Icon(
                         Icons.fastfood,
@@ -59,11 +52,7 @@ class FrequentProductCard extends StatelessWidget {
                       return Container(
                         width: 60,
                         height: 60,
-                        decoration: BoxDecoration(
-                          color: backgroundColor,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: borderColor!, width: 2),
-                        ),
+                        decoration: AppShapes.greenContainer(context),
                         child: Center(
                           child: Icon(
                             Icons.fastfood,

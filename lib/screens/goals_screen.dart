@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../services/diary_provider.dart';
 import '../models/user_goals.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../config/decorations.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});
@@ -20,8 +21,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
   @override
   void initState() {
     super.initState();
-    final goals = Provider.of<DiaryProvider>(context, listen: false).userGoals ??
-        UserGoals.defaultGoals();
+    final goals =
+        Provider.of<DiaryProvider>(context, listen: false).userGoals ??
+            UserGoals.defaultGoals();
 
     _caloriesController =
         TextEditingController(text: goals.caloriesGoal.toStringAsFixed(0));
@@ -81,7 +83,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Goals updated successfully'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
     );
 
@@ -93,7 +95,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Set Your Goals'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -158,20 +160,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
             const SizedBox(height: 32),
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(12),
-              ),
+              decoration: AppShapes.greenInfoBox(context),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.blue[700]),
+                  Icon(Icons.info_outline,
+                      color: AppColors.infoBoxIcon(context)),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'These goals are general recommendations. Consult a nutritionist for personalized advice.',
                       style: TextStyle(
                         fontSize: 13,
-                        color: Colors.blue[900],
+                        color: AppColors.infoBoxText(context),
                       ),
                     ),
                   ),
@@ -185,7 +185,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               child: ElevatedButton(
                 onPressed: _saveGoals,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: AppColors.green,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),

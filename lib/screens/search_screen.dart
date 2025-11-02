@@ -12,6 +12,7 @@ import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../config/decorations.dart';
 
 class SearchScreen extends StatefulWidget {
   final MealType? preselectedMealType;
@@ -203,7 +204,7 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Text(widget.preselectedMealType != null
             ? 'Add to ${widget.preselectedMealType!.displayName}'
             : 'Search Products'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
         actions: [
           IconButton(
             onPressed: _openMyProducts,
@@ -428,16 +429,13 @@ class _SearchScreenState extends State<SearchScreen> {
                               horizontal: 6,
                               vertical: 2,
                             ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue[100],
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                            decoration: AppShapes.greenBadge(context),
                             child: Text(
                               'Custom',
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.blue[700],
+                                color: AppColors.badgeText(context),
                               ),
                             ),
                           ),
@@ -474,7 +472,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              const Icon(Icons.add_circle_outline, color: Colors.green),
+              Icon(Icons.add_circle_outline, color: AppColors.green),
             ],
           ),
         ),

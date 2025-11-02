@@ -4,6 +4,7 @@ import '../models/meal_type.dart';
 import '../services/product_service.dart';
 import '../widgets/add_product_dialog.dart';
 import 'create_local_product_screen.dart';
+import '../config/decorations.dart';
 
 class ScannerScreen extends StatefulWidget {
   final MealType? mealType;
@@ -154,7 +155,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: Stack(
         children: [

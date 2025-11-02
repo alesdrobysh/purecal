@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import 'local_products_list_screen.dart';
+import '../config/decorations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -12,7 +13,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
       ),
       body: ListView(
         children: [
@@ -129,7 +130,7 @@ class SettingsScreen extends StatelessWidget {
           context: context,
           applicationName: 'FoodieFit',
           applicationVersion: '1.0.0',
-          applicationIcon: const Icon(Icons.restaurant, size: 48, color: Colors.green),
+          applicationIcon: Icon(Icons.restaurant, size: 48, color: AppColors.green),
           children: [
             const Text(
               'A food diary app to track your daily nutrition and reach your goals.',
@@ -142,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildOFFAttribution(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.public, color: Colors.green),
+      leading: Icon(Icons.public, color: AppColors.green),
       title: const Text('Open Food Facts'),
       subtitle: const Text('Product data provided by Open Food Facts'),
       trailing: const Icon(Icons.open_in_new, size: 18),

@@ -5,6 +5,7 @@ import '../services/database_service.dart';
 import '../widgets/macro_pie_chart.dart';
 import '../widgets/calorie_trend_chart.dart';
 import '../widgets/macro_trend_chart.dart';
+import '../config/decorations.dart';
 
 class ChartsScreen extends StatefulWidget {
   const ChartsScreen({super.key});
@@ -69,7 +70,7 @@ class _ChartsScreenState extends State<ChartsScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nutrition Charts'),
-        backgroundColor: Colors.green,
+        backgroundColor: AppColors.green,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,

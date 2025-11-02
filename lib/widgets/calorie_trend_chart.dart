@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../services/database_service.dart';
 import '../models/user_goals.dart';
+import '../config/decorations.dart';
 
 class CalorieTrendChart extends StatelessWidget {
   final List<DailySummary> weeklySummaries;
@@ -137,7 +138,7 @@ class CalorieTrendChart extends StatelessWidget {
                           FlSpot(6, goalCalories),
                         ],
                         isCurved: false,
-                        color: Colors.green.withAlpha((0.5 * 255).toInt()),
+                        color: AppColors.green.withAlpha((0.5 * 255).toInt()),
                         barWidth: 2,
                         dotData: const FlDotData(show: false),
                         dashArray: [5, 5],
@@ -220,7 +221,7 @@ class CalorieTrendChart extends StatelessWidget {
                 _buildLegendItem('Actual', Colors.orange),
                 if (goals != null) ...[
                   const SizedBox(width: 24),
-                  _buildLegendItem('Goal', Colors.green.withAlpha((0.5 * 255).toInt()), isDashed: true),
+                  _buildLegendItem('Goal', AppColors.green.withAlpha((0.5 * 255).toInt()), isDashed: true),
                 ],
               ],
             ),
