@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/food_product.dart';
 import '../models/meal_type.dart';
-import '../services/off_api_service.dart';
 import '../services/product_service.dart';
 import '../services/diary_provider.dart';
 import '../widgets/add_product_dialog.dart';
 import '../widgets/frequent_product_card.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
+import 'quick_add_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   final MealType? preselectedMealType;
@@ -181,6 +181,20 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  void _openQuickAdd() async {
+    final navigator = Navigator.of(context);
+    final result = await navigator.push(
+      MaterialPageRoute(
+        builder: (context) =>
+            QuickAddScreen(mealType: widget.preselectedMealType),
+      ),
+    );
+
+    if (result == true && mounted) {
+      navigator.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -223,6 +237,11 @@ class _SearchScreenState extends State<SearchScreen> {
             child: _buildSearchResults(),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _openQuickAdd,
+        icon: const Icon(Icons.bolt),
+        label: const Text('Quick Add'),
       ),
     );
   }

@@ -34,7 +34,8 @@ class _MealSectionState extends State<MealSection> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SearchScreen(preselectedMealType: widget.mealType),
+        builder: (context) =>
+            SearchScreen(preselectedMealType: widget.mealType),
       ),
     );
   }
@@ -99,6 +100,17 @@ class _MealSectionState extends State<MealSection> {
                           ],
                         ),
                       ),
+                      IconButton(
+                        onPressed: () => _openSearch(context),
+                        icon: const Icon(Icons.add),
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.green[50],
+                          foregroundColor: Colors.green,
+                          padding: const EdgeInsets.all(12),
+                        ),
+                        tooltip: 'Add product',
+                      ),
+                      const SizedBox(width: 12),
                       Icon(
                         _isExpanded
                             ? Icons.keyboard_arrow_up
@@ -110,34 +122,6 @@ class _MealSectionState extends State<MealSection> {
               ),
               if (_isExpanded) ...[
                 const Divider(height: 1),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () => _openSearch(context),
-                        icon: const Icon(Icons.add),
-                        style: IconButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.all(12),
-                        ),
-                        tooltip: 'Add product',
-                      ),
-                      const SizedBox(width: 16),
-                      OutlinedButton.icon(
-                        onPressed: () => _openQuickAdd(context),
-                        icon: const Icon(Icons.bolt),
-                        label: const Text('Quick Add'),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 if (entries.isEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(

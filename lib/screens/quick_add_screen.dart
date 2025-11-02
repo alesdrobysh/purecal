@@ -55,7 +55,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quick Add'),
+        title: Text('Quick Add to ${_selectedMealType.displayName}'),
         backgroundColor: Colors.green,
       ),
       body: Form(
@@ -101,34 +101,14 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _carbs = double.tryParse(value!) ?? 0,
               ),
-              const SizedBox(height: 16),
-              DropdownButtonFormField<MealType>(
-                value: _selectedMealType,
-                decoration: const InputDecoration(
-                  labelText: 'Meal Type',
-                  border: OutlineInputBorder(),
-                ),
-                items: MealType.values.map((mealType) {
-                  return DropdownMenuItem(
-                    value: mealType,
-                    child: Text(mealType.displayName),
-                  );
-                }).toList(),
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      _selectedMealType = value;
-                    });
-                  }
-                },
-              ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: _submitForm,
-        child: const Icon(Icons.check),
+        icon: const Icon(Icons.check),
+        label: const Text('Save'),
       ),
     );
   }

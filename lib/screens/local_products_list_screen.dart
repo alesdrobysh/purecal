@@ -8,7 +8,8 @@ class LocalProductsListScreen extends StatefulWidget {
   const LocalProductsListScreen({super.key});
 
   @override
-  State<LocalProductsListScreen> createState() => _LocalProductsListScreenState();
+  State<LocalProductsListScreen> createState() =>
+      _LocalProductsListScreenState();
 }
 
 class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
@@ -135,7 +136,8 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                   'Are you sure you want to delete "${product.name}"?'),
                               actions: [
                                 TextButton(
-                                  onPressed: () => Navigator.pop(context, false),
+                                  onPressed: () =>
+                                      Navigator.pop(context, false),
                                   child: const Text('Cancel'),
                                 ),
                                 TextButton(
@@ -156,14 +158,16 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 .deleteLocalProduct(product.localId!);
                             if (mounted) {
                               messenger.showSnackBar(
-                                const SnackBar(content: Text('Product deleted')),
+                                const SnackBar(
+                                    content: Text('Product deleted')),
                               );
                             }
                           } catch (e) {
                             if (mounted) {
                               messenger.showSnackBar(
                                 SnackBar(
-                                    content: Text('Error deleting product: $e')),
+                                    content:
+                                        Text('Error deleting product: $e')),
                               );
                               _loadProducts();
                             }
@@ -183,12 +187,14 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                       width: 56,
                                       height: 56,
                                       fit: BoxFit.cover,
-                                      errorBuilder: (context, error, stackTrace) {
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
                                         return Container(
                                           width: 56,
                                           height: 56,
                                           color: Colors.grey[300],
-                                          child: const Icon(Icons.image_not_supported),
+                                          child: const Icon(
+                                              Icons.image_not_supported),
                                         );
                                       },
                                     ),
@@ -204,13 +210,13 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                   ),
                             title: Text(
                               product.name,
-                              style: const TextStyle(fontWeight: FontWeight.w600),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
                             ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (product.brand != null)
-                                  Text(product.brand!),
+                                if (product.brand != null) Text(product.brand!),
                                 const SizedBox(height: 4),
                                 Text(
                                   '${product.caloriesPer100g.toStringAsFixed(0)} kcal per 100g',
@@ -255,7 +261,6 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                 ),
       floatingActionButton: FloatingActionButton(
         onPressed: _createProduct,
-        backgroundColor: Colors.green,
         child: const Icon(Icons.add),
       ),
     );
