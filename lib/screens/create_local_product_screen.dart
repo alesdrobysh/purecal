@@ -284,7 +284,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Product Name
             TextFormField(
               controller: _nameController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Product Name *',
               ),
               validator: _validateRequired,
@@ -294,7 +294,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Brand
             TextFormField(
               controller: _brandController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Brand',
               ),
             ),
@@ -303,7 +303,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Barcode
             TextFormField(
               controller: _barcodeController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Barcode (optional)',
                 helperText: 'Leave empty for homemade items',
               ),
@@ -324,7 +324,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Calories
             TextFormField(
               controller: _caloriesController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Calories (kcal) *',
               ),
               keyboardType: TextInputType.number,
@@ -335,7 +335,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Protein
             TextFormField(
               controller: _proteinsController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Protein (g) *',
               ),
               keyboardType: TextInputType.number,
@@ -346,7 +346,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Fat
             TextFormField(
               controller: _fatController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Fat (g) *',
               ),
               keyboardType: TextInputType.number,
@@ -357,7 +357,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Carbs
             TextFormField(
               controller: _carbsController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Carbohydrates (g) *',
               ),
               keyboardType: TextInputType.number,
@@ -368,7 +368,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Serving Size
             TextFormField(
               controller: _servingSizeController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Typical Serving Size (g)',
               ),
               keyboardType: TextInputType.number,
@@ -379,7 +379,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Notes
             TextFormField(
               controller: _notesController,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Notes',
                 helperText: 'Additional information about this product',
               ),

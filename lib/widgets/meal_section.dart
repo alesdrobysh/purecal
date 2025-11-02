@@ -41,15 +41,6 @@ class _MealSectionState extends State<MealSection> {
     );
   }
 
-  void _openQuickAdd(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => QuickAddScreen(mealType: widget.mealType),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<DiaryProvider>(
@@ -57,6 +48,7 @@ class _MealSectionState extends State<MealSection> {
         final entries = provider.getEntriesByMealType(widget.mealType);
         final calories = provider.getMealCalories(widget.mealType);
         final count = entries.length;
+        final theme = Theme.of(context);
 
         return Card(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -105,8 +97,12 @@ class _MealSectionState extends State<MealSection> {
                         onPressed: () => _openSearch(context),
                         icon: const Icon(Icons.add),
                         style: IconButton.styleFrom(
-                          backgroundColor: Colors.green[50],
-                          foregroundColor: Colors.green,
+                          backgroundColor: theme.brightness == Brightness.light
+                              ? Colors.green[50]
+                              : Colors.green[700],
+                          foregroundColor: theme.brightness == Brightness.light
+                              ? Colors.green[700]
+                              : Colors.green[50],
                           padding: const EdgeInsets.all(12),
                         ),
                         tooltip: 'Add product',
@@ -305,7 +301,7 @@ class _MealSectionState extends State<MealSection> {
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: customInputDecoration().copyWith(
+          decoration: customInputDecoration(context).copyWith(
             labelText: 'Portion (grams)',
             suffixText: 'g',
           ),

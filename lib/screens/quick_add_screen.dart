@@ -69,7 +69,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
             spacing: 16.0,
             children: [
               TextFormField(
-                decoration: customInputDecoration().copyWith(labelText: 'Product Name'),
+                decoration: customInputDecoration(context).copyWith(labelText: 'Product Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a product name';
@@ -79,7 +79,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _productName = value!,
               ),
               TextFormField(
-                decoration: customInputDecoration().copyWith(labelText: 'Calories'),
+                decoration: customInputDecoration(context).copyWith(labelText: 'Calories'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || double.tryParse(value) == null) {
@@ -90,17 +90,17 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _calories = double.parse(value!),
               ),
               TextFormField(
-                decoration: customInputDecoration().copyWith(labelText: 'Proteins (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: 'Proteins (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _proteins = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration().copyWith(labelText: 'Fat (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: 'Fat (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _fat = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration().copyWith(labelText: 'Carbs (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: 'Carbs (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _carbs = double.tryParse(value!) ?? 0,
               ),

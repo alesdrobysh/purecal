@@ -117,6 +117,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ),
             const SizedBox(height: 32),
             _buildGoalInput(
+              context: context,
               controller: _caloriesController,
               label: 'Calories',
               suffix: 'kcal',
@@ -126,6 +127,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ),
             const SizedBox(height: 20),
             _buildGoalInput(
+              context: context,
               controller: _proteinsController,
               label: 'Protein',
               suffix: 'g',
@@ -135,6 +137,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ),
             const SizedBox(height: 20),
             _buildGoalInput(
+              context: context,
               controller: _fatController,
               label: 'Fat',
               suffix: 'g',
@@ -144,6 +147,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             ),
             const SizedBox(height: 20),
             _buildGoalInput(
+              context: context,
               controller: _carbsController,
               label: 'Carbohydrates',
               suffix: 'g',
@@ -203,6 +207,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   Widget _buildGoalInput({
+    required BuildContext context,
     required TextEditingController controller,
     required String label,
     required String suffix,
@@ -230,7 +235,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: customInputDecoration().copyWith(
+          decoration: customInputDecoration(context).copyWith(
             hintText: hint,
             suffixText: suffix,
             focusedBorder: OutlineInputBorder(

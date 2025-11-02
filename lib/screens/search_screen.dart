@@ -219,7 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: _searchController,
               autofocus: true,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 hintText: 'Search products...',
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(

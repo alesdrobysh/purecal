@@ -51,6 +51,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
   @override
   Widget build(BuildContext context) {
     final nutrition = widget.product.calculateNutrition(_currentPortion);
+    final theme = Theme.of(context);
 
     return AlertDialog(
       title: const Text('Add to Diary'),
@@ -103,8 +104,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             const SizedBox(height: 8),
             _buildNutritionRow(
                 'Calories', '${widget.product.caloriesPer100g} kcal'),
-            _buildNutritionRow(
-                'Protein', '${widget.product.proteinsPer100g}g'),
+            _buildNutritionRow('Protein', '${widget.product.proteinsPer100g}g'),
             _buildNutritionRow('Fat', '${widget.product.fatPer100g}g'),
             _buildNutritionRow('Carbs', '${widget.product.carbsPer100g}g'),
             const SizedBox(height: 16),
@@ -120,15 +120,17 @@ class _AddProductDialogState extends State<AddProductDialog> {
             const SizedBox(height: 8),
             DropdownButtonFormField<MealType>(
               initialValue: _selectedMealType,
-              decoration: customInputDecoration().copyWith(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: customInputDecoration(context).copyWith(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
               items: MealType.values.map((mealType) {
                 return DropdownMenuItem(
                   value: mealType,
                   child: Row(
                     children: [
-                      Text(mealType.emoji, style: const TextStyle(fontSize: 20)),
+                      Text(mealType.emoji,
+                          style: const TextStyle(fontSize: 20)),
                       const SizedBox(width: 8),
                       Text(mealType.displayName),
                     ],
@@ -147,7 +149,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             TextField(
               controller: _portionController,
               keyboardType: TextInputType.number,
-              decoration: customInputDecoration().copyWith(
+              decoration: customInputDecoration(context).copyWith(
                 labelText: 'Portion Size',
                 suffixText: 'grams',
               ),
@@ -157,7 +159,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.green[50],
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
@@ -171,8 +173,8 @@ class _AddProductDialogState extends State<AddProductDialog> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  _buildNutritionRow(
-                      'Calories', '${nutrition.calories.toStringAsFixed(1)} kcal'),
+                  _buildNutritionRow('Calories',
+                      '${nutrition.calories.toStringAsFixed(1)} kcal'),
                   _buildNutritionRow(
                       'Protein', '${nutrition.proteins.toStringAsFixed(1)}g'),
                   _buildNutritionRow(
@@ -193,11 +195,13 @@ class _AddProductDialogState extends State<AddProductDialog> {
         ElevatedButton(
           onPressed: () {
             final provider = Provider.of<DiaryProvider>(context, listen: false);
-            provider.addProductEntry(widget.product, _currentPortion, _selectedMealType);
+            provider.addProductEntry(
+                widget.product, _currentPortion, _selectedMealType);
             Navigator.of(context).pop(true);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('Added ${widget.product.name} to ${_selectedMealType.displayName}'),
+                content: Text(
+                    'Added ${widget.product.name} to ${_selectedMealType.displayName}'),
                 duration: const Duration(seconds: 2),
               ),
             );

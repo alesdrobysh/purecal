@@ -107,10 +107,11 @@ class HomeScreen extends StatelessWidget {
 
   Widget _buildDateSelector(BuildContext context, DiaryProvider provider) {
     final isToday = _isSameDay(provider.selectedDate, DateTime.now());
+    final theme = Theme.of(context);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      color: Colors.grey[100],
+      color: theme.scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -133,7 +134,7 @@ class HomeScreen extends StatelessWidget {
               IconButton(
                 icon: Icon(
                   Icons.chevron_right,
-                  color: isToday ? Colors.grey[400] : null,
+                  color: isToday ? theme.disabledColor : null,
                 ),
                 onPressed: isToday ? null : () => provider.nextDay(),
               ),

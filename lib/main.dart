@@ -1,40 +1,49 @@
+import 'package:foodiefit/config/theme.dart';
 import 'package:foodiefit/services/off_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'services/diary_provider.dart';
+import 'services/settings_provider.dart';
 import 'screens/home_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OFFApiService.initialize();
-  runApp(const FoodieApp());
+  final settingsProvider = SettingsProvider();
+  await settingsProvider.loadInitialTheme(); // New method to load theme
+  runApp(FoodieApp(settingsProvider: settingsProvider));
 }
 
 class FoodieApp extends StatelessWidget {
-  const FoodieApp({super.key});
+  final SettingsProvider settingsProvider;
+  const FoodieApp({super.key, required this.settingsProvider});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => DiaryProvider()..initialize(),
-      child: MaterialApp(
-        title: 'FoodieFit',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          useMaterial3: true,
-          appBarTheme: const AppBarTheme(
-            foregroundColor: Colors.white,
-          ),
-        ),
-        builder: (context, child) {
-          return SafeArea(
-            top: false, // Set to true if you want to avoid notch overlap too
-            bottom: true, // Avoids overlap with navigation bar
-            child: child!,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => DiaryProvider()..initialize()),
+        ChangeNotifierProvider.value(value: settingsProvider),
+      ],
+      child: Consumer<SettingsProvider>(
+        builder: (context, settingsProvider, child) {
+          return MaterialApp(
+            title: 'FoodieFit',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: settingsProvider.themeMode,
+            builder: (context, child) {
+              return SafeArea(
+                top: false,
+                bottom: true,
+                child: child!,
+              );
+            },
+            home: const HomeScreen(),
           );
         },
-        home: const HomeScreen(),
       ),
     );
   }

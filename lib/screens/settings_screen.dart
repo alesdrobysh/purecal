@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/diary_provider.dart';
+import '../services/settings_provider.dart';
 import 'local_products_list_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -17,6 +18,9 @@ class SettingsScreen extends StatelessWidget {
         children: [
           _buildSectionHeader('My Products'),
           _buildMyProductsOption(context),
+          const Divider(),
+          _buildSectionHeader('Appearance'),
+          _buildThemeOption(context),
           const Divider(),
           _buildSectionHeader('Data Management'),
           _buildClearCacheOption(context),
@@ -57,6 +61,15 @@ class SettingsScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildThemeOption(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.palette, color: Colors.purple),
+      title: const Text('Theme'),
+      subtitle: Text(_getThemeSubtitle(context)),
+      onTap: () => _showThemeDialog(context),
     );
   }
 
@@ -152,6 +165,68 @@ class SettingsScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  String _getThemeSubtitle(BuildContext context) {
+    final themeMode = Provider.of<SettingsProvider>(context).themeMode;
+    switch (themeMode) {
+      case ThemeMode.light:
+        return 'Light Theme';
+      case ThemeMode.dark:
+        return 'Dark Theme';
+      case ThemeMode.system:
+      default:
+        return 'System Default';
+    }
+  }
+
+  void _showThemeDialog(BuildContext context) {
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Choose Theme'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            RadioListTile<ThemeMode>(
+              title: const Text('Light Theme'),
+              value: ThemeMode.light,
+              groupValue: settingsProvider.themeMode,
+              onChanged: (value) {
+                if (value != null) {
+                  settingsProvider.setThemeMode(value);
+                }
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<ThemeMode>(
+              title: const Text('Dark Theme'),
+              value: ThemeMode.dark,
+              groupValue: settingsProvider.themeMode,
+              onChanged: (value) {
+                if (value != null) {
+                  settingsProvider.setThemeMode(value);
+                }
+                Navigator.pop(context);
+              },
+            ),
+            RadioListTile<ThemeMode>(
+              title: const Text('System Default'),
+              value: ThemeMode.system,
+              groupValue: settingsProvider.themeMode,
+              onChanged: (value) {
+                if (value != null) {
+                  settingsProvider.setThemeMode(value);
+                }
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
