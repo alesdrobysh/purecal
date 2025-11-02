@@ -27,6 +27,13 @@ class FoodieApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
+        builder: (context, child) {
+          return SafeArea(
+            top: false, // Set to true if you want to avoid notch overlap too
+            bottom: true, // Avoids overlap with navigation bar
+            child: child!,
+          );
+        },
         home: const HomeScreen(),
       ),
     );
