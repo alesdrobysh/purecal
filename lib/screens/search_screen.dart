@@ -309,6 +309,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     barcode: product['barcode'] as String,
                     productName: product['product_name'] as String,
                     usageCount: product['total_count'] as int,
+                    imageUrl: product['image_url'] as String?,
                     onTap: () => _onFrequentProductTap(
                       product['barcode'] as String,
                     ),

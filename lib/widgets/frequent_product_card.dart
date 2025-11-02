@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class FrequentProductCard extends StatelessWidget {
   final String barcode;
   final String productName;
+  final String? imageUrl;
   final int usageCount;
   final VoidCallback onTap;
 
@@ -10,12 +11,19 @@ class FrequentProductCard extends StatelessWidget {
     super.key,
     required this.barcode,
     required this.productName,
+    this.imageUrl,
     required this.usageCount,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor = isDark ? Colors.green[900] : Colors.green[50];
+    final borderColor = isDark ? Colors.green[600] : Colors.green[300];
+    final iconColor = isDark ? Colors.green[300] : Colors.green[700];
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -23,48 +31,49 @@ class FrequentProductCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         child: Column(
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.green[100],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.green[300]!, width: 2),
-              ),
-              child: Stack(
-                children: [
-                  Center(
-                    child: Icon(
-                      Icons.fastfood,
-                      color: Colors.green[700],
-                      size: 30,
+            imageUrl == null
+                ? Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: borderColor!, width: 2),
                     ),
-                  ),
-                  Positioned(
-                    top: 2,
-                    right: 2,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 4,
-                        vertical: 2,
+                    child: Center(
+                      child: Icon(
+                        Icons.fastfood,
+                        color: iconColor,
+                        size: 30,
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        '$usageCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Image.network(
+                    imageUrl!,
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.cover,
+                    cacheWidth: 120,
+                    cacheHeight: 120,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: backgroundColor,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: borderColor!, width: 2),
                         ),
-                      ),
-                    ),
+                        child: Center(
+                          child: Icon(
+                            Icons.fastfood,
+                            color: iconColor,
+                            size: 30,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ],
-              ),
-            ),
             const SizedBox(height: 6),
             Text(
               productName,

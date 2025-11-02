@@ -40,7 +40,7 @@ class DatabaseService {
 
     return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -82,7 +82,8 @@ class DatabaseService {
         total_count INTEGER NOT NULL DEFAULT 0,
         recent_count INTEGER NOT NULL DEFAULT 0,
         weighted_score REAL NOT NULL DEFAULT 0,
-        last_used TEXT NOT NULL
+        last_used TEXT NOT NULL,
+        image_url TEXT
       )
     ''');
 
@@ -204,6 +205,12 @@ class DatabaseService {
         CREATE INDEX idx_local_name ON local_products(product_name)
       ''');
     }
+
+    if (oldVersion < 5) {
+      await db.execute('''
+        ALTER TABLE product_usage ADD COLUMN image_url TEXT
+      ''');
+    }
   }
 
   Future<int> insertEntry(DiaryEntry entry) async {
@@ -235,7 +242,11 @@ class DatabaseService {
     final results = await db.query(
       'diary_entries',
       where: 'date >= ? AND date < ? AND meal_type = ?',
-      whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String(), mealType],
+      whereArgs: [
+        startOfDay.toIso8601String(),
+        endOfDay.toIso8601String(),
+        mealType
+      ],
       orderBy: 'date DESC',
     );
 
@@ -348,7 +359,11 @@ class DatabaseService {
     }
   }
 
-  Future<void> incrementProductUsage(String barcode, String productName) async {
+  Future<void> incrementProductUsage(
+    String barcode,
+    String productName, {
+    String? imageUrl,
+  }) async {
     final db = await database;
     final now = DateTime.now();
 
@@ -384,13 +399,15 @@ class DatabaseService {
           'recent_count': recentCount,
           'weighted_score': weightedScore,
           'last_used': now.toIso8601String(),
+          if (imageUrl != null) 'image_url': imageUrl,
         },
         where: 'barcode = ?',
         whereArgs: [barcode],
       );
     } else {
       // Insert new product
-      const weightedScore = 1.0 + 0.3; // recent_count² (1²) + total_count × 0.3 (1 × 0.3)
+      const weightedScore =
+          1.0 + 0.3; // recent_count² (1²) + total_count × 0.3 (1 × 0.3)
       await db.insert('product_usage', {
         'barcode': barcode,
         'product_name': productName,
@@ -398,11 +415,13 @@ class DatabaseService {
         'recent_count': 1,
         'weighted_score': weightedScore,
         'last_used': now.toIso8601String(),
+        if (imageUrl != null) 'image_url': imageUrl,
       });
     }
   }
 
-  Future<List<Map<String, dynamic>>> getFrequentProducts({int limit = 10}) async {
+  Future<List<Map<String, dynamic>>> getFrequentProducts(
+      {int limit = 10}) async {
     final db = await database;
 
     final results = await db.query(
@@ -523,7 +542,8 @@ class DatabaseService {
     return results.map((map) => FoodProduct.fromLocalMap(map)).toList();
   }
 
-  Future<List<FoodProduct>> getAllLocalProducts({bool includeDeleted = false}) async {
+  Future<List<FoodProduct>> getAllLocalProducts(
+      {bool includeDeleted = false}) async {
     final db = await database;
 
     final results = await db.query(

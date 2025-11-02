@@ -99,7 +99,11 @@ class DiaryProvider with ChangeNotifier {
     await _dbService.insertEntry(entry);
 
     // Track product usage for frequent products feature
-    await _dbService.incrementProductUsage(product.barcode, product.name);
+    await _dbService.incrementProductUsage(
+      product.barcode,
+      product.name,
+      imageUrl: product.imageUrl,
+    );
 
     await loadEntriesForDate(_selectedDate);
   }
