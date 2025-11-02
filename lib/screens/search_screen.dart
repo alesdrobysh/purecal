@@ -219,6 +219,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: _searchController,
               autofocus: true,
+              textAlignVertical: TextAlignVertical.center,
               decoration: customInputDecoration(context).copyWith(
                 hintText: 'Search products...',
                 prefixIcon: const Icon(Icons.search),
@@ -317,7 +318,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 },
               ),
             ),
-            const Divider(height: 32),
+            const Divider(indent: 16, endIndent: 16, thickness: 0.5),
           ],
           Expanded(
             child: Center(
