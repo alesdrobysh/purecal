@@ -472,7 +472,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              Icon(Icons.add_circle_outline, color: Colors.green),
+              const Icon(Icons.add_circle_outline, color: Colors.green),
             ],
           ),
         ),

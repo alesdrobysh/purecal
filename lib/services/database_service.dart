@@ -390,7 +390,7 @@ class DatabaseService {
       );
     } else {
       // Insert new product
-      final weightedScore = 1.0 + 0.3; // recent_count² (1²) + total_count × 0.3 (1 × 0.3)
+      const weightedScore = 1.0 + 0.3; // recent_count² (1²) + total_count × 0.3 (1 × 0.3)
       await db.insert('product_usage', {
         'barcode': barcode,
         'product_name': productName,

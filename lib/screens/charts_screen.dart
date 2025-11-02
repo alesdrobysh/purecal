@@ -115,7 +115,7 @@ class _ChartsScreenState extends State<ChartsScreen>
             Text(
               _errorMessage!,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey[600]),
+              style: const TextStyle(color: Colors.grey),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -137,14 +137,25 @@ class _ChartsScreenState extends State<ChartsScreen>
       controller: _tabController,
       children: [
         // Today tab
-        _buildTodayTab(_todaySummary!, provider),
+        _TodayTab(todaySummary: _todaySummary!, provider: provider),
         // Week tab
-        _buildWeekTab(_weeklySummaries!, provider),
+        _WeekTab(weeklySummaries: _weeklySummaries!, provider: provider),
       ],
     );
   }
+}
 
-  Widget _buildTodayTab(DailySummary todaySummary, DiaryProvider provider) {
+class _TodayTab extends StatelessWidget {
+  final DailySummary todaySummary;
+  final DiaryProvider provider;
+
+  const _TodayTab({
+    required this.todaySummary,
+    required this.provider,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -152,13 +163,24 @@ class _ChartsScreenState extends State<ChartsScreen>
         children: [
           MacroPieChart(summary: todaySummary),
           const SizedBox(height: 16),
-          _buildTodayStats(todaySummary, provider),
+          _TodayStats(todaySummary: todaySummary, provider: provider),
         ],
       ),
     );
   }
+}
 
-  Widget _buildTodayStats(DailySummary todaySummary, DiaryProvider provider) {
+class _TodayStats extends StatelessWidget {
+  final DailySummary todaySummary;
+  final DiaryProvider provider;
+
+  const _TodayStats({
+    required this.todaySummary,
+    required this.provider,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final goals = provider.userGoals;
 
     if (goals == null) {
@@ -184,55 +206,69 @@ class _ChartsScreenState extends State<ChartsScreen>
               ),
             ),
             const SizedBox(height: 16),
-            _buildGoalItem(
-              'Calories',
-              caloriePercent,
-              todaySummary.calories,
-              goals.caloriesGoal,
-              'kcal',
-              Colors.orange,
+            _GoalItem(
+              label: 'Calories',
+              percent: caloriePercent,
+              actual: todaySummary.calories,
+              goal: goals.caloriesGoal,
+              unit: 'kcal',
+              color: Colors.orange,
             ),
             const SizedBox(height: 12),
-            _buildGoalItem(
-              'Protein',
-              proteinPercent,
-              todaySummary.proteins,
-              goals.proteinsGoal,
-              'g',
-              Colors.red,
+            _GoalItem(
+              label: 'Protein',
+              percent: proteinPercent,
+              actual: todaySummary.proteins,
+              goal: goals.proteinsGoal,
+              unit: 'g',
+              color: Colors.red,
             ),
             const SizedBox(height: 12),
-            _buildGoalItem(
-              'Fat',
-              fatPercent,
-              todaySummary.fat,
-              goals.fatGoal,
-              'g',
-              Colors.yellow[700] ?? Colors.yellow,
+            _GoalItem(
+              label: 'Fat',
+              percent: fatPercent,
+              actual: todaySummary.fat,
+              goal: goals.fatGoal,
+              unit: 'g',
+              color: Colors.yellow[700] ?? Colors.yellow,
             ),
             const SizedBox(height: 12),
-            _buildGoalItem(
-              'Carbs',
-              carbsPercent,
-              todaySummary.carbs,
-              goals.carbsGoal,
-              'g',
-              Colors.blue,
+            _GoalItem(
+              label: 'Carbs',
+              percent: carbsPercent,
+              actual: todaySummary.carbs,
+              goal: goals.carbsGoal,
+              unit: 'g',
+              color: Colors.blue,
             ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _buildGoalItem(
-    String label,
-    double percent,
-    double actual,
-    double goal,
-    String unit,
-    Color color,
-  ) {
+class _GoalItem extends StatelessWidget {
+  final String label;
+  final double percent;
+  final double actual;
+  final double goal;
+  final String unit;
+  final Color color;
+
+  const _GoalItem({
+    required this.label,
+    required this.percent,
+    required this.actual,
+    required this.goal,
+    required this.unit,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -250,7 +286,7 @@ class _ChartsScreenState extends State<ChartsScreen>
               '${actual.toStringAsFixed(0)} / ${goal.toStringAsFixed(0)} $unit',
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.grey[600],
+                color: theme.disabledColor,
               ),
             ),
           ],
@@ -261,9 +297,10 @@ class _ChartsScreenState extends State<ChartsScreen>
             Expanded(
               child: LinearProgressIndicator(
                 value: (percent / 100).clamp(0.0, 1.0),
-                backgroundColor: Colors.grey[200],
+                backgroundColor: theme.colorScheme.surface,
                 valueColor: AlwaysStoppedAnimation<Color>(color),
                 minHeight: 8,
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
             const SizedBox(width: 12),
@@ -284,8 +321,19 @@ class _ChartsScreenState extends State<ChartsScreen>
       ],
     );
   }
+}
 
-  Widget _buildWeekTab(List<DailySummary> weeklySummaries, DiaryProvider provider) {
+class _WeekTab extends StatelessWidget {
+  final List<DailySummary> weeklySummaries;
+  final DiaryProvider provider;
+
+  const _WeekTab({
+    required this.weeklySummaries,
+    required this.provider,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(

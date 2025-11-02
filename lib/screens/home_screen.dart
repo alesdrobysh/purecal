@@ -159,119 +159,45 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          _buildNutrientProgress(
-            'Calories',
-            summary.calories,
-            goals?.caloriesGoal ?? 2000,
-            Colors.orange,
+          _NutrientProgress(
+            label: 'Calories',
+            current: summary.calories,
+            goal: goals?.caloriesGoal ?? 2000,
+            color: Colors.orange,
           ),
           const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
-                child: _buildMiniNutrientProgress(
-                  'Protein',
-                  summary.proteins,
-                  goals?.proteinsGoal ?? 150,
-                  Colors.red,
+                child: _MiniNutrientProgress(
+                  label: 'Protein',
+                  current: summary.proteins,
+                  goal: goals?.proteinsGoal ?? 150,
+                  color: Colors.red,
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _buildMiniNutrientProgress(
-                  'Fat',
-                  summary.fat,
-                  goals?.fatGoal ?? 65,
-                  Colors.yellow[700]!,
+                child: _MiniNutrientProgress(
+                  label: 'Fat',
+                  current: summary.fat,
+                  goal: goals?.fatGoal ?? 65,
+                  color: Colors.yellow[700]!,
                 ),
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: _buildMiniNutrientProgress(
-                  'Carbs',
-                  summary.carbs,
-                  goals?.carbsGoal ?? 200,
-                  Colors.blue,
+                child: _MiniNutrientProgress(
+                  label: 'Carbs',
+                  current: summary.carbs,
+                  goal: goals?.carbsGoal ?? 200,
+                  color: Colors.blue,
                 ),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildNutrientProgress(
-      String label, double current, double goal, Color color) {
-    final percentage = (current / goal * 100).clamp(0, 100);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
-            Row(
-              children: [
-                Text(
-                  current.toStringAsFixed(0),
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  ' / ${goal.toStringAsFixed(0)}',
-                  style: TextStyle(color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        LinearProgressIndicator(
-          value: current / goal,
-          backgroundColor: Colors.grey[200],
-          valueColor: AlwaysStoppedAnimation<Color>(color),
-          minHeight: 8,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '${percentage.toStringAsFixed(0)}%',
-          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMiniNutrientProgress(
-      String label, double current, double goal, Color color) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-        ),
-        const SizedBox(height: 4),
-        LinearProgressIndicator(
-          value: (current / goal).clamp(0, 1),
-          backgroundColor: Colors.grey[200],
-          valueColor: AlwaysStoppedAnimation<Color>(color),
-          minHeight: 6,
-        ),
-        const SizedBox(height: 4),
-        Row(
-          children: [
-            Text(
-              '${current.toStringAsFixed(0)}g',
-              style: TextStyle(fontWeight: FontWeight.w500),
-            ),
-            Text(
-              ' /${goal.toStringAsFixed(0)}g',
-              style: TextStyle(color: Colors.grey[600]),
-            ),
-          ],
-        ),
-      ],
     );
   }
 
@@ -290,5 +216,112 @@ class HomeScreen extends StatelessWidget {
 
   bool _isSameDay(DateTime a, DateTime b) {
     return a.year == b.year && a.month == b.month && a.day == b.day;
+  }
+}
+
+class _NutrientProgress extends StatelessWidget {
+  final String label;
+  final double current;
+  final double goal;
+  final Color color;
+
+  const _NutrientProgress({
+    required this.label,
+    required this.current,
+    required this.goal,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final percentage = (current / goal * 100).clamp(0, 100);
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(label, style: const TextStyle(fontWeight: FontWeight.w500)),
+            Row(
+              children: [
+                Text(
+                  current.toStringAsFixed(0),
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+                Text(
+                  ' / ${goal.toStringAsFixed(0)}',
+                  style: TextStyle(color: theme.disabledColor),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        LinearProgressIndicator(
+          value: current / goal,
+          backgroundColor: theme.colorScheme.surfaceContainer,
+          valueColor: AlwaysStoppedAnimation<Color>(color),
+          minHeight: 8,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          '${percentage.toStringAsFixed(0)}%',
+          style: TextStyle(fontSize: 12, color: theme.disabledColor),
+        ),
+      ],
+    );
+  }
+}
+
+class _MiniNutrientProgress extends StatelessWidget {
+  final String label;
+  final double current;
+  final double goal;
+  final Color color;
+
+  const _MiniNutrientProgress({
+    required this.label,
+    required this.current,
+    required this.goal,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+        ),
+        const SizedBox(height: 4),
+        LinearProgressIndicator(
+          value: (current / goal).clamp(0, 1),
+          backgroundColor: theme.colorScheme.surfaceContainer,
+          valueColor: AlwaysStoppedAnimation<Color>(color),
+          minHeight: 6,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            Text(
+              '${current.toStringAsFixed(0)}g',
+              style: const TextStyle(fontWeight: FontWeight.w500),
+            ),
+            Text(
+              ' /${goal.toStringAsFixed(0)}g',
+              style: TextStyle(color: theme.disabledColor),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
