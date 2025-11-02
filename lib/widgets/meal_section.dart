@@ -6,6 +6,7 @@ import '../services/diary_provider.dart';
 import 'package:foodiefit/screens/quick_add_screen.dart';
 
 import '../screens/search_screen.dart';
+import 'custom_input_decoration.dart';
 
 class MealSection extends StatefulWidget {
   final MealType mealType;
@@ -304,7 +305,7 @@ class _MealSectionState extends State<MealSection> {
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration: customInputDecoration().copyWith(
             labelText: 'Portion (grams)',
             suffixText: 'g',
           ),

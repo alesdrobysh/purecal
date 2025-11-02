@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
+import 'custom_input_decoration.dart';
 
 class AddProductDialog extends StatefulWidget {
   final FoodProduct product;
@@ -119,9 +120,8 @@ class _AddProductDialogState extends State<AddProductDialog> {
             const SizedBox(height: 8),
             DropdownButtonFormField<MealType>(
               initialValue: _selectedMealType,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: customInputDecoration().copyWith(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
               items: MealType.values.map((mealType) {
                 return DropdownMenuItem(
@@ -147,10 +147,9 @@ class _AddProductDialogState extends State<AddProductDialog> {
             TextField(
               controller: _portionController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Portion Size',
                 suffixText: 'grams',
-                border: OutlineInputBorder(),
               ),
               onChanged: _updatePortion,
             ),

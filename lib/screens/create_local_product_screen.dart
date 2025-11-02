@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import '../models/food_product.dart';
 import '../services/product_service.dart';
+import '../widgets/custom_input_decoration.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product;
@@ -283,9 +284,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Product Name
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Product Name *',
-                border: OutlineInputBorder(),
               ),
               validator: _validateRequired,
             ),
@@ -294,9 +294,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Brand
             TextFormField(
               controller: _brandController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Brand',
-                border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
@@ -304,9 +303,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Barcode
             TextFormField(
               controller: _barcodeController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Barcode (optional)',
-                border: OutlineInputBorder(),
                 helperText: 'Leave empty for homemade items',
               ),
               keyboardType: TextInputType.number,
@@ -326,9 +324,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Calories
             TextFormField(
               controller: _caloriesController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Calories (kcal) *',
-                border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -338,9 +335,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Protein
             TextFormField(
               controller: _proteinsController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Protein (g) *',
-                border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -350,9 +346,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Fat
             TextFormField(
               controller: _fatController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Fat (g) *',
-                border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -362,9 +357,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Carbs
             TextFormField(
               controller: _carbsController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Carbohydrates (g) *',
-                border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -374,9 +368,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Serving Size
             TextFormField(
               controller: _servingSizeController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Typical Serving Size (g)',
-                border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: false),
@@ -386,9 +379,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             // Notes
             TextFormField(
               controller: _notesController,
-              decoration: const InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 labelText: 'Notes',
-                border: OutlineInputBorder(),
                 helperText: 'Additional information about this product',
               ),
               maxLines: 3,

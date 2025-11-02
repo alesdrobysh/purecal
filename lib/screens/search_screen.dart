@@ -11,6 +11,7 @@ import '../widgets/frequent_product_card.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
+import '../widgets/custom_input_decoration.dart';
 
 class SearchScreen extends StatefulWidget {
   final MealType? preselectedMealType;
@@ -218,16 +219,13 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: _searchController,
               autofocus: true,
-              decoration: InputDecoration(
+              decoration: customInputDecoration().copyWith(
                 hintText: 'Search products...',
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(
                   onPressed: _openScanner,
                   icon: const Icon(Icons.barcode_reader),
                   tooltip: 'Scan barcode',
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
                 ),
               ),
               onChanged: _onSearchChanged,

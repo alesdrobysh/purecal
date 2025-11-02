@@ -3,6 +3,8 @@ import 'package:foodiefit/models/meal_type.dart';
 import 'package:foodiefit/services/diary_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/custom_input_decoration.dart';
+
 class QuickAddScreen extends StatefulWidget {
   final MealType? mealType;
 
@@ -64,9 +66,10 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            spacing: 16.0,
             children: [
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Product Name'),
+                decoration: customInputDecoration().copyWith(labelText: 'Product Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter a product name';
@@ -76,7 +79,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _productName = value!,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Calories'),
+                decoration: customInputDecoration().copyWith(labelText: 'Calories'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || double.tryParse(value) == null) {
@@ -87,17 +90,17 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _calories = double.parse(value!),
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Proteins (g)'),
+                decoration: customInputDecoration().copyWith(labelText: 'Proteins (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _proteins = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Fat (g)'),
+                decoration: customInputDecoration().copyWith(labelText: 'Fat (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _fat = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Carbs (g)'),
+                decoration: customInputDecoration().copyWith(labelText: 'Carbs (g)'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _carbs = double.tryParse(value!) ?? 0,
               ),

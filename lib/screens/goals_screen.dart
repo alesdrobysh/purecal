@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/diary_provider.dart';
 import '../models/user_goals.dart';
+import '../widgets/custom_input_decoration.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});
@@ -229,12 +230,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
+          decoration: customInputDecoration().copyWith(
             hintText: hint,
             suffixText: suffix,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide(color: color, width: 2),
