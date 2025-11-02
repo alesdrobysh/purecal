@@ -4,29 +4,31 @@ import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import 'local_products_list_screen.dart';
 import '../config/decorations.dart';
+import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(l10n.settings),
         backgroundColor: AppColors.green,
       ),
       body: ListView(
         children: [
-          _buildSectionHeader('My Products'),
+          _buildSectionHeader(l10n.myProducts),
           _buildMyProductsOption(context),
           const Divider(),
-          _buildSectionHeader('Appearance'),
+          _buildSectionHeader(l10n.appearance),
           _buildThemeOption(context),
           const Divider(),
-          _buildSectionHeader('Data Management'),
+          _buildSectionHeader(l10n.dataManagement),
           _buildClearCacheOption(context),
           const Divider(),
-          _buildSectionHeader('About'),
+          _buildSectionHeader(l10n.about),
           _buildAboutOption(context),
           _buildOFFAttribution(context),
         ],
@@ -49,10 +51,11 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildMyProductsOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
       leading: const Icon(Icons.inventory_2, color: Colors.blue),
-      title: const Text('My Products'),
-      subtitle: const Text('Manage your custom products'),
+      title: Text(l10n.myProducts),
+      subtitle: Text(l10n.manageYourCustomProducts),
       trailing: const Icon(Icons.chevron_right),
       onTap: () {
         Navigator.push(
@@ -66,36 +69,38 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildThemeOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
       leading: const Icon(Icons.palette, color: Colors.purple),
-      title: const Text('Theme'),
+      title: Text(l10n.theme),
       subtitle: Text(_getThemeSubtitle(context)),
       onTap: () => _showThemeDialog(context),
     );
   }
 
   Widget _buildClearCacheOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
       leading: const Icon(Icons.delete_sweep, color: Colors.orange),
-      title: const Text('Clear Frequent Products Cache'),
-      subtitle: const Text('Remove all frequently used products history'),
+      title: Text(l10n.clearFrequentProductsCache),
+      subtitle: Text(l10n.clearFrequentProductsDescription),
       onTap: () => _showClearCacheDialog(context),
     );
   }
 
   void _showClearCacheDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear Cache'),
-        content: const Text(
-          'Are you sure you want to clear your frequent products cache? '
-          'This will remove all usage history.',
+        title: Text(l10n.clearCache),
+        content: Text(
+          l10n.clearCacheConfirmation,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -105,15 +110,15 @@ class SettingsScreen extends StatelessWidget {
               if (context.mounted) {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Frequent products cache cleared'),
-                    duration: Duration(seconds: 2),
+                  SnackBar(
+                    content: Text(l10n.cacheCleared),
+                    duration: const Duration(seconds: 2),
                   ),
                 );
               }
             },
             style: TextButton.styleFrom(foregroundColor: Colors.orange),
-            child: const Text('Clear'),
+            child: Text(l10n.clear),
           ),
         ],
       ),
@@ -121,19 +126,20 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildAboutOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
       leading: const Icon(Icons.info_outline, color: Colors.blue),
-      title: const Text('App Version'),
-      subtitle: const Text('FoodieFit v1.0.0'),
+      title: Text(l10n.appVersion),
+      subtitle: Text(l10n.appVersionNumber),
       onTap: () {
         showAboutDialog(
           context: context,
-          applicationName: 'FoodieFit',
+          applicationName: l10n.appTitle,
           applicationVersion: '1.0.0',
           applicationIcon: Icon(Icons.restaurant, size: 48, color: AppColors.green),
           children: [
-            const Text(
-              'A food diary app to track your daily nutrition and reach your goals.',
+            Text(
+              l10n.appDescription,
             ),
           ],
         );
@@ -142,25 +148,25 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildOFFAttribution(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return ListTile(
       leading: Icon(Icons.public, color: AppColors.green),
-      title: const Text('Open Food Facts'),
-      subtitle: const Text('Product data provided by Open Food Facts'),
+      title: Text(l10n.openFoodFacts),
+      subtitle: Text(l10n.openFoodFactsAttribution),
       trailing: const Icon(Icons.open_in_new, size: 18),
       onTap: () {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Open Food Facts'),
-            content: const Text(
-              'This app uses product data from Open Food Facts, '
-              'a collaborative, free and open database of food products from around the world.\n\n'
+            title: Text(l10n.openFoodFacts),
+            content: Text(
+              l10n.openFoodFactsDescription + '\n\n'
               'Visit: https://world.openfoodfacts.org',
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('OK'),
+                child: Text(l10n.ok),
               ),
             ],
           ),
@@ -170,30 +176,32 @@ class SettingsScreen extends StatelessWidget {
   }
 
   String _getThemeSubtitle(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final themeMode = Provider.of<SettingsProvider>(context).themeMode;
     switch (themeMode) {
       case ThemeMode.light:
-        return 'Light Theme';
+        return l10n.lightTheme;
       case ThemeMode.dark:
-        return 'Dark Theme';
+        return l10n.darkTheme;
       case ThemeMode.system:
       default:
-        return 'System Default';
+        return l10n.systemDefault;
     }
   }
 
   void _showThemeDialog(BuildContext context) {
     final settingsProvider = Provider.of<SettingsProvider>(context, listen: false);
+    final l10n = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Choose Theme'),
+        title: Text(l10n.chooseTheme),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             RadioListTile<ThemeMode>(
-              title: const Text('Light Theme'),
+              title: Text(l10n.lightTheme),
               value: ThemeMode.light,
               groupValue: settingsProvider.themeMode,
               onChanged: (value) {
@@ -204,7 +212,7 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             RadioListTile<ThemeMode>(
-              title: const Text('Dark Theme'),
+              title: Text(l10n.darkTheme),
               value: ThemeMode.dark,
               groupValue: settingsProvider.themeMode,
               onChanged: (value) {
@@ -215,7 +223,7 @@ class SettingsScreen extends StatelessWidget {
               },
             ),
             RadioListTile<ThemeMode>(
-              title: const Text('System Default'),
+              title: Text(l10n.systemDefault),
               value: ThemeMode.system,
               groupValue: settingsProvider.themeMode,
               onChanged: (value) {

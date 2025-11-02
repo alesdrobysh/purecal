@@ -4,6 +4,7 @@ import '../services/diary_provider.dart';
 import '../models/user_goals.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
+import '../l10n/app_localizations.dart';
 
 class GoalsScreen extends StatefulWidget {
   const GoalsScreen({super.key});
@@ -45,6 +46,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   void _saveGoals() {
+    final l10n = AppLocalizations.of(context)!;
     final calories = double.tryParse(_caloriesController.text);
     final proteins = double.tryParse(_proteinsController.text);
     final fat = double.tryParse(_fatController.text);
@@ -59,8 +61,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
         fat <= 0 ||
         carbs <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please enter valid positive numbers for all goals'),
+        SnackBar(
+          content: Text(l10n.valueMustBeNonNegative),
           backgroundColor: Colors.red,
         ),
       );
@@ -81,8 +83,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
     provider.updateGoals(newGoals);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Goals updated successfully'),
+      SnackBar(
+        content: Text(l10n.goalsUpdatedSuccessfully),
         backgroundColor: AppColors.green,
       ),
     );
@@ -92,9 +94,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Set Your Goals'),
+        title: Text(l10n.setYourGoals),
         backgroundColor: AppColors.green,
       ),
       body: SingleChildScrollView(
@@ -102,16 +105,16 @@ class _GoalsScreenState extends State<GoalsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Daily Nutrition Goals',
-              style: TextStyle(
+            Text(
+              l10n.dailyNutritionGoals,
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Set your daily targets for calories and macronutrients',
+              l10n.setDailyTargets,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -121,8 +124,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             _buildGoalInput(
               context: context,
               controller: _caloriesController,
-              label: 'Calories',
-              suffix: 'kcal',
+              label: l10n.calories,
+              suffix: l10n.kcal,
               icon: Icons.local_fire_department,
               color: Colors.orange,
               hint: 'e.g., 2000',
@@ -131,8 +134,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             _buildGoalInput(
               context: context,
               controller: _proteinsController,
-              label: 'Protein',
-              suffix: 'g',
+              label: l10n.protein,
+              suffix: l10n.grams,
               icon: Icons.egg,
               color: Colors.red,
               hint: 'e.g., 150',
@@ -141,8 +144,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             _buildGoalInput(
               context: context,
               controller: _fatController,
-              label: 'Fat',
-              suffix: 'g',
+              label: l10n.fat,
+              suffix: l10n.grams,
               icon: Icons.water_drop,
               color: Colors.yellow[700]!,
               hint: 'e.g., 65',
@@ -151,8 +154,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
             _buildGoalInput(
               context: context,
               controller: _carbsController,
-              label: 'Carbohydrates',
-              suffix: 'g',
+              label: l10n.carbohydrates,
+              suffix: l10n.grams,
               icon: Icons.grain,
               color: Colors.blue,
               hint: 'e.g., 200',
@@ -168,7 +171,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'These goals are general recommendations. Consult a nutritionist for personalized advice.',
+                      l10n.goalsRecommendation,
                       style: TextStyle(
                         fontSize: 13,
                         color: AppColors.infoBoxText(context),
@@ -191,9 +194,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
-                  'Save Goals',
-                  style: TextStyle(
+                child: Text(
+                  l10n.saveGoals,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

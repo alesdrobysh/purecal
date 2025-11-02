@@ -4,6 +4,7 @@ import '../models/food_product.dart';
 import '../services/product_service.dart';
 import 'create_local_product_screen.dart';
 import '../config/decorations.dart';
+import '../l10n/app_localizations.dart';
 
 class LocalProductsListScreen extends StatefulWidget {
   const LocalProductsListScreen({super.key});
@@ -25,6 +26,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
   }
 
   Future<void> _loadProducts() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
     });
@@ -41,7 +43,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading products: $e')),
+        SnackBar(content: Text(l10n.errorLoadingProducts(e.toString()))),
       );
     }
   }
@@ -74,9 +76,10 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Products'),
+        title: Text(l10n.myProducts),
         backgroundColor: AppColors.green,
       ),
       body: _isLoading
@@ -93,7 +96,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No custom products yet',
+                        l10n.noCustomProductsYet,
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.grey[600],
@@ -101,7 +104,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Tap the + button to create one',
+                        l10n.tapPlusToAdd,
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey[500],
@@ -132,21 +135,21 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                           return await showDialog<bool>(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Delete Product'),
+                              title: Text(l10n.deleteProduct),
                               content: Text(
-                                  'Are you sure you want to delete "${product.name}"?'),
+                                  l10n.deleteProductConfirmation(product.name)),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(context, false),
-                                  child: const Text('Cancel'),
+                                  child: Text(l10n.cancel),
                                 ),
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
                                   style: TextButton.styleFrom(
                                     foregroundColor: Colors.red,
                                   ),
-                                  child: const Text('Delete'),
+                                  child: Text(l10n.delete),
                                 ),
                               ],
                             ),
@@ -159,8 +162,8 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 .deleteLocalProduct(product.localId!);
                             if (mounted) {
                               messenger.showSnackBar(
-                                const SnackBar(
-                                    content: Text('Product deleted')),
+                                SnackBar(
+                                    content: Text(l10n.productDeleted)),
                               );
                             }
                           } catch (e) {
@@ -168,7 +171,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                               messenger.showSnackBar(
                                 SnackBar(
                                     content:
-                                        Text('Error deleting product: $e')),
+                                        Text(l10n.errorDeletingProduct(e.toString()))),
                               );
                               _loadProducts();
                             }
@@ -220,7 +223,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 if (product.brand != null) Text(product.brand!),
                                 const SizedBox(height: 4),
                                 Text(
-                                  '${product.caloriesPer100g.toStringAsFixed(0)} kcal per 100g',
+                                  l10n.kcalPer100g(product.caloriesPer100g.toStringAsFixed(0)),
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey[600],
@@ -238,7 +241,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                   ),
                                   decoration: AppShapes.greenBadge(context),
                                   child: Text(
-                                    'Custom',
+                                    l10n.custom,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,

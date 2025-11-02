@@ -4,6 +4,7 @@ import '../services/diary_provider.dart';
 import '../services/database_service.dart';
 import '../widgets/macro_pie_chart.dart';
 import '../widgets/calorie_trend_chart.dart';
+import '../l10n/app_localizations.dart';
 import '../widgets/macro_trend_chart.dart';
 import '../config/decorations.dart';
 
@@ -36,6 +37,7 @@ class _ChartsScreenState extends State<ChartsScreen>
   }
 
   Future<void> _loadData() async {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -56,7 +58,7 @@ class _ChartsScreenState extends State<ChartsScreen>
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = 'Failed to load chart data: $e';
+          _errorMessage = l10n.errorLoadingProduct(e.toString());
           _isLoading = false;
         });
       }
@@ -65,25 +67,26 @@ class _ChartsScreenState extends State<ChartsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final provider = Provider.of<DiaryProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nutrition Charts'),
+        title: Text(l10n.nutritionCharts),
         backgroundColor: AppColors.green,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
-          tabs: const [
+          tabs: [
             Tab(
-              icon: Icon(Icons.pie_chart),
-              text: 'Today',
+              icon: const Icon(Icons.pie_chart),
+              text: l10n.today,
             ),
             Tab(
-              icon: Icon(Icons.show_chart),
-              text: 'Week',
+              icon: const Icon(Icons.show_chart),
+              text: l10n.week,
             ),
           ],
         ),
@@ -93,14 +96,16 @@ class _ChartsScreenState extends State<ChartsScreen>
   }
 
   Widget _buildBody(DiaryProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_isLoading) {
-      return const Center(
+      return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text('Loading charts...'),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
+            Text(l10n.loadingCharts),
           ],
         ),
       );
@@ -121,7 +126,7 @@ class _ChartsScreenState extends State<ChartsScreen>
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _loadData,
-              child: const Text('Retry'),
+              child: Text(l10n.retry),
             ),
           ],
         ),
@@ -129,8 +134,8 @@ class _ChartsScreenState extends State<ChartsScreen>
     }
 
     if (_weeklySummaries == null || _todaySummary == null) {
-      return const Center(
-        child: Text('No data available'),
+      return Center(
+        child: Text(l10n.noDataAvailable),
       );
     }
 
@@ -182,6 +187,7 @@ class _TodayStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final goals = provider.userGoals;
 
     if (goals == null) {
@@ -199,47 +205,47 @@ class _TodayStats extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Goal Achievement',
-              style: TextStyle(
+            Text(
+              l10n.goalAchievement,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 16),
             _GoalItem(
-              label: 'Calories',
+              label: l10n.calories,
               percent: caloriePercent,
               actual: todaySummary.calories,
               goal: goals.caloriesGoal,
-              unit: 'kcal',
+              unit: l10n.kcal,
               color: Colors.orange,
             ),
             const SizedBox(height: 12),
             _GoalItem(
-              label: 'Protein',
+              label: l10n.protein,
               percent: proteinPercent,
               actual: todaySummary.proteins,
               goal: goals.proteinsGoal,
-              unit: 'g',
+              unit: l10n.grams,
               color: Colors.red,
             ),
             const SizedBox(height: 12),
             _GoalItem(
-              label: 'Fat',
+              label: l10n.fat,
               percent: fatPercent,
               actual: todaySummary.fat,
               goal: goals.fatGoal,
-              unit: 'g',
+              unit: l10n.grams,
               color: Colors.yellow[700] ?? Colors.yellow,
             ),
             const SizedBox(height: 12),
             _GoalItem(
-              label: 'Carbs',
+              label: l10n.carbs,
               percent: carbsPercent,
               actual: todaySummary.carbs,
               goal: goals.carbsGoal,
-              unit: 'g',
+              unit: l10n.grams,
               color: Colors.blue,
             ),
           ],

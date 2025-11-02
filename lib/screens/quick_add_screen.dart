@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodiefit/models/meal_type.dart';
 import 'package:foodiefit/services/diary_provider.dart';
 import 'package:provider/provider.dart';
-
+import '../l10n/app_localizations.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
 
@@ -32,6 +32,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
   }
 
   Future<void> _submitForm() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       await Provider.of<DiaryProvider>(context, listen: false).addQuickEntry(
@@ -47,7 +48,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content:
-              Text('Added $_productName to ${_selectedMealType.displayName}'),
+              Text(l10n.addedProductToMeal(_productName, _selectedMealType.displayName(context))),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -56,9 +57,10 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quick Add to ${_selectedMealType.displayName}'),
+        title: Text('${l10n.quickAdd} - ${_selectedMealType.displayName(context)}'),
         backgroundColor: AppColors.green,
       ),
       body: Form(
@@ -70,38 +72,38 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
             spacing: 16.0,
             children: [
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: 'Product Name'),
+                decoration: customInputDecoration(context).copyWith(labelText: l10n.productName),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a product name';
+                    return l10n.pleaseEnterProductName;
                   }
                   return null;
                 },
                 onSaved: (value) => _productName = value!,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: 'Calories'),
+                decoration: customInputDecoration(context).copyWith(labelText: l10n.calories),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || double.tryParse(value) == null) {
-                    return 'Please enter a valid number';
+                    return l10n.pleaseEnterValidNumber;
                   }
                   return null;
                 },
                 onSaved: (value) => _calories = double.parse(value!),
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: 'Proteins (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.protein} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _proteins = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: 'Fat (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.fat} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _fat = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: 'Carbs (g)'),
+                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.carbs} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _carbs = double.tryParse(value!) ?? 0,
               ),
@@ -112,7 +114,7 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _submitForm,
         icon: const Icon(Icons.check),
-        label: const Text('Save'),
+        label: Text(l10n.save),
       ),
     );
   }

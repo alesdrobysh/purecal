@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import '../l10n/app_localizations.dart';
 import '../models/meal_type.dart';
 import '../services/product_service.dart';
 import '../widgets/add_product_dialog.dart';
@@ -28,6 +29,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   Future<void> _handleBarcode(BarcodeCapture capture) async {
     if (_isProcessing) return;
+
+    final l10n = AppLocalizations.of(context)!;
 
     final List<Barcode> barcodes = capture.barcodes;
     if (barcodes.isEmpty) return;
@@ -73,7 +76,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      _showErrorDialog('Error', 'Failed to fetch product: $e');
+      _showErrorDialog(l10n.error, l10n.failedToFetchProduct(e.toString()));
       setState(() {
         _isProcessing = false;
       });
@@ -82,12 +85,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   void _showCreateProductDialog(String barcode) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Product Not Found'),
+        title: Text(l10n.productNotFoundDialog),
         content: Text(
-          'No product found with barcode: $barcode\n\nWould you like to create a custom product with this barcode?',
+          '${l10n.noProductFoundWithBarcode(barcode)}\n\n${l10n.createCustomProductPrompt}',
         ),
         actions: [
           TextButton(
@@ -98,7 +102,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
               });
               _controller.start();
             },
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -123,7 +127,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 await _controller.start();
               }
             },
-            child: const Text('Create Product'),
+            child: Text(l10n.createProductButton),
           ),
         ],
       ),
@@ -131,6 +135,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   void _showErrorDialog(String title, String message) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -139,7 +144,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
+            child: Text(l10n.ok),
           ),
         ],
       ),
@@ -148,9 +153,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final title = widget.mealType != null
-        ? 'Scan for ${widget.mealType!.displayName}'
-        : 'Scan Barcode';
+        ? l10n.scanForMeal(widget.mealType!.displayName(context))
+        : l10n.scanBarcode;
 
     return Scaffold(
       appBar: AppBar(
@@ -166,17 +172,17 @@ class _ScannerScreenState extends State<ScannerScreen> {
           if (_isProcessing)
             Container(
               color: Colors.black54,
-              child: const Center(
+              child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    CircularProgressIndicator(
+                    const CircularProgressIndicator(
                       color: Colors.white,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
-                      'Loading product...',
-                      style: TextStyle(
+                      l10n.loadingProduct,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),
@@ -192,9 +198,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
             child: Container(
               padding: const EdgeInsets.all(16),
               color: Colors.black54,
-              child: const Text(
-                'Point your camera at a barcode to scan',
-                style: TextStyle(
+              child: Text(
+                l10n.pointCameraAtBarcode,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
@@ -51,10 +52,11 @@ class _AddProductDialogState extends State<AddProductDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final nutrition = widget.product.calculateNutrition(_currentPortion);
 
     return AlertDialog(
-      title: const Text('Add to Diary'),
+      title: Text(l10n.addToDiary),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -94,25 +96,25 @@ class _AddProductDialogState extends State<AddProductDialog> {
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 8),
-            const Text(
-              'Nutrition per 100g:',
-              style: TextStyle(
+            Text(
+              l10n.nutritionPer100g,
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
             ),
             const SizedBox(height: 8),
             _buildNutritionRow(
-                'Calories', '${widget.product.caloriesPer100g} kcal'),
-            _buildNutritionRow('Protein', '${widget.product.proteinsPer100g}g'),
-            _buildNutritionRow('Fat', '${widget.product.fatPer100g}g'),
-            _buildNutritionRow('Carbs', '${widget.product.carbsPer100g}g'),
+                l10n.calories, '${widget.product.caloriesPer100g} ${l10n.kcal}'),
+            _buildNutritionRow(l10n.protein, '${widget.product.proteinsPer100g}${l10n.grams}'),
+            _buildNutritionRow(l10n.fat, '${widget.product.fatPer100g}${l10n.grams}'),
+            _buildNutritionRow(l10n.carbs, '${widget.product.carbsPer100g}${l10n.grams}'),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 16),
-            const Text(
-              'Meal Type:',
-              style: TextStyle(
+            Text(
+              l10n.mealType,
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
@@ -132,7 +134,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                       Text(mealType.emoji,
                           style: const TextStyle(fontSize: 20)),
                       const SizedBox(width: 8),
-                      Text(mealType.displayName),
+                      Text(mealType.displayName(context)),
                     ],
                   ),
                 );
@@ -150,8 +152,8 @@ class _AddProductDialogState extends State<AddProductDialog> {
               controller: _portionController,
               keyboardType: TextInputType.number,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Portion Size',
-                suffixText: 'grams',
+                labelText: l10n.portionSize,
+                suffixText: l10n.gramsUnit,
               ),
               onChanged: _updatePortion,
             ),
@@ -162,22 +164,22 @@ class _AddProductDialogState extends State<AddProductDialog> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Your portion:',
-                    style: TextStyle(
+                  Text(
+                    l10n.yourPortion,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                   ),
                   const SizedBox(height: 8),
-                  _buildNutritionRow('Calories',
-                      '${nutrition.calories.toStringAsFixed(1)} kcal'),
+                  _buildNutritionRow(l10n.calories,
+                      '${nutrition.calories.toStringAsFixed(1)} ${l10n.kcal}'),
                   _buildNutritionRow(
-                      'Protein', '${nutrition.proteins.toStringAsFixed(1)}g'),
+                      l10n.protein, '${nutrition.proteins.toStringAsFixed(1)}${l10n.grams}'),
                   _buildNutritionRow(
-                      'Fat', '${nutrition.fat.toStringAsFixed(1)}g'),
+                      l10n.fat, '${nutrition.fat.toStringAsFixed(1)}${l10n.grams}'),
                   _buildNutritionRow(
-                      'Carbs', '${nutrition.carbs.toStringAsFixed(1)}g'),
+                      l10n.carbs, '${nutrition.carbs.toStringAsFixed(1)}${l10n.grams}'),
                 ],
               ),
             ),
@@ -187,7 +189,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(l10n.cancel),
         ),
         ElevatedButton(
           onPressed: () {
@@ -198,7 +200,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                    'Added ${widget.product.name} to ${_selectedMealType.displayName}'),
+                    l10n.addedProductToMeal(widget.product.name, _selectedMealType.displayName(context))),
                 duration: const Duration(seconds: 2),
               ),
             );
@@ -207,7 +209,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             backgroundColor: AppColors.green,
             foregroundColor: Colors.white,
           ),
-          child: const Text('Add'),
+          child: Text(l10n.add),
         ),
       ],
     );

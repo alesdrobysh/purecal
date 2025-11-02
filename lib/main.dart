@@ -1,16 +1,18 @@
 import 'package:foodiefit/config/theme.dart';
 import 'package:foodiefit/services/off_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'services/diary_provider.dart';
 import 'services/settings_provider.dart';
 import 'screens/home_screen.dart';
+import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OFFApiService.initialize();
   final settingsProvider = SettingsProvider();
-  await settingsProvider.loadInitialTheme(); // New method to load theme
+  await settingsProvider.loadInitialSettings();
   runApp(FoodieApp(settingsProvider: settingsProvider));
 }
 
@@ -34,6 +36,27 @@ class FoodieApp extends StatelessWidget {
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: settingsProvider.themeMode,
+            locale: settingsProvider.locale,
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('en'),
+            ],
+            localeResolutionCallback: (locale, supportedLocales) {
+              if (locale == null) {
+                return supportedLocales.first;
+              }
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale.languageCode) {
+                  return supportedLocale;
+                }
+              }
+              return supportedLocales.first;
+            },
             builder: (context, child) {
               return SafeArea(
                 top: false,

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../services/database_service.dart';
 import '../models/user_goals.dart';
 import '../config/decorations.dart';
+import '../l10n/app_localizations.dart';
 
 class CalorieTrendChart extends StatelessWidget {
   final List<DailySummary> weeklySummaries;
@@ -17,11 +18,13 @@ class CalorieTrendChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final maxCalories = weeklySummaries
         .map((s) => s.calories)
         .fold(0.0, (max, val) => val > max ? val : max);
     final goalCalories = goals?.caloriesGoal ?? 2000.0;
-    final chartMaxY = (maxCalories > goalCalories ? maxCalories : goalCalories) * 1.2;
+    final chartMaxY =
+        (maxCalories > goalCalories ? maxCalories : goalCalories) * 1.2;
 
     return Card(
       child: Padding(
@@ -29,16 +32,16 @@ class CalorieTrendChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Weekly Calorie Trend',
-              style: TextStyle(
+            Text(
+              l10n.weeklyCalorieTrend,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Last 7 days',
+              l10n.last7Days,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -91,7 +94,8 @@ class CalorieTrendChart extends StatelessWidget {
                         reservedSize: 32,
                         getTitlesWidget: (value, meta) {
                           final dayIndex = value.toInt();
-                          if (dayIndex < 0 || dayIndex >= 7) return const SizedBox();
+                          if (dayIndex < 0 || dayIndex >= 7)
+                            return const SizedBox();
 
                           final today = DateTime.now();
                           final date = DateTime(
@@ -180,7 +184,9 @@ class CalorieTrendChart extends StatelessWidget {
                           if (touchedSpot.barIndex == 0 && goals != null) {
                             // Goal line
                             return LineTooltipItem(
-                              'Goal: ${goalCalories.toInt()} kcal',
+                              l10n.goal +
+                                  ': ${goalCalories.toInt()} ' +
+                                  l10n.kcal,
                               const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -196,10 +202,12 @@ class CalorieTrendChart extends StatelessWidget {
                               today.month,
                               today.day - (6 - dayIndex),
                             );
-                            final formattedDate = DateFormat('MMM d').format(date);
+                            final formattedDate =
+                                DateFormat('MMM d').format(date);
 
                             return LineTooltipItem(
-                              '$formattedDate\n${touchedSpot.y.toInt()} kcal',
+                              '$formattedDate\n${touchedSpot.y.toInt()} ' +
+                                  l10n.kcal,
                               const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -218,10 +226,12 @@ class CalorieTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem('Actual', Colors.orange),
+                _buildLegendItem(l10n.actual, Colors.orange),
                 if (goals != null) ...[
                   const SizedBox(width: 24),
-                  _buildLegendItem('Goal', AppColors.green.withAlpha((0.5 * 255).toInt()), isDashed: true),
+                  _buildLegendItem(
+                      l10n.goal, AppColors.green.withAlpha((0.5 * 255).toInt()),
+                      isDashed: true),
                 ],
               ],
             ),

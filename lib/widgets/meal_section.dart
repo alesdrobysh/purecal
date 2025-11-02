@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../models/diary_entry.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
-import 'package:foodiefit/screens/quick_add_screen.dart';
-
 import '../screens/search_screen.dart';
 import 'custom_input_decoration.dart';
 
@@ -76,7 +75,7 @@ class _MealSectionState extends State<MealSection> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.mealType.displayName,
+                              widget.mealType.displayName(context),
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -85,7 +84,7 @@ class _MealSectionState extends State<MealSection> {
                             if (count > 0) ...[
                               const SizedBox(height: 4),
                               Text(
-                                '$count ${count == 1 ? 'item' : 'items'} • ${calories.toStringAsFixed(0)} kcal',
+                                '${AppLocalizations.of(context)!.itemCount(count)} • ${calories.toStringAsFixed(0)} ${AppLocalizations.of(context)!.kcal}',
                                 style: TextStyle(
                                   fontSize: 13,
                                   color: Colors.grey[600],
@@ -98,7 +97,7 @@ class _MealSectionState extends State<MealSection> {
                       IconButton.filledTonal(
                         onPressed: () => _openSearch(context),
                         icon: const Icon(Icons.add),
-                        tooltip: 'Add product',
+                        tooltip: AppLocalizations.of(context)!.add,
                       ),
                       const SizedBox(width: 12),
                       Icon(
@@ -128,7 +127,7 @@ class _MealSectionState extends State<MealSection> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'No items for ${widget.mealType.displayName.toLowerCase()} yet',
+                          AppLocalizations.of(context)!.noItemsForMeal(widget.mealType.displayName(context).toLowerCase()),
                           style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: 14,
@@ -136,7 +135,7 @@ class _MealSectionState extends State<MealSection> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Tap the + button to add',
+                          AppLocalizations.of(context)!.tapPlusToAdd,
                           style: TextStyle(
                             color: Colors.grey[500],
                             fontSize: 12,
@@ -242,6 +241,7 @@ class _MealSectionState extends State<MealSection> {
 
   void _showEntryOptions(
       BuildContext context, DiaryEntry entry, DiaryProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       builder: (context) => SafeArea(
@@ -250,7 +250,7 @@ class _MealSectionState extends State<MealSection> {
           children: [
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('Edit Portion'),
+              title: Text(l10n.edit),
               onTap: () {
                 Navigator.pop(context);
                 _editEntryPortion(context, entry, provider);
@@ -258,7 +258,7 @@ class _MealSectionState extends State<MealSection> {
             ),
             ListTile(
               leading: const Icon(Icons.restaurant_menu),
-              title: const Text('Change Meal'),
+              title: Text(l10n.mealType),
               onTap: () {
                 Navigator.pop(context);
                 _changeEntryMeal(context, entry, provider);
@@ -266,7 +266,7 @@ class _MealSectionState extends State<MealSection> {
             ),
             ListTile(
               leading: const Icon(Icons.delete, color: Colors.red),
-              title: const Text('Delete', style: TextStyle(color: Colors.red)),
+              title: Text(l10n.delete, style: const TextStyle(color: Colors.red)),
               onTap: () {
                 Navigator.pop(context);
                 _deleteEntry(context, entry, provider);
@@ -280,26 +280,27 @@ class _MealSectionState extends State<MealSection> {
 
   void _editEntryPortion(
       BuildContext context, DiaryEntry entry, DiaryProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
     final controller =
         TextEditingController(text: entry.portionGrams.toStringAsFixed(0));
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Edit Portion'),
+        title: Text(l10n.edit),
         content: TextField(
           controller: controller,
           keyboardType: TextInputType.number,
           decoration: customInputDecoration(context).copyWith(
-            labelText: 'Portion (grams)',
-            suffixText: 'g',
+            labelText: l10n.portionSize,
+            suffixText: l10n.grams,
           ),
           autofocus: true,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
@@ -309,7 +310,7 @@ class _MealSectionState extends State<MealSection> {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Save'),
+            child: Text(l10n.save),
           ),
         ],
       ),
@@ -318,10 +319,11 @@ class _MealSectionState extends State<MealSection> {
 
   void _changeEntryMeal(
       BuildContext context, DiaryEntry entry, DiaryProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Change Meal'),
+        title: Text(l10n.mealType),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: MealType.values.map((mealType) {
@@ -330,7 +332,7 @@ class _MealSectionState extends State<MealSection> {
                 mealType.emoji,
                 style: const TextStyle(fontSize: 24),
               ),
-              title: Text(mealType.displayName),
+              title: Text(mealType.displayName(context)),
               selected: entry.mealType == mealType,
               onTap: () {
                 if (entry.id != null) {
@@ -347,15 +349,16 @@ class _MealSectionState extends State<MealSection> {
 
   void _deleteEntry(
       BuildContext context, DiaryEntry entry, DiaryProvider provider) {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Entry'),
-        content: Text('Delete ${entry.productName}?'),
+        title: Text(l10n.delete),
+        content: Text('${l10n.delete} ${entry.productName}?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
@@ -365,7 +368,7 @@ class _MealSectionState extends State<MealSection> {
               Navigator.pop(context);
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            child: Text(l10n.delete),
           ),
         ],
       ),

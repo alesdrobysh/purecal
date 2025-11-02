@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import '../models/food_product.dart';
 import '../models/meal_type.dart';
@@ -82,6 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _performSearch(String query, int searchId) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final results = await _productService.searchProducts(query);
 
@@ -89,16 +91,14 @@ class _SearchScreenState extends State<SearchScreen> {
         setState(() {
           _searchResults = results;
           _isSearching = false;
-          if (results.isEmpty) {
-            _errorMessage = 'No products found for "$query"';
-          }
+          // Error message will be shown in build method using localized string
         });
       }
     } catch (e) {
       if (mounted && searchId == _searchId) {
         setState(() {
           _isSearching = false;
-          _errorMessage = 'Error searching: ${e.toString()}';
+          _errorMessage = l10n.errorSearching(e.toString());
           _searchResults = [];
         });
       }
@@ -151,10 +151,11 @@ class _SearchScreenState extends State<SearchScreen> {
         if (product != null) {
           _showAddDialog(product);
         } else {
+          final l10n = AppLocalizations.of(context)!;
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Product not found'),
-              duration: Duration(seconds: 2),
+            SnackBar(
+              content: Text(l10n.productNotFound),
+              duration: const Duration(seconds: 2),
             ),
           );
         }
@@ -164,9 +165,10 @@ class _SearchScreenState extends State<SearchScreen> {
         setState(() {
           _isSearching = false;
         });
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error loading product: ${e.toString()}'),
+            content: Text(l10n.errorLoadingProduct(e.toString())),
             duration: const Duration(seconds: 2),
           ),
         );
@@ -199,17 +201,19 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.preselectedMealType != null
-            ? 'Add to ${widget.preselectedMealType!.displayName}'
-            : 'Search Products'),
+            ? l10n.addToMeal(widget.preselectedMealType!.displayName(context))
+            : l10n.searchProducts),
         backgroundColor: AppColors.green,
         actions: [
           IconButton(
             onPressed: _openMyProducts,
             icon: const Icon(Icons.inventory_2),
-            tooltip: 'My Products',
+            tooltip: l10n.myProducts,
           ),
         ],
       ),
@@ -222,12 +226,12 @@ class _SearchScreenState extends State<SearchScreen> {
               autofocus: true,
               textAlignVertical: TextAlignVertical.center,
               decoration: customInputDecoration(context).copyWith(
-                hintText: 'Search products...',
+                hintText: l10n.searchProductsHint,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(
                   onPressed: _openScanner,
                   icon: const Icon(Icons.barcode_reader),
-                  tooltip: 'Scan barcode',
+                  tooltip: l10n.scanBarcode,
                 ),
               ),
               onChanged: _onSearchChanged,
@@ -241,20 +245,22 @@ class _SearchScreenState extends State<SearchScreen> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _openQuickAdd,
         icon: const Icon(Icons.bolt),
-        label: const Text('Quick Add'),
+        label: Text(l10n.quickAdd),
       ),
     );
   }
 
   Widget _buildSearchResults() {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_isSearching) {
-      return const Center(
+      return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            Text('Searching...'),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
+            Text(l10n.searching),
           ],
         ),
       );
@@ -289,7 +295,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   Icon(Icons.history, size: 20, color: Colors.grey[700]),
                   const SizedBox(width: 8),
                   Text(
-                    'Frequently Used',
+                    l10n.frequentlyUsed,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -329,12 +335,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   Icon(Icons.search, size: 64, color: Colors.grey[400]),
                   const SizedBox(height: 16),
                   Text(
-                    'Search for products by name',
+                    l10n.searchForProducts,
                     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Try "yogurt", "bread", "apple"...',
+                    l10n.searchExamples,
                     style: TextStyle(fontSize: 14, color: Colors.grey[500]),
                   ),
                 ],
@@ -353,7 +359,7 @@ class _SearchScreenState extends State<SearchScreen> {
             Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
             const SizedBox(height: 16),
             Text(
-              'No products found',
+              l10n.noProductsFound,
               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ],
@@ -372,6 +378,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildProductCard(FoodProduct product) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       child: InkWell(
@@ -454,16 +461,19 @@ class _SearchScreenState extends State<SearchScreen> {
                     ],
                     const SizedBox(height: 8),
                     Text(
-                      '${product.caloriesPer100g.toStringAsFixed(0)} kcal / 100g',
+                      l10n.kcalPer100g(
+                          product.caloriesPer100g.toStringAsFixed(0)),
                       style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
-                      'P: ${product.proteinsPer100g.toStringAsFixed(1)}g • '
-                      'F: ${product.fatPer100g.toStringAsFixed(1)}g • '
-                      'C: ${product.carbsPer100g.toStringAsFixed(1)}g',
+                      l10n.macrosSummary(
+                        product.proteinsPer100g,
+                        product.fatPer100g,
+                        product.carbsPer100g,
+                      ),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.grey[600],

@@ -1,0 +1,702 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "FoodieFit",
+  "@appTitle": {
+    "description": "The application title"
+  },
+
+  "homeTitle": "FoodieFit",
+  "@homeTitle": {
+    "description": "Home screen title"
+  },
+  "setGoals": "Set Goals",
+  "@setGoals": {
+    "description": "Button to navigate to goals screen"
+  },
+  "viewCharts": "View Charts",
+  "@viewCharts": {
+    "description": "Button to navigate to charts screen"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings screen title and navigation button"
+  },
+  "searchProducts": "Search Products",
+  "@searchProducts": {
+    "description": "Search screen title"
+  },
+  "nutritionCharts": "Nutrition Charts",
+  "@nutritionCharts": {
+    "description": "Charts screen title"
+  },
+  "setYourGoals": "Set Your Goals",
+  "@setYourGoals": {
+    "description": "Goals screen title"
+  },
+  "scanBarcode": "Scan Barcode",
+  "@scanBarcode": {
+    "description": "Scanner screen title and button"
+  },
+  "myProducts": "My Products",
+  "@myProducts": {
+    "description": "Local products screen title and button"
+  },
+  "manageYourCustomProducts": "Manage your custom products",
+  "@manageYourCustomProducts": {
+    "description": "Subtitle for My Products list tile"
+  },
+  "quickAdd": "Quick Add",
+  "@quickAdd": {
+    "description": "Quick add screen title and button"
+  },
+  "createProduct": "Create Product",
+  "@createProduct": {
+    "description": "Create local product screen title"
+  },
+  "editProduct": "Edit Product",
+  "@editProduct": {
+    "description": "Edit local product screen title"
+  },
+
+  "breakfast": "Breakfast",
+  "@breakfast": {
+    "description": "Breakfast meal type"
+  },
+  "lunch": "Lunch",
+  "@lunch": {
+    "description": "Lunch meal type"
+  },
+  "dinner": "Dinner",
+  "@dinner": {
+    "description": "Dinner meal type"
+  },
+  "snacks": "Snacks",
+  "@snacks": {
+    "description": "Snacks meal type"
+  },
+  "addToMeal": "Add to {mealType}",
+  "@addToMeal": {
+    "description": "Title for adding product to a specific meal",
+    "placeholders": {
+      "mealType": {
+        "type": "String",
+        "example": "Breakfast"
+      }
+    }
+  },
+  "scanForMeal": "Scan for {mealType}",
+  "@scanForMeal": {
+    "description": "Scanner screen subtitle when scanning for a specific meal",
+    "placeholders": {
+      "mealType": {
+        "type": "String",
+        "example": "Breakfast"
+      }
+    }
+  },
+  "noItemsForMeal": "No items for {mealType} yet",
+  "@noItemsForMeal": {
+    "description": "Empty state message for meal section",
+    "placeholders": {
+      "mealType": {
+        "type": "String",
+        "example": "breakfast"
+      }
+    }
+  },
+
+  "summary": "Summary",
+  "@summary": {
+    "description": "Daily summary section title"
+  },
+  "calories": "Calories",
+  "@calories": {
+    "description": "Calories nutrition label"
+  },
+  "protein": "Protein",
+  "@protein": {
+    "description": "Protein nutrition label"
+  },
+  "fat": "Fat",
+  "@fat": {
+    "description": "Fat nutrition label"
+  },
+  "carbs": "Carbs",
+  "@carbs": {
+    "description": "Carbohydrates nutrition label (short form)"
+  },
+  "carbohydrates": "Carbohydrates",
+  "@carbohydrates": {
+    "description": "Carbohydrates nutrition label (long form)"
+  },
+  "macrosSummary": "{protein}g P / {fat}g F / {carbs}g C",
+  "@macrosSummary": {
+    "description": "Summary of macronutrients (protein, fat, carbs)",
+    "placeholders": {
+      "protein": {
+        "type": "double",
+        "example": "50"
+      },
+      "fat": {
+        "type": "double",
+        "example": "20"
+      },
+      "carbs": {
+        "type": "double",
+        "example": "100"
+      }
+    }
+  },
+  "kcal": "kcal",
+  "@kcal": {
+    "description": "Kilocalories unit abbreviation"
+  },
+  "grams": "g",
+  "@grams": {
+    "description": "Grams unit abbreviation"
+  },
+  "nutritionPer100g": "Nutrition per 100g:",
+  "@nutritionPer100g": {
+    "description": "Label for nutrition values per 100 grams"
+  },
+  "yourPortion": "Your portion:",
+  "@yourPortion": {
+    "description": "Label for calculated portion nutrition"
+  },
+  "goalAchievement": "Goal Achievement",
+  "@goalAchievement": {
+    "description": "Section title for goal progress"
+  },
+  "dailyNutritionGoals": "Daily Nutrition Goals",
+  "@dailyNutritionGoals": {
+    "description": "Subtitle for goals screen"
+  },
+  "setDailyTargets": "Set your daily targets for calories and macronutrients",
+  "@setDailyTargets": {
+    "description": "Description text for goals screen"
+  },
+  "actual": "Actual",
+  "@actual": {
+    "description": "Label for actual values in charts"
+  },
+  "goal": "Goal",
+  "@goal": {
+    "description": "Label for goal values in charts"
+  },
+
+  "add": "Add",
+  "@add": {
+    "description": "Add button label"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button label"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button label"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button label"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit button label"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button label"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button label"
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Clear button label"
+  },
+  "saveGoals": "Save Goals",
+  "@saveGoals": {
+    "description": "Save goals button label"
+  },
+  "createProductButton": "Create Product",
+  "@createProductButton": {
+    "description": "Create product button label"
+  },
+  "updateProduct": "Update Product",
+  "@updateProduct": {
+    "description": "Update product button label"
+  },
+  "addToDiary": "Add to Diary",
+  "@addToDiary": {
+    "description": "Add to diary button label"
+  },
+  "tapPlusToAdd": "Tap the + button to add",
+  "@tapPlusToAdd": {
+    "description": "Instruction text for empty states"
+  },
+
+  "searchProductsHint": "Search products...",
+  "@searchProductsHint": {
+    "description": "Search input hint text"
+  },
+  "searching": "Searching...",
+  "@searching": {
+    "description": "Loading state for search"
+  },
+  "searchForProducts": "Search for products by name",
+  "@searchForProducts": {
+    "description": "Empty state instruction"
+  },
+  "searchExamples": "Try \"yogurt\", \"bread\", \"apple\"...",
+  "@searchExamples": {
+    "description": "Search examples hint"
+  },
+  "noProductsFound": "No products found",
+  "@noProductsFound": {
+    "description": "Empty search results message"
+  },
+  "frequentlyUsed": "Frequently Used",
+  "@frequentlyUsed": {
+    "description": "Section title for frequent products"
+  },
+  "productNotFound": "Product not found",
+  "@productNotFound": {
+    "description": "Error when product lookup fails"
+  },
+  "noCustomProductsYet": "No custom products yet",
+  "@noCustomProductsYet": {
+    "description": "Empty state for local products list"
+  },
+
+  "productName": "Product Name",
+  "@productName": {
+    "description": "Product name field label"
+  },
+  "productNameRequired": "Product Name *",
+  "@productNameRequired": {
+    "description": "Product name field label with required indicator"
+  },
+  "brand": "Brand",
+  "@brand": {
+    "description": "Brand field label"
+  },
+  "barcodeOptional": "Barcode (optional)",
+  "@barcodeOptional": {
+    "description": "Barcode field label"
+  },
+  "portionSize": "Portion Size",
+  "@portionSize": {
+    "description": "Portion size field label"
+  },
+  "gramsUnit": "grams",
+  "@gramsUnit": {
+    "description": "Grams unit for form fields"
+  },
+  "typicalServingSize": "Typical Serving Size (g)",
+  "@typicalServingSize": {
+    "description": "Serving size field label"
+  },
+  "pleaseEnterProductName": "Please enter a product name",
+  "@pleaseEnterProductName": {
+    "description": "Validation error for empty product name"
+  },
+  "pleaseEnterValidNumber": "Please enter a valid number",
+  "@pleaseEnterValidNumber": {
+    "description": "Validation error for invalid number input"
+  },
+  "fieldRequired": "This field is required",
+  "@fieldRequired": {
+    "description": "Generic required field validation error"
+  },
+  "valueMustBeNonNegative": "Value must be non-negative",
+  "@valueMustBeNonNegative": {
+    "description": "Validation error for negative numbers"
+  },
+  "leaveEmptyForHomemade": "Leave empty for homemade items",
+  "@leaveEmptyForHomemade": {
+    "description": "Helper text for barcode field"
+  },
+  "additionalInformation": "Additional information about this product",
+  "@additionalInformation": {
+    "description": "Helper text for notes field"
+  },
+
+  "deleteProduct": "Delete Product",
+  "@deleteProduct": {
+    "description": "Delete product dialog title"
+  },
+  "deleteProductConfirmation": "Are you sure you want to delete \"{productName}\"?",
+  "@deleteProductConfirmation": {
+    "description": "Delete product confirmation message",
+    "placeholders": {
+      "productName": {
+        "type": "String",
+        "example": "Banana"
+      }
+    }
+  },
+  "productNotFoundDialog": "Product Not Found",
+  "@productNotFoundDialog": {
+    "description": "Product not found dialog title"
+  },
+  "noProductFoundWithBarcode": "No product found with barcode: {barcode}",
+  "@noProductFoundWithBarcode": {
+    "description": "Product not found error message",
+    "placeholders": {
+      "barcode": {
+        "type": "String",
+        "example": "123456789"
+      }
+    }
+  },
+  "createCustomProductPrompt": "Would you like to create a custom product with this barcode?",
+  "@createCustomProductPrompt": {
+    "description": "Prompt to create custom product after failed barcode lookup"
+  },
+  "goalsUpdatedSuccessfully": "Goals updated successfully",
+  "@goalsUpdatedSuccessfully": {
+    "description": "Success message after saving goals"
+  },
+  "addedProductToMeal": "Added {productName} to {mealType}",
+  "@addedProductToMeal": {
+    "description": "Success message after adding product to diary",
+    "placeholders": {
+      "productName": {
+        "type": "String",
+        "example": "Apple"
+      },
+      "mealType": {
+        "type": "String",
+        "example": "Breakfast"
+      }
+    }
+  },
+  "productCreatedSuccessfully": "Product created successfully",
+  "@productCreatedSuccessfully": {
+    "description": "Success message after creating custom product"
+  },
+  "productUpdatedSuccessfully": "Product updated successfully",
+  "@productUpdatedSuccessfully": {
+    "description": "Success message after updating custom product"
+  },
+  "errorLoadingProduct": "Error loading product: {error}",
+  "@errorLoadingProduct": {
+    "description": "Error message when product loading fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "loadingProduct": "Loading product...",
+  "@loadingProduct": {
+    "description": "Loading message during product fetch"
+  },
+
+  "appearance": "Appearance",
+  "@appearance": {
+    "description": "Appearance settings section title"
+  },
+  "dataManagement": "Data Management",
+  "@dataManagement": {
+    "description": "Data management settings section title"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About section title"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language settings label"
+  },
+  "chooseLanguage": "Choose Language",
+  "@chooseLanguage": {
+    "description": "Language picker dialog title"
+  },
+  "systemDefault": "System Default",
+  "@systemDefault": {
+    "description": "System default language/theme option"
+  },
+  "theme": "Theme",
+  "@theme": {
+    "description": "Theme settings label"
+  },
+  "chooseTheme": "Choose Theme",
+  "@chooseTheme": {
+    "description": "Theme picker dialog title"
+  },
+  "lightTheme": "Light Theme",
+  "@lightTheme": {
+    "description": "Light theme option"
+  },
+  "darkTheme": "Dark Theme",
+  "@darkTheme": {
+    "description": "Dark theme option"
+  },
+  "clearFrequentProductsCache": "Clear Frequent Products Cache",
+  "@clearFrequentProductsCache": {
+    "description": "Clear cache button label"
+  },
+  "clearFrequentProductsDescription": "Remove all frequently used products history",
+  "@clearFrequentProductsDescription": {
+    "description": "Clear cache description"
+  },
+  "clearCache": "Clear Cache",
+  "@clearCache": {
+    "description": "Clear cache dialog title"
+  },
+  "clearCacheConfirmation": "Are you sure you want to clear your frequent products cache? This will remove all usage history.",
+  "@clearCacheConfirmation": {
+    "description": "Clear cache confirmation message"
+  },
+  "cacheCleared": "Cache cleared",
+  "@cacheCleared": {
+    "description": "Success message after clearing cache"
+  },
+  "appVersion": "App Version",
+  "@appVersion": {
+    "description": "App version label"
+  },
+  "appVersionNumber": "FoodieFit v1.0.0",
+  "@appVersionNumber": {
+    "description": "App version number"
+  },
+  "appDescription": "A food diary app to track your daily nutrition and reach your goals.",
+  "@appDescription": {
+    "description": "App description text"
+  },
+  "openFoodFacts": "Open Food Facts",
+  "@openFoodFacts": {
+    "description": "Open Food Facts attribution title"
+  },
+  "openFoodFactsAttribution": "Product data provided by Open Food Facts",
+  "@openFoodFactsAttribution": {
+    "description": "Open Food Facts attribution subtitle"
+  },
+  "openFoodFactsDescription": "This app uses product data from Open Food Facts, a free and open database of food products from around the world.",
+  "@openFoodFactsDescription": {
+    "description": "Open Food Facts full description"
+  },
+
+  "today": "Today",
+  "@today": {
+    "description": "Today tab label"
+  },
+  "week": "Week",
+  "@week": {
+    "description": "Week tab label"
+  },
+  "loadingCharts": "Loading charts...",
+  "@loadingCharts": {
+    "description": "Loading state for charts"
+  },
+  "weeklyCalorieTrend": "Weekly Calorie Trend",
+  "@weeklyCalorieTrend": {
+    "description": "Weekly calorie chart title"
+  },
+  "last7Days": "Last 7 days",
+  "@last7Days": {
+    "description": "Time range subtitle for charts"
+  },
+  "todaysMacroBreakdown": "Today's Macro Breakdown",
+  "@todaysMacroBreakdown": {
+    "description": "Macro pie chart title"
+  },
+  "noMacroDataForToday": "No macro data for today",
+  "@noMacroDataForToday": {
+    "description": "Empty state for macro chart"
+  },
+  "addSomeFoodToSeeMacros": "Add some food to see your macro breakdown",
+  "@addSomeFoodToSeeMacros": {
+    "description": "Empty state instruction for macro chart"
+  },
+  "itemCount": "{count} {count, plural, =1{item} other{items}}",
+  "@itemCount": {
+    "description": "Item count with pluralization",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "pointCameraAtBarcode": "Point your camera at a barcode to scan",
+  "@pointCameraAtBarcode": {
+    "description": "Scanner instruction text"
+  },
+
+  "error": "Error",
+  "@error": {
+    "description": "Generic error title"
+  },
+  "unknownError": "An unknown error occurred",
+  "@unknownError": {
+    "description": "Generic unknown error message"
+  },
+
+  "mealType": "Meal Type",
+  "@mealType": {
+    "description": "Meal type field label"
+  },
+  "notes": "Notes",
+  "@notes": {
+    "description": "Notes field label"
+  },
+  "image": "Image",
+  "@image": {
+    "description": "Image field label"
+  },
+  "changeImage": "Change Image",
+  "@changeImage": {
+    "description": "Change image button label"
+  },
+  "addImage": "Add Image",
+  "@addImage": {
+    "description": "Add image button label"
+  },
+  "failedToLoadChartData": "Failed to load chart data: {error}",
+  "@failedToLoadChartData": {
+    "description": "Error message when chart data fails to load",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "noDataAvailable": "No data available",
+  "@noDataAvailable": {
+    "description": "Message when no data is available for charts"
+  },
+  "weeklyMacroTrends": "Weekly Macro Trends",
+  "@weeklyMacroTrends": {
+    "description": "Weekly macro chart title"
+  },
+  "proteinFatCarbsGrams": "Protein, Fat & Carbs (grams)",
+  "@proteinFatCarbsGrams": {
+    "description": "Subtitle for weekly macro chart"
+  },
+  "errorPickingImage": "Error picking image: {error}",
+  "@errorPickingImage": {
+    "description": "Error message when picking image fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Permission denied"
+      }
+    }
+  },
+  "selectImageSource": "Select Image Source",
+  "@selectImageSource": {
+    "description": "Title for image source selection dialog"
+  },
+  "camera": "Camera",
+  "@camera": {
+    "description": "Option to pick image from camera"
+  },
+  "gallery": "Gallery",
+  "@gallery": {
+    "description": "Option to pick image from gallery"
+  },
+  "errorSavingProduct": "Error saving product: {error}",
+  "@errorSavingProduct": {
+    "description": "Error message when saving product fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Database error"
+      }
+    }
+  },
+  "addPhoto": "Add Photo",
+  "@addPhoto": {
+    "description": "Text for adding product photo"
+  },
+  "caloriesKcalRequired": "Calories (kcal) *",
+  "@caloriesKcalRequired": {
+    "description": "Label for required calories input field"
+  },
+  "proteinGramsRequired": "Protein (g) *",
+  "@proteinGramsRequired": {
+    "description": "Label for required protein input field"
+  },
+  "fatGramsRequired": "Fat (g) *",
+  "@fatGramsRequired": {
+    "description": "Label for required fat input field"
+  },
+  "carbohydratesGramsRequired": "Carbohydrates (g) *",
+  "@carbohydratesGramsRequired": {
+    "description": "Label for required carbohydrates input field"
+  },
+  "errorLoadingProducts": "Error loading products: {error}",
+  "@errorLoadingProducts": {
+    "description": "Error message when loading local products fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Database error"
+      }
+    }
+  },
+  "productDeleted": "Product deleted",
+  "@productDeleted": {
+    "description": "Success message after deleting a product"
+  },
+  "errorDeletingProduct": "Error deleting product: {error}",
+  "@errorDeletingProduct": {
+    "description": "Error message when deleting product fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Database error"
+      }
+    }
+  },
+  "kcalPer100g": "{calories} kcal per 100g",
+  "@kcalPer100g": {
+    "description": "Calories per 100g format string",
+    "placeholders": {
+      "calories": {
+        "type": "String",
+        "example": "200"
+      }
+    }
+  },
+  "custom": "Custom",
+  "@custom": {
+    "description": "Badge text for custom products"
+  },
+  "slashSeparator": " / ",
+  "@slashSeparator": {
+    "description": "Separator for displaying current/goal values"
+  },
+  "goalsRecommendation": "These goals are general recommendations. Consult a nutritionist for personalized advice.",
+  "@goalsRecommendation": {
+    "description": "Info text about consulting a nutritionist for goals"
+  },
+  "failedToFetchProduct": "Failed to fetch product: {error}",
+  "@failedToFetchProduct": {
+    "description": "Error message when fetching product details fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "errorSearching": "Error searching: {error}",
+  "@errorSearching": {
+    "description": "Error message when product search fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  }
+}

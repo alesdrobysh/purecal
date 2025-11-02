@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../services/database_service.dart';
+import '../l10n/app_localizations.dart';
 
 class MacroTrendChart extends StatelessWidget {
   final List<DailySummary> weeklySummaries;
@@ -13,6 +14,7 @@ class MacroTrendChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final maxProtein = weeklySummaries
         .map((s) => s.proteins)
         .fold(0.0, (max, val) => val > max ? val : max);
@@ -23,7 +25,8 @@ class MacroTrendChart extends StatelessWidget {
         .map((s) => s.carbs)
         .fold(0.0, (max, val) => val > max ? val : max);
 
-    final chartMaxY = ([maxProtein, maxFat, maxCarbs].reduce((a, b) => a > b ? a : b)) * 1.2;
+    final chartMaxY =
+        ([maxProtein, maxFat, maxCarbs].reduce((a, b) => a > b ? a : b)) * 1.2;
 
     return Card(
       child: Padding(
@@ -31,16 +34,16 @@ class MacroTrendChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Weekly Macro Trends',
-              style: TextStyle(
+            Text(
+              l10n.weeklyMacroTrends,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Protein, Fat & Carbs (grams)',
+              l10n.proteinFatCarbsGrams,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[600],
@@ -93,7 +96,8 @@ class MacroTrendChart extends StatelessWidget {
                         reservedSize: 32,
                         getTitlesWidget: (value, meta) {
                           final dayIndex = value.toInt();
-                          if (dayIndex < 0 || dayIndex >= 7) return const SizedBox();
+                          if (dayIndex < 0 || dayIndex >= 7)
+                            return const SizedBox();
 
                           final today = DateTime.now();
                           final date = DateTime(
@@ -219,25 +223,27 @@ class MacroTrendChart extends StatelessWidget {
                             today.month,
                             today.day - (6 - dayIndex),
                           );
-                          final formattedDate = DateFormat('MMM d').format(date);
+                          final formattedDate =
+                              DateFormat('MMM d').format(date);
 
                           String macroName;
                           switch (touchedSpot.barIndex) {
                             case 0:
-                              macroName = 'Protein';
+                              macroName = l10n.protein;
                               break;
                             case 1:
-                              macroName = 'Fat';
+                              macroName = l10n.fat;
                               break;
                             case 2:
-                              macroName = 'Carbs';
+                              macroName = l10n.carbs;
                               break;
                             default:
                               macroName = '';
                           }
 
                           return LineTooltipItem(
-                            '$formattedDate\n$macroName: ${touchedSpot.y.toStringAsFixed(1)}g',
+                            '$formattedDate\n$macroName: ${touchedSpot.y.toStringAsFixed(1)}' +
+                                l10n.grams,
                             const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -255,11 +261,11 @@ class MacroTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem('Protein', Colors.red),
+                _buildLegendItem(l10n.protein, Colors.red),
                 const SizedBox(width: 16),
-                _buildLegendItem('Fat', Colors.yellow[700]!),
+                _buildLegendItem(l10n.fat, Colors.yellow[700]!),
                 const SizedBox(width: 16),
-                _buildLegendItem('Carbs', Colors.blue),
+                _buildLegendItem(l10n.carbs, Colors.blue),
               ],
             ),
           ],

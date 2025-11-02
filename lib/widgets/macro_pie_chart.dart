@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../services/database_service.dart';
+import '../l10n/app_localizations.dart';
 
 class MacroPieChart extends StatelessWidget {
   final DailySummary summary;
@@ -9,6 +10,7 @@ class MacroPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final totalMacros = summary.proteins + summary.fat + summary.carbs;
 
     // Handle case with no data
@@ -22,7 +24,7 @@ class MacroPieChart extends StatelessWidget {
               Icon(Icons.pie_chart_outline, size: 64, color: Colors.grey[400]),
               const SizedBox(height: 16),
               Text(
-                'No macro data for today',
+                l10n.noMacroDataForToday,
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],
@@ -30,7 +32,7 @@ class MacroPieChart extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Add some food to see your macro breakdown',
+                l10n.addSomeFoodToSeeMacros,
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[500],
@@ -53,9 +55,9 @@ class MacroPieChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Today\'s Macro Breakdown',
-              style: TextStyle(
+            Text(
+              l10n.todaysMacroBreakdown,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -116,17 +118,17 @@ class MacroPieChart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildLegendItem(
-                      'Protein',
+                      l10n.protein,
                       '${summary.proteins.toStringAsFixed(1)}g',
                       Colors.red,
                     ),
                     _buildLegendItem(
-                      'Fat',
+                      l10n.fat,
                       '${summary.fat.toStringAsFixed(1)}g',
                       Colors.yellow[700]!,
                     ),
                     _buildLegendItem(
-                      'Carbs',
+                      l10n.carbs,
                       '${summary.carbs.toStringAsFixed(1)}g',
                       Colors.blue,
                     ),

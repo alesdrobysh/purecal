@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import '../models/food_product.dart';
+import '../l10n/app_localizations.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
@@ -86,6 +87,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
   bool get _isEditMode => widget.product != null;
 
   Future<void> _pickImage(ImageSource source) async {
+    final l10n = AppLocalizations.of(context)!;
     try {
       final XFile? pickedFile = await _imagePicker.pickImage(
         source: source,
@@ -113,22 +115,23 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error picking image: $e')),
+        SnackBar(content: Text(l10n.errorPickingImage(e.toString()))),
       );
     }
   }
 
   void _showImageSourceDialog() {
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Select Image Source'),
+        title: Text(l10n.selectImageSource),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
               leading: const Icon(Icons.camera_alt),
-              title: const Text('Camera'),
+              title: Text(l10n.camera),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.camera);
@@ -136,7 +139,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             ),
             ListTile(
               leading: const Icon(Icons.photo_library),
-              title: const Text('Gallery'),
+              title: Text(l10n.gallery),
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.gallery);
@@ -149,26 +152,29 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
   }
 
   String? _validateRequired(String? value) {
+    final l10n = AppLocalizations.of(context)!;
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required';
+      return l10n.fieldRequired;
     }
     return null;
   }
 
   String? _validateNumber(String? value, {bool required = true}) {
+    final l10n = AppLocalizations.of(context)!;
     if (value == null || value.trim().isEmpty) {
-      return required ? 'This field is required' : null;
+      return required ? l10n.fieldRequired : null;
     }
     if (double.tryParse(value) == null) {
-      return 'Please enter a valid number';
+      return l10n.pleaseEnterValidNumber;
     }
     if (double.parse(value) < 0) {
-      return 'Value must be non-negative';
+      return l10n.valueMustBeNonNegative;
     }
     return null;
   }
 
   Future<void> _saveProduct() async {
+    final l10n = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -212,8 +218,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(_isEditMode
-              ? 'Product updated successfully'
-              : 'Product created successfully'),
+              ? l10n.productUpdatedSuccessfully
+              : l10n.productCreatedSuccessfully),
         ),
       );
 
@@ -222,7 +228,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving product: $e')),
+        SnackBar(content: Text(l10n.errorSavingProduct(e.toString()))),
       );
     } finally {
       if (mounted) {
@@ -235,9 +241,10 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditMode ? 'Edit Product' : 'Create Local Product'),
+        title: Text(_isEditMode ? l10n.editProduct : l10n.createProduct),
         backgroundColor: AppColors.green,
       ),
       body: Form(
@@ -272,7 +279,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                                 size: 40, color: Colors.grey[600]),
                             const SizedBox(height: 8),
                             Text(
-                              'Add Photo',
+                              l10n.addPhoto,
                               style: TextStyle(color: Colors.grey[600]),
                             ),
                           ],
@@ -286,7 +293,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _nameController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Product Name *',
+                labelText: l10n.productNameRequired,
               ),
               validator: _validateRequired,
             ),
@@ -296,7 +303,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _brandController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Brand',
+                labelText: l10n.brand,
               ),
             ),
             const SizedBox(height: 16),
@@ -305,17 +312,17 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _barcodeController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Barcode (optional)',
-                helperText: 'Leave empty for homemade items',
+                labelText: l10n.barcodeOptional,
+                helperText: l10n.leaveEmptyForHomemade,
               ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 24),
 
             // Nutrition Section
-            const Text(
-              'Nutrition per 100g',
-              style: TextStyle(
+            Text(
+              l10n.nutritionPer100g,
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -326,7 +333,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _caloriesController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Calories (kcal) *',
+                labelText: l10n.caloriesKcalRequired,
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -337,7 +344,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _proteinsController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Protein (g) *',
+                labelText: l10n.proteinGramsRequired,
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -348,7 +355,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _fatController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Fat (g) *',
+                labelText: l10n.fatGramsRequired,
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -359,7 +366,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _carbsController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Carbohydrates (g) *',
+                labelText: l10n.carbohydratesGramsRequired,
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: true),
@@ -370,7 +377,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _servingSizeController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Typical Serving Size (g)',
+                labelText: l10n.typicalServingSize,
               ),
               keyboardType: TextInputType.number,
               validator: (value) => _validateNumber(value, required: false),
@@ -381,8 +388,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             TextFormField(
               controller: _notesController,
               decoration: customInputDecoration(context).copyWith(
-                labelText: 'Notes',
-                helperText: 'Additional information about this product',
+                labelText: l10n.notes,
+                helperText: l10n.additionalInformation,
               ),
               maxLines: 3,
             ),
@@ -405,7 +412,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                       ),
                     )
                   : Text(
-                      _isEditMode ? 'Update Product' : 'Create Product',
+                      _isEditMode ? l10n.updateProduct : l10n.createProductButton,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,

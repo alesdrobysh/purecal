@@ -1,19 +1,23 @@
+import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
+
 enum MealType {
   breakfast,
   lunch,
   dinner,
   snacks;
 
-  String get displayName {
+  String displayName(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     switch (this) {
       case MealType.breakfast:
-        return 'Breakfast';
+        return l10n.breakfast;
       case MealType.lunch:
-        return 'Lunch';
+        return l10n.lunch;
       case MealType.dinner:
-        return 'Dinner';
+        return l10n.dinner;
       case MealType.snacks:
-        return 'Snacks';
+        return l10n.snacks;
     }
   }
 
@@ -30,7 +34,8 @@ enum MealType {
     }
   }
 
-  String get displayNameWithEmoji => '$emoji $displayName';
+  String displayNameWithEmoji(BuildContext context) =>
+      '$emoji ${displayName(context)}';
 
   /// Get the meal type based on the time of day
   static MealType fromTime(DateTime time) {
