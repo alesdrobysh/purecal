@@ -48,10 +48,12 @@ class _MealSectionState extends State<MealSection> {
         final entries = provider.getEntriesByMealType(widget.mealType);
         final calories = provider.getMealCalories(widget.mealType);
         final count = entries.length;
-        final theme = Theme.of(context);
 
         return Card(
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4),
+          ),
           child: Column(
             children: [
               InkWell(
@@ -93,18 +95,9 @@ class _MealSectionState extends State<MealSection> {
                           ],
                         ),
                       ),
-                      IconButton(
+                      IconButton.filledTonal(
                         onPressed: () => _openSearch(context),
                         icon: const Icon(Icons.add),
-                        style: IconButton.styleFrom(
-                          backgroundColor: theme.brightness == Brightness.light
-                              ? Colors.green[50]
-                              : Colors.green[700],
-                          foregroundColor: theme.brightness == Brightness.light
-                              ? Colors.green[700]
-                              : Colors.green[50],
-                          padding: const EdgeInsets.all(12),
-                        ),
                         tooltip: 'Add product',
                       ),
                       const SizedBox(width: 12),
@@ -118,7 +111,8 @@ class _MealSectionState extends State<MealSection> {
                 ),
               ),
               if (_isExpanded) ...[
-                const Divider(height: 1),
+                const Divider(
+                    height: 1, indent: 16, endIndent: 16, thickness: 0.5),
                 if (entries.isEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -155,11 +149,6 @@ class _MealSectionState extends State<MealSection> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                      bottom: 16,
-                    ),
                     itemCount: entries.length,
                     itemBuilder: (context, index) {
                       final entry = entries[index];
@@ -177,7 +166,7 @@ class _MealSectionState extends State<MealSection> {
   Widget _buildEntryCard(
       BuildContext context, DiaryEntry entry, DiaryProvider provider) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 8),
+      elevation: 0,
       child: InkWell(
         onLongPress: () => _showEntryOptions(context, entry, provider),
         child: Padding(
@@ -186,7 +175,7 @@ class _MealSectionState extends State<MealSection> {
             children: [
               if (entry.imageUrl != null)
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(4),
                   child: Image.network(
                     entry.imageUrl!,
                     width: 50,
