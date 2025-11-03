@@ -27,7 +27,9 @@ class AppColors {
   }
 
   static Color badgeText(BuildContext context) {
-    return green.shade700;
+    return Theme.of(context).brightness == Brightness.dark
+        ? green.shade100
+        : green.shade800;
   }
 
   static Color iconAccent(BuildContext context) {
@@ -45,7 +47,9 @@ class AppColors {
   static Color infoBoxBackground(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return isDark ? colorScheme.surfaceContainerHighest : colorScheme.surfaceContainer;
+    return isDark
+        ? colorScheme.surfaceContainerHighest
+        : colorScheme.surfaceContainer;
   }
 
   static Color infoBoxText(BuildContext context) {
