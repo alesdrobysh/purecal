@@ -37,7 +37,6 @@ class _ChartsScreenState extends State<ChartsScreen>
   }
 
   Future<void> _loadData() async {
-    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -58,7 +57,7 @@ class _ChartsScreenState extends State<ChartsScreen>
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = l10n.errorLoadingProduct(e.toString());
+          _errorMessage = e.toString();
           _isLoading = false;
         });
       }
@@ -119,7 +118,7 @@ class _ChartsScreenState extends State<ChartsScreen>
             Icon(Icons.error_outline, size: 64, color: Colors.red[400]),
             const SizedBox(height: 16),
             Text(
-              _errorMessage!,
+              l10n.errorLoadingProduct(_errorMessage!),
               textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.grey),
             ),

@@ -26,7 +26,6 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
   }
 
   Future<void> _loadProducts() async {
-    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _isLoading = true;
     });
@@ -42,6 +41,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
         _isLoading = false;
       });
       if (!mounted) return;
+      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l10n.errorLoadingProducts(e.toString()))),
       );
