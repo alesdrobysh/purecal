@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
+import '../services/export_service.dart';
 import 'local_products_list_screen.dart';
 import '../config/decorations.dart';
 import '../l10n/app_localizations.dart';
@@ -27,6 +28,7 @@ class SettingsScreen extends StatelessWidget {
           _buildThemeOption(context),
           const Divider(),
           _buildSectionHeader(l10n.dataManagement),
+          _buildExportDataOption(context),
           _buildClearCacheOption(context),
           const Divider(),
           _buildSectionHeader(l10n.about),
@@ -86,6 +88,16 @@ class SettingsScreen extends StatelessWidget {
       title: Text(l10n.theme),
       subtitle: Text(_getThemeSubtitle(context)),
       onTap: () => _showThemeDialog(context),
+    );
+  }
+
+  Widget _buildExportDataOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.upload_file, color: Colors.green),
+      title: Text(l10n.exportDiaryEntries),
+      subtitle: Text(l10n.exportDiaryEntriesDescription),
+      onTap: () => _handleExportDiary(context),
     );
   }
 
@@ -348,5 +360,109 @@ class SettingsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleExportDiary(BuildContext context) async {
+    // Show date range selection dialog
+    await _showExportOptionsDialog(context);
+  }
+
+  Future<void> _showExportOptionsDialog(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.selectExportTimeframe),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.all_inclusive),
+              title: Text(l10n.allTime),
+              subtitle: Text(l10n.exportAllEntries),
+              onTap: () {
+                Navigator.pop(context);
+                _performExport(null, null);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.calendar_today),
+              title: Text(l10n.last7Days),
+              subtitle: Text(l10n.exportLast7Days),
+              onTap: () {
+                Navigator.pop(context);
+                final endDate = DateTime.now();
+                final startDate = endDate.subtract(const Duration(days: 7));
+                _performExport(startDate, endDate);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.calendar_month),
+              title: Text(l10n.last30Days),
+              subtitle: Text(l10n.exportLast30Days),
+              onTap: () {
+                Navigator.pop(context);
+                final endDate = DateTime.now();
+                final startDate = endDate.subtract(const Duration(days: 30));
+                _performExport(startDate, endDate);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _performExport(
+    DateTime? startDate,
+    DateTime? endDate,
+  ) async {
+    final navigatorKey = GlobalKey<NavigatorState>();
+    final context = navigatorKey.currentContext!;
+    final l10n = AppLocalizations.of(context)!;
+    final exportService = ExportService();
+
+    BuildContext? dialogContext;
+
+    showDialog(
+        context: context,
+        builder: (context) {
+          dialogContext = context;
+          return AlertDialog(
+            content: Row(
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(width: 20),
+                Text(l10n.exportingData),
+              ],
+            ),
+          );
+        });
+
+    try {
+      await exportService.exportDiaryEntriesToCSV(
+        startDate: startDate,
+        endDate: endDate,
+      );
+    } catch (e) {
+      // Show error message
+      String errorMessage = l10n.exportError;
+      if (e.toString().contains('No diary entries')) {
+        errorMessage = l10n.noDataToExport;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!); // Close loading dialog
+      }
+    }
   }
 }

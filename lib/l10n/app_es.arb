@@ -154,5 +154,19 @@
   "slashSeparator": " / ",
   "goalsRecommendation": "Estos objetivos son recomendaciones generales. Consulta a un nutricionista para obtener asesoramiento personalizado.",
   "failedToFetchProduct": "Error al obtener producto: {error}",
-  "errorSearching": "Error al buscar: {error}"
+  "errorSearching": "Error al buscar: {error}",
+
+  "exportDiaryEntries": "Exportar Entradas del Diario",
+  "exportDiaryEntriesDescription": "Exporta tu diario de alimentos a formato CSV",
+  "exportingData": "Exportando datos...",
+  "exportSuccess": "¡Diario exportado exitosamente!",
+  "exportError": "Error al exportar datos",
+  "noDataToExport": "No hay entradas del diario para exportar",
+
+  "selectExportTimeframe": "Seleccionar Período de Exportación",
+  "allTime": "Todo el Tiempo",
+  "exportAllEntries": "Exportar todas las entradas del diario",
+  "exportLast7Days": "Exportar entradas de los últimos 7 días",
+  "last30Days": "Últimos 30 Días",
+  "exportLast30Days": "Exportar entradas de los últimos 30 días"
 }

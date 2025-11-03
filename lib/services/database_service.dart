@@ -253,6 +253,33 @@ class DatabaseService {
     return results.map((map) => DiaryEntry.fromMap(map)).toList();
   }
 
+  Future<List<DiaryEntry>> getAllDiaryEntries() async {
+    final db = await database;
+    final results = await db.query(
+      'diary_entries',
+      orderBy: 'date DESC',
+    );
+
+    return results.map((map) => DiaryEntry.fromMap(map)).toList();
+  }
+
+  Future<List<DiaryEntry>> getEntriesByDateRange(
+      DateTime startDate, DateTime endDate) async {
+    final db = await database;
+    final startOfDay = DateTime(startDate.year, startDate.month, startDate.day);
+    final endOfDay = DateTime(endDate.year, endDate.month, endDate.day)
+        .add(const Duration(days: 1));
+
+    final results = await db.query(
+      'diary_entries',
+      where: 'date >= ? AND date < ?',
+      whereArgs: [startOfDay.toIso8601String(), endOfDay.toIso8601String()],
+      orderBy: 'date DESC',
+    );
+
+    return results.map((map) => DiaryEntry.fromMap(map)).toList();
+  }
+
   Future<DailySummary> getDailySummary(DateTime date) async {
     final db = await database;
     final startOfDay = DateTime(date.year, date.month, date.day);

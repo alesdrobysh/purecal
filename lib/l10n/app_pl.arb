@@ -154,5 +154,19 @@
   "slashSeparator": " / ",
   "goalsRecommendation": "Te cele są ogólnymi zaleceniami. Skonsultuj się z dietetykiem, aby uzyskać spersonalizowane porady.",
   "failedToFetchProduct": "Nie udało się pobrać produktu: {error}",
-  "errorSearching": "Błąd wyszukiwania: {error}"
+  "errorSearching": "Błąd wyszukiwania: {error}",
+
+  "exportDiaryEntries": "Eksportuj wpisy dziennika",
+  "exportDiaryEntriesDescription": "Eksportuj dziennik żywieniowy do formatu CSV",
+  "exportingData": "Eksportowanie danych...",
+  "exportSuccess": "Dziennik wyeksportowany pomyślnie!",
+  "exportError": "Nie udało się wyeksportować danych",
+  "noDataToExport": "Brak wpisów dziennika do eksportu",
+
+  "selectExportTimeframe": "Wybierz okres eksportu",
+  "allTime": "Cały czas",
+  "exportAllEntries": "Eksportuj wszystkie wpisy dziennika",
+  "exportLast7Days": "Eksportuj wpisy z ostatnich 7 dni",
+  "last30Days": "Ostatnie 30 dni",
+  "exportLast30Days": "Eksportuj wpisy z ostatnich 30 dni"
 }

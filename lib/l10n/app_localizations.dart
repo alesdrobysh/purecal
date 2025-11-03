@@ -961,6 +961,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error searching: {error}'**
   String errorSearching(String error);
+
+  /// Export diary data button label
+  ///
+  /// In en, this message translates to:
+  /// **'Export Diary Entries'**
+  String get exportDiaryEntries;
+
+  /// Export diary data description
+  ///
+  /// In en, this message translates to:
+  /// **'Export your food diary to CSV format'**
+  String get exportDiaryEntriesDescription;
+
+  /// Loading message during export
+  ///
+  /// In en, this message translates to:
+  /// **'Exporting data...'**
+  String get exportingData;
+
+  /// Success message after export
+  ///
+  /// In en, this message translates to:
+  /// **'Diary exported successfully!'**
+  String get exportSuccess;
+
+  /// Generic export error message
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to export data'**
+  String get exportError;
+
+  /// Error message when there's no data to export
+  ///
+  /// In en, this message translates to:
+  /// **'No diary entries to export'**
+  String get noDataToExport;
+
+  /// Dialog title for selecting export timeframe
+  ///
+  /// In en, this message translates to:
+  /// **'Select Export Timeframe'**
+  String get selectExportTimeframe;
+
+  /// Option to export all data
+  ///
+  /// In en, this message translates to:
+  /// **'All Time'**
+  String get allTime;
+
+  /// Description for all time export
+  ///
+  /// In en, this message translates to:
+  /// **'Export all diary entries'**
+  String get exportAllEntries;
+
+  /// Description for last 7 days export
+  ///
+  /// In en, this message translates to:
+  /// **'Export entries from the last 7 days'**
+  String get exportLast7Days;
+
+  /// Option to export last 30 days
+  ///
+  /// In en, this message translates to:
+  /// **'Last 30 Days'**
+  String get last30Days;
+
+  /// Description for last 30 days export
+  ///
+  /// In en, this message translates to:
+  /// **'Export entries from the last 30 days'**
+  String get exportLast30Days;
 }
 
 class _AppLocalizationsDelegate

@@ -698,5 +698,55 @@
         "example": "Network error"
       }
     }
+  },
+
+  "exportDiaryEntries": "Export Diary Entries",
+  "@exportDiaryEntries": {
+    "description": "Export diary data button label"
+  },
+  "exportDiaryEntriesDescription": "Export your food diary to CSV format",
+  "@exportDiaryEntriesDescription": {
+    "description": "Export diary data description"
+  },
+  "exportingData": "Exporting data...",
+  "@exportingData": {
+    "description": "Loading message during export"
+  },
+  "exportSuccess": "Diary exported successfully!",
+  "@exportSuccess": {
+    "description": "Success message after export"
+  },
+  "exportError": "Failed to export data",
+  "@exportError": {
+    "description": "Generic export error message"
+  },
+  "noDataToExport": "No diary entries to export",
+  "@noDataToExport": {
+    "description": "Error message when there's no data to export"
+  },
+
+  "selectExportTimeframe": "Select Export Timeframe",
+  "@selectExportTimeframe": {
+    "description": "Dialog title for selecting export timeframe"
+  },
+  "allTime": "All Time",
+  "@allTime": {
+    "description": "Option to export all data"
+  },
+  "exportAllEntries": "Export all diary entries",
+  "@exportAllEntries": {
+    "description": "Description for all time export"
+  },
+  "exportLast7Days": "Export entries from the last 7 days",
+  "@exportLast7Days": {
+    "description": "Description for last 7 days export"
+  },
+  "last30Days": "Last 30 Days",
+  "@last30Days": {
+    "description": "Option to export last 30 days"
+  },
+  "exportLast30Days": "Export entries from the last 30 days",
+  "@exportLast30Days": {
+    "description": "Description for last 30 days export"
   }
 }

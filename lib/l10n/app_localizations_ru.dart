@@ -490,4 +490,41 @@ class AppLocalizationsRu extends AppLocalizations {
   String errorSearching(String error) {
     return 'Ошибка поиска: $error';
   }
+
+  @override
+  String get exportDiaryEntries => 'Экспорт записей дневника';
+
+  @override
+  String get exportDiaryEntriesDescription =>
+      'Экспортировать дневник питания в формат CSV';
+
+  @override
+  String get exportingData => 'Экспорт данных...';
+
+  @override
+  String get exportSuccess => 'Дневник успешно экспортирован!';
+
+  @override
+  String get exportError => 'Не удалось экспортировать данные';
+
+  @override
+  String get noDataToExport => 'Нет записей дневника для экспорта';
+
+  @override
+  String get selectExportTimeframe => 'Выберите период экспорта';
+
+  @override
+  String get allTime => 'Всё время';
+
+  @override
+  String get exportAllEntries => 'Экспортировать все записи дневника';
+
+  @override
+  String get exportLast7Days => 'Экспортировать записи за последние 7 дней';
+
+  @override
+  String get last30Days => 'Последние 30 дней';
+
+  @override
+  String get exportLast30Days => 'Экспортировать записи за последние 30 дней';
 }

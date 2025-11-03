@@ -490,4 +490,41 @@ class AppLocalizationsPl extends AppLocalizations {
   String errorSearching(String error) {
     return 'Błąd wyszukiwania: $error';
   }
+
+  @override
+  String get exportDiaryEntries => 'Eksportuj wpisy dziennika';
+
+  @override
+  String get exportDiaryEntriesDescription =>
+      'Eksportuj dziennik żywieniowy do formatu CSV';
+
+  @override
+  String get exportingData => 'Eksportowanie danych...';
+
+  @override
+  String get exportSuccess => 'Dziennik wyeksportowany pomyślnie!';
+
+  @override
+  String get exportError => 'Nie udało się wyeksportować danych';
+
+  @override
+  String get noDataToExport => 'Brak wpisów dziennika do eksportu';
+
+  @override
+  String get selectExportTimeframe => 'Wybierz okres eksportu';
+
+  @override
+  String get allTime => 'Cały czas';
+
+  @override
+  String get exportAllEntries => 'Eksportuj wszystkie wpisy dziennika';
+
+  @override
+  String get exportLast7Days => 'Eksportuj wpisy z ostatnich 7 dni';
+
+  @override
+  String get last30Days => 'Ostatnie 30 dni';
+
+  @override
+  String get exportLast30Days => 'Eksportuj wpisy z ostatnich 30 dni';
 }

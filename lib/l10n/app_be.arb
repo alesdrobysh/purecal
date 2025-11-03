@@ -154,5 +154,19 @@
   "slashSeparator": " / ",
   "goalsRecommendation": "Гэтыя мэты з'яўляюцца агульнымі рэкамендацыямі. Пракансультуйцеся з дыетолагам для атрымання індывідуальных рэкамендацый.",
   "failedToFetchProduct": "Не ўдалося атрымаць прадукт: {error}",
-  "errorSearching": "Памылка пошуку: {error}"
+  "errorSearching": "Памылка пошуку: {error}",
+
+  "exportDiaryEntries": "Экспарт запісаў дзённіка",
+  "exportDiaryEntriesDescription": "Экспартаваць дзённік харчавання ў фармат CSV",
+  "exportingData": "Экспарт дадзеных...",
+  "exportSuccess": "Дзённік паспяхова экспартаваны!",
+  "exportError": "Не ўдалося экспартаваць дадзеныя",
+  "noDataToExport": "Няма запісаў дзённіка для экспарту",
+
+  "selectExportTimeframe": "Выберыце перыяд экспарту",
+  "allTime": "Увесь час",
+  "exportAllEntries": "Экспартаваць усе запісы дзённіка",
+  "exportLast7Days": "Экспартаваць запісы за апошнія 7 дзён",
+  "last30Days": "Апошнія 30 дзён",
+  "exportLast30Days": "Экспартаваць запісы за апошнія 30 дзён"
 }

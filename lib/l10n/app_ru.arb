@@ -154,5 +154,19 @@
   "slashSeparator": " / ",
   "goalsRecommendation": "Эти цели являются общими рекомендациями. Проконсультируйтесь с диетологом для получения индивидуальных рекомендаций.",
   "failedToFetchProduct": "Не удалось получить продукт: {error}",
-  "errorSearching": "Ошибка поиска: {error}"
+  "errorSearching": "Ошибка поиска: {error}",
+
+  "exportDiaryEntries": "Экспорт записей дневника",
+  "exportDiaryEntriesDescription": "Экспортировать дневник питания в формат CSV",
+  "exportingData": "Экспорт данных...",
+  "exportSuccess": "Дневник успешно экспортирован!",
+  "exportError": "Не удалось экспортировать данные",
+  "noDataToExport": "Нет записей дневника для экспорта",
+
+  "selectExportTimeframe": "Выберите период экспорта",
+  "allTime": "Всё время",
+  "exportAllEntries": "Экспортировать все записи дневника",
+  "exportLast7Days": "Экспортировать записи за последние 7 дней",
+  "last30Days": "Последние 30 дней",
+  "exportLast30Days": "Экспортировать записи за последние 30 дней"
 }
