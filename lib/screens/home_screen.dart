@@ -113,6 +113,8 @@ class HomeScreen extends StatelessWidget {
     final isToday = _isSameDay(provider.selectedDate, DateTime.now());
     final theme = Theme.of(context);
 
+    final l10n = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       color: theme.scaffoldBackgroundColor,
@@ -126,7 +128,8 @@ class HomeScreen extends StatelessWidget {
           GestureDetector(
             onTap: () => _selectDate(context, provider),
             child: Text(
-              DateFormat('EEEE, MMM d, yyyy').format(provider.selectedDate),
+              DateFormat('EEEE, MMM d, yyyy', l10n.localeName)
+                  .format(provider.selectedDate),
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
