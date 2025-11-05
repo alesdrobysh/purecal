@@ -1,8 +1,8 @@
 {
   "@@locale": "be",
 
-  "appTitle": "FoodieFit",
-  "homeTitle": "FoodieFit",
+  "appTitle": "PureCal",
+  "homeTitle": "PureCal",
   "setGoals": "Усталяваць мэты",
   "viewCharts": "Паглядзець графікі",
   "settings": "Налады",
@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "Вы ўпэўнены, што хочаце ачысціць кэш часта выкарыстоўваных прадуктаў? Гэта выдаліць усю гісторыю выкарыстання.",
   "cacheCleared": "Кэш ачышчаны",
   "appVersion": "Версія праграмы",
-  "appVersionNumber": "FoodieFit v1.0.0",
+  "appVersionNumber": "PureCal v1.0.0",
   "appDescription": "Праграма для вядзення дзённіка харчавання, адсочвання штодзённага рацыёну і дасягнення вашых мэтаў.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Дадзеныя пра прадукты прадастаўлены Open Food Facts",

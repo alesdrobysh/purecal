@@ -107,13 +107,13 @@ abstract class AppLocalizations {
   /// The application title
   ///
   /// In en, this message translates to:
-  /// **'FoodieFit'**
+  /// **'PureCal'**
   String get appTitle;
 
   /// Home screen title
   ///
   /// In en, this message translates to:
-  /// **'FoodieFit'**
+  /// **'PureCal'**
   String get homeTitle;
 
   /// Button to navigate to goals screen
@@ -695,7 +695,7 @@ abstract class AppLocalizations {
   /// App version number
   ///
   /// In en, this message translates to:
-  /// **'FoodieFit v1.0.0'**
+  /// **'PureCal v1.0.0'**
   String get appVersionNumber;
 
   /// App description text

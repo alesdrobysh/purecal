@@ -1,8 +1,8 @@
 {
   "@@locale": "ru",
 
-  "appTitle": "FoodieFit",
-  "homeTitle": "FoodieFit",
+  "appTitle": "PureCal",
+  "homeTitle": "PureCal",
   "setGoals": "Установить цели",
   "viewCharts": "Посмотреть графики",
   "settings": "Настройки",
@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "Вы уверены, что хотите очистить кэш часто используемых продуктов? Это удалит всю историю использования.",
   "cacheCleared": "Кэш очищен",
   "appVersion": "Версия приложения",
-  "appVersionNumber": "FoodieFit v1.0.0",
+  "appVersionNumber": "PureCal v1.0.0",
   "appDescription": "Приложение для ведения дневника питания, отслеживания ежедневного рациона и достижения ваших целей.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Данные о продуктах предоставлены Open Food Facts",

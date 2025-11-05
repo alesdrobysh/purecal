@@ -31,9 +31,8 @@ class FoodieApp extends StatelessWidget {
       child: Consumer<SettingsProvider>(
         builder: (context, settingsProvider, child) {
           return MaterialApp(
-            title: 'FoodieFit',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.lightTheme,
+      title: 'PureCal',
+      theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: settingsProvider.themeMode,
             locale: settingsProvider.locale,

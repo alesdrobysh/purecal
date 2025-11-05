@@ -1,8 +1,8 @@
 {
   "@@locale": "pl",
 
-  "appTitle": "FoodieFit",
-  "homeTitle": "FoodieFit",
+  "appTitle": "PureCal",
+  "homeTitle": "PureCal",
   "setGoals": "Ustaw cele",
   "viewCharts": "Pokaż wykresy",
   "settings": "Ustawienia",
@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "Czy na pewno chcesz wyczyścić pamięć podręczną często używanych produktów? Spowoduje to usunięcie całej historii użycia.",
   "cacheCleared": "Pamięć podręczna wyczyszczona",
   "appVersion": "Wersja aplikacji",
-  "appVersionNumber": "FoodieFit v1.0.0",
+  "appVersionNumber": "PureCal v1.0.0",
   "appDescription": "Aplikacja dziennika żywieniowego do śledzenia codziennego odżywiania i osiągania celów.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Dane o produktach dostarczone przez Open Food Facts",

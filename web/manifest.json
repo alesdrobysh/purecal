@@ -1,6 +1,6 @@
 {
-    "name": "foodiefit",
-    "short_name": "foodiefit",
+    "name": "PureCal",
+    "short_name": "PureCal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

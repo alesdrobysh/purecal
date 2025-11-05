@@ -1,15 +1,17 @@
 {
   "@@locale": "en",
 
-  "appTitle": "FoodieFit",
+  "appTitle": "PureCal",
   "@appTitle": {
     "description": "The application title"
   },
 
-  "homeTitle": "FoodieFit",
+  "homeTitle": "PureCal",
   "@homeTitle": {
     "description": "Home screen title"
   },
+
+
   "setGoals": "Set Goals",
   "@setGoals": {
     "description": "Button to navigate to goals screen"
@@ -461,7 +463,7 @@
   "@appVersion": {
     "description": "App version label"
   },
-  "appVersionNumber": "FoodieFit v1.0.0",
+  "appVersionNumber": "PureCal v1.0.0",
   "@appVersionNumber": {
     "description": "App version number"
   },

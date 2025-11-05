@@ -1,8 +1,8 @@
 {
   "@@locale": "es",
 
-  "appTitle": "FoodieFit",
-  "homeTitle": "FoodieFit",
+  "appTitle": "PureCal",
+  "homeTitle": "PureCal",
   "setGoals": "Establecer Objetivos",
   "viewCharts": "Ver Gráficos",
   "settings": "Configuración",
@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "¿Estás seguro de que quieres limpiar tu caché de productos frecuentes? Esto eliminará todo el historial de uso.",
   "cacheCleared": "Caché limpiado",
   "appVersion": "Versión de la App",
-  "appVersionNumber": "FoodieFit v1.0.0",
+  "appVersionNumber": "PureCal v1.0.0",
   "appDescription": "Una aplicación de diario de alimentos para rastrear tu nutrición diaria y alcanzar tus objetivos.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Datos de productos proporcionados por Open Food Facts",

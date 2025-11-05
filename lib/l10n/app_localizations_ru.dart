@@ -9,10 +9,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'FoodieFit';
+  String get appTitle => 'PureCal';
 
   @override
-  String get homeTitle => 'FoodieFit';
+  String get homeTitle => 'PureCal';
 
   @override
   String get setGoals => 'Установить цели';
@@ -326,7 +326,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appVersion => 'Версия приложения';
 
   @override
-  String get appVersionNumber => 'FoodieFit v1.0.0';
+  String get appVersionNumber => 'PureCal v1.0.0';
 
   @override
   String get appDescription =>
