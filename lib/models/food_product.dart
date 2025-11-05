@@ -15,6 +15,7 @@ class FoodProduct {
   final bool isLocal;
   final int? localId;
   final String? notes;
+  final String? sourceType; // 'local', 'off', 'edited_off'
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -31,6 +32,7 @@ class FoodProduct {
     this.isLocal = false,
     this.localId,
     this.notes,
+    this.sourceType,
     this.createdAt,
     this.updatedAt,
   });
@@ -102,6 +104,7 @@ class FoodProduct {
       isLocal: true,
       localId: map['id'] as int?,
       notes: map['notes']?.toString(),
+      sourceType: map['source_type']?.toString(),
       createdAt: map['created_at'] != null
           ? DateTime.tryParse(map['created_at'].toString())
           : null,
@@ -124,6 +127,7 @@ class FoodProduct {
       'serving_size': servingSize,
       'image_path': imageUrl,
       'notes': notes,
+      'source_type': sourceType,
       'is_deleted': 0,
       'created_at': (createdAt ?? DateTime.now()).toIso8601String(),
       'updated_at': (updatedAt ?? DateTime.now()).toIso8601String(),

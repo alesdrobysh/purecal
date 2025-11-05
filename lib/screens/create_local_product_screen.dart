@@ -10,12 +10,14 @@ import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
-  final FoodProduct? product;
+  final FoodProduct? product; // For editing existing local products
+  final FoodProduct? sourceOffProduct; // For creating from OFF product
   final String? initialBarcode;
 
   const CreateLocalProductScreen({
     super.key,
     this.product,
+    this.sourceOffProduct,
     this.initialBarcode,
   });
 
@@ -44,30 +46,38 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
   @override
   void initState() {
     super.initState();
-    final product = widget.product;
+    // Priority: product (editing) > sourceOffProduct (creating from OFF) > defaults
+    final sourceProduct = widget.product ?? widget.sourceOffProduct;
 
-    _nameController = TextEditingController(text: product?.name ?? '');
-    _brandController = TextEditingController(text: product?.brand ?? '');
+    _nameController = TextEditingController(text: sourceProduct?.name ?? '');
+    _brandController = TextEditingController(text: sourceProduct?.brand ?? '');
     _barcodeController = TextEditingController(
-      text: widget.initialBarcode ?? product?.barcode ?? '',
+      text: widget.initialBarcode ?? sourceProduct?.barcode ?? '',
     );
     _caloriesController = TextEditingController(
-      text: product?.caloriesPer100g.toString() ?? '',
+      text: sourceProduct?.caloriesPer100g.toString() ?? '',
     );
     _proteinsController = TextEditingController(
-      text: product?.proteinsPer100g.toString() ?? '',
+      text: sourceProduct?.proteinsPer100g.toString() ?? '',
     );
     _fatController = TextEditingController(
-      text: product?.fatPer100g.toString() ?? '',
+      text: sourceProduct?.fatPer100g.toString() ?? '',
     );
     _carbsController = TextEditingController(
-      text: product?.carbsPer100g.toString() ?? '',
+      text: sourceProduct?.carbsPer100g.toString() ?? '',
     );
     _servingSizeController = TextEditingController(
-      text: product?.servingSize?.toString() ?? '',
+      text: sourceProduct?.servingSize?.toString() ?? '',
     );
-    _notesController = TextEditingController(text: product?.notes ?? '');
-    _imagePath = product?.imageUrl;
+
+    // For OFF products, add a default note
+    final defaultNotes = widget.sourceOffProduct != null
+        ? 'Based on OpenFoodFacts product'
+        : '';
+    _notesController = TextEditingController(
+      text: sourceProduct?.notes ?? defaultNotes,
+    );
+    _imagePath = sourceProduct?.imageUrl;
   }
 
   @override
@@ -184,6 +194,19 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     });
 
     try {
+      // Determine source type
+      String? sourceType;
+      if (widget.sourceOffProduct != null) {
+        // Creating a local product from an OFF product
+        sourceType = 'edited_off';
+      } else if (widget.product != null) {
+        // Editing existing local product, preserve its source type
+        sourceType = widget.product!.sourceType ?? 'local';
+      } else {
+        // Creating a brand new local product
+        sourceType = 'local';
+      }
+
       final product = FoodProduct(
         barcode: _barcodeController.text.trim(),
         name: _nameController.text.trim(),
@@ -203,6 +226,7 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
         notes: _notesController.text.trim().isEmpty
             ? null
             : _notesController.text.trim(),
+        sourceType: sourceType,
         createdAt: widget.product?.createdAt,
         updatedAt: DateTime.now(),
       );

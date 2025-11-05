@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/food_product.dart';
 import '../services/product_service.dart';
 import 'create_local_product_screen.dart';
+import 'product_detail_screen.dart';
 import '../config/decorations.dart';
 import '../l10n/app_localizations.dart';
 
@@ -48,19 +49,6 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
     }
   }
 
-  Future<void> _editProduct(FoodProduct product) async {
-    final result = await Navigator.push<bool>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CreateLocalProductScreen(product: product),
-      ),
-    );
-
-    if (result == true) {
-      _loadProducts();
-    }
-  }
-
   Future<void> _createProduct() async {
     final result = await Navigator.push<bool>(
       context,
@@ -69,6 +57,20 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
       ),
     );
 
+    if (result == true) {
+      _loadProducts();
+    }
+  }
+
+  Future<void> _viewProductDetails(FoodProduct product) async {
+    final result = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailScreen(product: product),
+      ),
+    );
+
+    // Reload if the product was edited (result will be null if just viewing)
     if (result == true) {
       _loadProducts();
     }
@@ -253,7 +255,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 const Icon(Icons.chevron_right),
                               ],
                             ),
-                            onTap: () => _editProduct(product),
+                            onTap: () => _viewProductDetails(product),
                           ),
                         ),
                       );

@@ -7,11 +7,11 @@ import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/product_service.dart';
 import '../services/diary_provider.dart';
-import '../widgets/add_product_dialog.dart';
 import '../widgets/frequent_product_card.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
+import 'product_detail_screen.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
 
@@ -106,17 +106,19 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _showAddDialog(FoodProduct product) async {
-    final result = await showDialog(
-      context: context,
-      builder: (context) => AddProductDialog(
-        product: product,
-        mealType: widget.preselectedMealType,
+    final navigator = Navigator.of(context);
+    final result = await navigator.push(
+      MaterialPageRoute(
+        builder: (context) => ProductDetailScreen(
+          product: product,
+          mealType: widget.preselectedMealType,
+        ),
       ),
     );
 
     // If product was added, pop back to home screen
     if (result == true && mounted) {
-      Navigator.of(context).pop();
+      navigator.pop();
     }
   }
 

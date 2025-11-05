@@ -40,7 +40,7 @@ class DatabaseService {
 
     return await openDatabase(
       path,
-      version: 5,
+      version: 6,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -109,6 +109,7 @@ class DatabaseService {
           serving_size REAL,
           image_path TEXT,
           notes TEXT,
+          source_type TEXT,
           is_deleted INTEGER NOT NULL DEFAULT 0,
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL
@@ -209,6 +210,13 @@ class DatabaseService {
     if (oldVersion < 5) {
       await db.execute('''
         ALTER TABLE product_usage ADD COLUMN image_url TEXT
+      ''');
+    }
+
+    if (oldVersion < 6) {
+      // Add source_type column to local_products table
+      await db.execute('''
+        ALTER TABLE local_products ADD COLUMN source_type TEXT
       ''');
     }
   }

@@ -3,7 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import '../l10n/app_localizations.dart';
 import '../models/meal_type.dart';
 import '../services/product_service.dart';
-import '../widgets/add_product_dialog.dart';
+import 'product_detail_screen.dart';
 import 'create_local_product_screen.dart';
 import '../config/decorations.dart';
 
@@ -50,11 +50,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
       if (!mounted) return;
 
       if (product != null) {
-        final result = await showDialog<bool>(
-          context: context,
-          builder: (context) => AddProductDialog(
-            product: product,
-            mealType: widget.mealType,
+        final navigator = Navigator.of(context);
+        final result = await navigator.push<bool>(
+          MaterialPageRoute(
+            builder: (context) => ProductDetailScreen(
+              product: product,
+              mealType: widget.mealType,
+            ),
           ),
         );
 
@@ -62,7 +64,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
         // If product was added, return true to parent screen
         if (result == true) {
-          Navigator.of(context).pop(true);
+          navigator.pop(true);
         } else {
           // User cancelled, resume scanning
           setState(() {
