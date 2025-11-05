@@ -1033,6 +1033,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Export entries from the last 30 days'**
   String get exportLast30Days;
+
+  /// Product detail screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Product Details'**
+  String get productDetails;
+
+  /// Barcode label
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get barcode;
+
+  /// Text shown for products edited from OpenFoodFacts
+  ///
+  /// In en, this message translates to:
+  /// **'Based on OpenFoodFacts product'**
+  String get basedOnOffProduct;
 }
 
 class _AppLocalizationsDelegate
