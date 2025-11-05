@@ -168,5 +168,9 @@
   "exportAllEntries": "Exportar todas las entradas del diario",
   "exportLast7Days": "Exportar entradas de los últimos 7 días",
   "last30Days": "Últimos 30 Días",
-  "exportLast30Days": "Exportar entradas de los últimos 30 días"
+  "exportLast30Days": "Exportar entradas de los últimos 30 días",
+
+  "productDetails": "Product Details",
+  "barcode": "Barcode",
+  "basedOnOffProduct": "Based on OpenFoodFacts product"
 }

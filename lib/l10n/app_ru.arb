@@ -169,4 +169,8 @@
   "exportLast7Days": "Экспортировать записи за последние 7 дней",
   "last30Days": "Последние 30 дней",
   "exportLast30Days": "Экспортировать записи за последние 30 дней"
+,
+  "productDetails": "Product Details",
+  "barcode": "Barcode",
+  "basedOnOffProduct": "Based on OpenFoodFacts product"
 }

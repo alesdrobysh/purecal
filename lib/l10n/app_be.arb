@@ -168,5 +168,9 @@
   "exportAllEntries": "Экспартаваць усе запісы дзённіка",
   "exportLast7Days": "Экспартаваць запісы за апошнія 7 дзён",
   "last30Days": "Апошнія 30 дзён",
-  "exportLast30Days": "Экспартаваць запісы за апошнія 30 дзён"
+  "exportLast30Days": "Экспартаваць запісы за апошнія 30 дзён",
+
+  "productDetails": "Product Details",
+  "barcode": "Barcode",
+  "basedOnOffProduct": "Based on OpenFoodFacts product"
 }
