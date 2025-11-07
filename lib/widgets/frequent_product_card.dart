@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../config/decorations.dart';
+import 'product_image.dart';
 
 class FrequentProductCard extends StatelessWidget {
   final String barcode;
@@ -28,41 +29,26 @@ class FrequentProductCard extends StatelessWidget {
         margin: const EdgeInsets.only(right: 12),
         child: Column(
           children: [
-            imageUrl == null
-                ? Container(
-                    width: 60,
-                    height: 60,
-                    decoration: AppShapes.greenContainer(context),
-                    child: Center(
-                      child: Icon(
-                        Icons.fastfood,
-                        color: iconColor,
-                        size: 30,
-                      ),
-                    ),
-                  )
-                : Image.network(
-                    imageUrl!,
-                    width: 60,
-                    height: 60,
-                    fit: BoxFit.cover,
-                    cacheWidth: 120,
-                    cacheHeight: 120,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 60,
-                        height: 60,
-                        decoration: AppShapes.greenContainer(context),
-                        child: Center(
-                          child: Icon(
-                            Icons.fastfood,
-                            color: iconColor,
-                            size: 30,
-                          ),
-                        ),
-                      );
-                    },
+            ProductImage(
+              imageUrl: imageUrl,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+              cacheWidth: 120,
+              cacheHeight: 120,
+              errorWidget: Container(
+                width: 60,
+                height: 60,
+                decoration: AppShapes.greenContainer(context),
+                child: Center(
+                  child: Icon(
+                    Icons.fastfood,
+                    color: iconColor,
+                    size: 30,
                   ),
+                ),
+              ),
+            ),
             const SizedBox(height: 6),
             Text(
               productName,

@@ -1,7 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/food_product.dart';
 import '../services/product_service.dart';
+import '../widgets/product_image.dart';
 import 'create_local_product_screen.dart';
 import 'product_detail_screen.dart';
 import '../config/decorations.dart';
@@ -185,35 +185,24 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                             vertical: 6,
                           ),
                           child: ListTile(
-                            leading: product.imageUrl != null
-                                ? ClipRRect(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: ProductImage(
+                                imageUrl: product.imageUrl,
+                                width: 56,
+                                height: 56,
+                                fit: BoxFit.cover,
+                                errorWidget: Container(
+                                  width: 56,
+                                  height: 56,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.file(
-                                      File(product.imageUrl!),
-                                      width: 56,
-                                      height: 56,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Container(
-                                          width: 56,
-                                          height: 56,
-                                          color: Colors.grey[300],
-                                          child: const Icon(
-                                              Icons.image_not_supported),
-                                        );
-                                      },
-                                    ),
-                                  )
-                                : Container(
-                                    width: 56,
-                                    height: 56,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300],
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: const Icon(Icons.fastfood),
                                   ),
+                                  child: const Icon(Icons.fastfood),
+                                ),
+                              ),
+                            ),
                             title: Text(
                               product.name,
                               style:

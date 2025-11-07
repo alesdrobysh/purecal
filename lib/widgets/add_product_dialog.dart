@@ -5,6 +5,7 @@ import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
 import 'custom_input_decoration.dart';
+import 'product_image.dart';
 import '../config/decorations.dart';
 
 class AddProductDialog extends StatefulWidget {
@@ -66,12 +67,11 @@ class _AddProductDialogState extends State<AddProductDialog> {
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    widget.product.imageUrl!,
+                  child: ProductImage(
+                    imageUrl: widget.product.imageUrl,
                     height: 120,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.fastfood, size: 60),
+                    errorWidget: const Icon(Icons.fastfood, size: 60),
                   ),
                 ),
               ),

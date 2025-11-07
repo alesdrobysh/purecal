@@ -7,6 +7,7 @@ import '../models/food_product.dart';
 import '../l10n/app_localizations.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../widgets/product_image.dart';
 import '../config/decorations.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
@@ -291,8 +292,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                   child: _imagePath != null
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            File(_imagePath!),
+                          child: ProductImage(
+                            imageUrl: _imagePath,
                             fit: BoxFit.cover,
                           ),
                         )

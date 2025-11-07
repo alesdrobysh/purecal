@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import '../models/meal_type.dart';
 import '../services/product_service.dart';
 import '../services/diary_provider.dart';
 import '../widgets/frequent_product_card.dart';
+import '../widgets/product_image.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
@@ -390,29 +390,16 @@ class _SearchScreenState extends State<SearchScreen> {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              if (product.imageUrl != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: product.isLocal
-                      ? Image.file(
-                          File(product.imageUrl!),
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              _buildPlaceholderImage(),
-                        )
-                      : Image.network(
-                          product.imageUrl!,
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              _buildPlaceholderImage(),
-                        ),
-                )
-              else
-                _buildPlaceholderImage(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: ProductImage(
+                  imageUrl: product.imageUrl,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                  errorWidget: _buildPlaceholderImage(),
+                ),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(

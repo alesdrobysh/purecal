@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
@@ -6,6 +5,7 @@ import '../models/food_product.dart';
 import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../widgets/product_image.dart';
 import '../config/decorations.dart';
 import 'create_local_product_screen.dart';
 
@@ -98,26 +98,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   width: double.infinity,
                   height: 250,
                   color: Colors.grey[200],
-                  child: widget.product.isLocal
-                      ? (widget.product.imageUrl!.startsWith('http')
-                          ? Image.network(
-                              widget.product.imageUrl!,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.fastfood, size: 80),
-                            )
-                          : Image.file(
-                              File(widget.product.imageUrl!),
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.fastfood, size: 80),
-                            ))
-                      : Image.network(
-                          widget.product.imageUrl!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Icon(Icons.fastfood, size: 80),
-                        ),
+                  child: ProductImage(
+                    imageUrl: widget.product.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 

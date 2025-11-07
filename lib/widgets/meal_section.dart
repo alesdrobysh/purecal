@@ -6,6 +6,7 @@ import '../models/meal_type.dart';
 import '../services/diary_provider.dart';
 import '../screens/search_screen.dart';
 import 'custom_input_decoration.dart';
+import 'product_image.dart';
 
 class MealSection extends StatefulWidget {
   final MealType mealType;
@@ -172,20 +173,16 @@ class _MealSectionState extends State<MealSection> {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              if (entry.imageUrl != null)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(4),
-                  child: Image.network(
-                    entry.imageUrl!,
-                    width: 50,
-                    height: 50,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        _buildPlaceholderImage(),
-                  ),
-                )
-              else
-                _buildPlaceholderImage(),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: ProductImage(
+                  imageUrl: entry.imageUrl,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorWidget: _buildPlaceholderImage(),
+                ),
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
