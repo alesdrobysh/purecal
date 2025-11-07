@@ -383,7 +383,7 @@ class SettingsScreen extends StatelessWidget {
               subtitle: Text(l10n.exportAllEntries),
               onTap: () {
                 Navigator.pop(context);
-                _performExport(null, null);
+                _performExport(context, null, null);
               },
             ),
             ListTile(
@@ -394,7 +394,7 @@ class SettingsScreen extends StatelessWidget {
                 Navigator.pop(context);
                 final endDate = DateTime.now();
                 final startDate = endDate.subtract(const Duration(days: 7));
-                _performExport(startDate, endDate);
+                _performExport(context, startDate, endDate);
               },
             ),
             ListTile(
@@ -405,7 +405,7 @@ class SettingsScreen extends StatelessWidget {
                 Navigator.pop(context);
                 final endDate = DateTime.now();
                 final startDate = endDate.subtract(const Duration(days: 30));
-                _performExport(startDate, endDate);
+                _performExport(context, startDate, endDate);
               },
             ),
           ],
@@ -415,53 +415,74 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _performExport(
+    BuildContext context,
     DateTime? startDate,
     DateTime? endDate,
   ) async {
-    final navigatorKey = GlobalKey<NavigatorState>();
-    final context = navigatorKey.currentContext!;
     final l10n = AppLocalizations.of(context)!;
     final exportService = ExportService();
 
     BuildContext? dialogContext;
 
+    // Show loading dialog
     showDialog(
-        context: context,
-        builder: (context) {
-          dialogContext = context;
-          return AlertDialog(
-            content: Row(
-              children: [
-                const CircularProgressIndicator(),
-                const SizedBox(width: 20),
-                Text(l10n.exportingData),
-              ],
-            ),
-          );
-        });
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        dialogContext = context;
+        return AlertDialog(
+          content: Row(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(l10n.exportingData),
+            ],
+          ),
+        );
+      },
+    );
 
     try {
       await exportService.exportDiaryEntriesToCSV(
         startDate: startDate,
         endDate: endDate,
       );
-    } catch (e) {
-      // Show error message
-      String errorMessage = l10n.exportError;
-      if (e.toString().contains('No diary entries')) {
-        errorMessage = l10n.noDataToExport;
+
+      // Close loading dialog
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!);
       }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessage),
-          duration: const Duration(seconds: 3),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } finally {
+      // Show success message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.exportSuccess),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      // Close loading dialog
       if (dialogContext != null && dialogContext!.mounted) {
-        Navigator.pop(dialogContext!); // Close loading dialog
+        Navigator.pop(dialogContext!);
+      }
+
+      // Show error message
+      if (context.mounted) {
+        String errorMessage = l10n.exportError;
+        if (e.toString().contains('No diary entries')) {
+          errorMessage = l10n.noDataToExport;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
   }
