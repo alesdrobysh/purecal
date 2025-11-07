@@ -529,11 +529,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exportLast30Days => 'Экспортировать записи за последние 30 дней';
 
   @override
-  String get productDetails => 'Product Details';
+  String get productDetails => 'Сведения о продукте';
 
   @override
-  String get barcode => 'Barcode';
+  String get barcode => 'Штрих-код';
 
   @override
-  String get basedOnOffProduct => 'Based on OpenFoodFacts product';
+  String get basedOnOffProduct => 'На основе продукта OpenFoodFacts';
 }

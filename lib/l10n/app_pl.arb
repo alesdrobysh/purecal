@@ -170,7 +170,16 @@
   "last30Days": "Ostatnie 30 dni",
   "exportLast30Days": "Eksportuj wpisy z ostatnich 30 dni",
 
-  "productDetails": "Product Details",
-  "barcode": "Barcode",
-  "basedOnOffProduct": "Based on OpenFoodFacts product"
+  "productDetails": "Szczegóły Produktu",
+  "@productDetails": {
+    "description": "Product detail screen title"
+  },
+  "barcode": "Kod Kreskowy",
+  "@barcode": {
+    "description": "Barcode label"
+  },
+  "basedOnOffProduct": "Na podstawie produktu OpenFoodFacts",
+  "@basedOnOffProduct": {
+    "description": "Text shown for products edited from OpenFoodFacts"
+  }
 }

@@ -528,11 +528,11 @@ class AppLocalizationsBe extends AppLocalizations {
   String get exportLast30Days => 'Экспартаваць запісы за апошнія 30 дзён';
 
   @override
-  String get productDetails => 'Product Details';
+  String get productDetails => 'Дэталі прадукту';
 
   @override
-  String get barcode => 'Barcode';
+  String get barcode => 'Штрых-код';
 
   @override
-  String get basedOnOffProduct => 'Based on OpenFoodFacts product';
+  String get basedOnOffProduct => 'На аснове прадукту OpenFoodFacts';
 }

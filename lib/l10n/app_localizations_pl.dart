@@ -529,11 +529,11 @@ class AppLocalizationsPl extends AppLocalizations {
   String get exportLast30Days => 'Eksportuj wpisy z ostatnich 30 dni';
 
   @override
-  String get productDetails => 'Product Details';
+  String get productDetails => 'Szczegóły Produktu';
 
   @override
-  String get barcode => 'Barcode';
+  String get barcode => 'Kod Kreskowy';
 
   @override
-  String get basedOnOffProduct => 'Based on OpenFoodFacts product';
+  String get basedOnOffProduct => 'Na podstawie produktu OpenFoodFacts';
 }

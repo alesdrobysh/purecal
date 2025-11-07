@@ -170,7 +170,16 @@
   "last30Days": "Апошнія 30 дзён",
   "exportLast30Days": "Экспартаваць запісы за апошнія 30 дзён",
 
-  "productDetails": "Product Details",
-  "barcode": "Barcode",
-  "basedOnOffProduct": "Based on OpenFoodFacts product"
+  "productDetails": "Дэталі прадукту",
+  "@productDetails": {
+    "description": "Product detail screen title"
+  },
+  "barcode": "Штрых-код",
+  "@barcode": {
+    "description": "Barcode label"
+  },
+  "basedOnOffProduct": "На аснове прадукту OpenFoodFacts",
+  "@basedOnOffProduct": {
+    "description": "Text shown for products edited from OpenFoodFacts"
+  }
 }
