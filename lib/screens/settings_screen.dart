@@ -160,9 +160,9 @@ class SettingsScreen extends StatelessWidget {
         showAboutDialog(
           context: context,
           applicationName: l10n.appTitle,
-          applicationVersion: '1.0.0',
-          applicationIcon:
-              Icon(Icons.restaurant, size: 48, color: Theme.of(context).colorScheme.primary),
+          applicationVersion: '0.1.0-beta.1+1',
+          applicationIcon: Icon(Icons.restaurant,
+              size: 48, color: Theme.of(context).colorScheme.primary),
           children: [
             Text(
               l10n.appDescription,
