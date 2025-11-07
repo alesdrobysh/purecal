@@ -85,7 +85,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(l10n.goalsUpdatedSuccessfully),
-        backgroundColor: AppColors.green,
+        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
 
@@ -97,8 +97,9 @@ class _GoalsScreenState extends State<GoalsScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(l10n.setYourGoals),
-        backgroundColor: AppColors.green,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -188,8 +189,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
               child: ElevatedButton(
                 onPressed: _saveGoals,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.green,
-                  foregroundColor: Colors.white,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),

@@ -142,7 +142,7 @@ class CalorieTrendChart extends StatelessWidget {
                           FlSpot(6, goalCalories),
                         ],
                         isCurved: false,
-                        color: AppColors.green.withAlpha((0.5 * 255).toInt()),
+                        color: Theme.of(context).colorScheme.primary.withAlpha((0.5 * 255).toInt()),
                         barWidth: 2,
                         dotData: const FlDotData(show: false),
                         dashArray: [5, 5],
@@ -230,7 +230,7 @@ class CalorieTrendChart extends StatelessWidget {
                 if (goals != null) ...[
                   const SizedBox(width: 24),
                   _buildLegendItem(
-                      l10n.goal, AppColors.green.withAlpha((0.5 * 255).toInt()),
+                      l10n.goal, Theme.of(context).colorScheme.primary.withAlpha((0.5 * 255).toInt()),
                       isDashed: true),
                 ],
               ],

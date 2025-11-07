@@ -269,8 +269,9 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(_isEditMode ? l10n.editProduct : l10n.createProduct),
-        backgroundColor: AppColors.green,
       ),
       body: Form(
         key: _formKey,
@@ -424,23 +425,23 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             ElevatedButton(
               onPressed: _isSaving ? null : _saveProduct,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.green,
+                backgroundColor: Theme.of(context).colorScheme.primary,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: _isSaving
-                  ? const SizedBox(
+                  ? SizedBox(
                       height: 20,
                       width: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.onPrimary),
                       ),
                     )
                   : Text(
                       _isEditMode ? l10n.updateProduct : l10n.createProductButton,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                     ),
             ),

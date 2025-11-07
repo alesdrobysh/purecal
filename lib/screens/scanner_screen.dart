@@ -162,8 +162,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(title),
-        backgroundColor: AppColors.green,
       ),
       body: Stack(
         children: [

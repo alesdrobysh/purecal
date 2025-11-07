@@ -207,10 +207,11 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(widget.preselectedMealType != null
             ? l10n.addToMeal(widget.preselectedMealType!.displayName(context))
             : l10n.searchProducts),
-        backgroundColor: AppColors.green,
         actions: [
           IconButton(
             onPressed: _openMyProducts,
@@ -471,7 +472,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ],
                 ),
               ),
-              Icon(Icons.add_circle_outline, color: AppColors.green),
+              Icon(Icons.add_circle_outline, color: Theme.of(context).colorScheme.primary),
             ],
           ),
         ),

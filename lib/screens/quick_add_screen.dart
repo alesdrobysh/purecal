@@ -60,8 +60,9 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text('${l10n.quickAdd} - ${_selectedMealType.displayName(context)}'),
-        backgroundColor: AppColors.green,
       ),
       body: Form(
         key: _formKey,

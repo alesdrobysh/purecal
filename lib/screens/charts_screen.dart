@@ -71,13 +71,13 @@ class _ChartsScreenState extends State<ChartsScreen>
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(l10n.nutritionCharts),
-        backgroundColor: AppColors.green,
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: Colors.white,
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.white70,
+          labelColor: Theme.of(context).colorScheme.onPrimary,
+          unselectedLabelColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
           tabs: [
             Tab(
               icon: const Icon(Icons.pie_chart),

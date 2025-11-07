@@ -81,8 +81,9 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(l10n.myProducts),
-        backgroundColor: AppColors.green,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

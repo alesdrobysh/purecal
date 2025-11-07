@@ -76,9 +76,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(l10n.productDetails),
-        backgroundColor: AppColors.green,
-        foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -142,13 +142,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: AppColors.green.withOpacity(0.2),
+                            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
                             l10n.custom,
                             style: TextStyle(
-                              color: AppColors.green,
+                              color: Theme.of(context).colorScheme.primary,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),
@@ -342,8 +342,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.green,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
                       ),
                       child: Text(
                         l10n.addToDiary,

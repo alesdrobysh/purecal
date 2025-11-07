@@ -1,55 +1,35 @@
 import 'package:flutter/material.dart';
 
 /// Centralized color palette for the app.
-/// Exposes the primary green MaterialColor and provides theme-aware color getters.
+/// Exposes theme-aware color getters based on the Material 3 ColorScheme.
 class AppColors {
-  /// Primary green MaterialColor with all shades (50, 100, 200, ..., 900)
-  /// Access shades via: AppColors.green.shade50, AppColors.green.shade100, etc.
-  static const MaterialColor green = Colors.green;
-
   // Theme-aware color getters
   static Color containerBackground(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade900
-        : green.shade50;
+    return Theme.of(context).colorScheme.surfaceContainer;
   }
 
   static Color containerBorder(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade600
-        : green.shade300;
+    return Theme.of(context).colorScheme.outlineVariant;
   }
 
   static Color badgeBackground(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade800
-        : green.shade100;
+    return Theme.of(context).colorScheme.secondaryContainer;
   }
 
   static Color badgeText(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade100
-        : green.shade800;
+    return Theme.of(context).colorScheme.onSecondaryContainer;
   }
 
   static Color iconAccent(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade300
-        : green.shade700;
+    return Theme.of(context).colorScheme.primary;
   }
 
   static Color buttonBackground(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? green.shade700
-        : green.shade500;
+    return Theme.of(context).colorScheme.primary;
   }
 
   static Color infoBoxBackground(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return isDark
-        ? colorScheme.surfaceContainerHighest
-        : colorScheme.surfaceContainer;
+    return Theme.of(context).colorScheme.surfaceContainerHighest;
   }
 
   static Color infoBoxText(BuildContext context) {
@@ -57,13 +37,11 @@ class AppColors {
   }
 
   static Color infoBoxIcon(BuildContext context) {
-    return green.shade700;
+    return Theme.of(context).colorScheme.primary;
   }
 
   static Color inputBackground(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return isDark ? colorScheme.surfaceContainerHighest : green.shade50;
+    return Theme.of(context).colorScheme.surfaceContainerHighest;
   }
 }
 

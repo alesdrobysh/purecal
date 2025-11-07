@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'decorations.dart';
 
 class AppTheme {
+  static const Color _seedColor = Colors.green;
+
   static ThemeData lightTheme = ThemeData(
-    primarySwatch: AppColors.green,
     useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      foregroundColor: Colors.white,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: Brightness.light,
     ),
   );
 
   static ThemeData darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primarySwatch: AppColors.green,
     useMaterial3: true,
-    appBarTheme: const AppBarTheme(
-      foregroundColor: Colors.white,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: _seedColor,
+      brightness: Brightness.dark,
     ),
   );
 }

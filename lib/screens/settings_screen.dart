@@ -15,8 +15,9 @@ class SettingsScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: Text(l10n.settings),
-        backgroundColor: AppColors.green,
       ),
       body: ListView(
         children: [
@@ -161,7 +162,7 @@ class SettingsScreen extends StatelessWidget {
           applicationName: l10n.appTitle,
           applicationVersion: '1.0.0',
           applicationIcon:
-              Icon(Icons.restaurant, size: 48, color: AppColors.green),
+              Icon(Icons.restaurant, size: 48, color: Theme.of(context).colorScheme.primary),
           children: [
             Text(
               l10n.appDescription,
@@ -175,7 +176,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildOFFAttribution(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: Icon(Icons.public, color: AppColors.green),
+      leading: Icon(Icons.public, color: Theme.of(context).colorScheme.primary),
       title: Text(l10n.openFoodFacts),
       subtitle: Text(l10n.openFoodFactsAttribution),
       trailing: const Icon(Icons.open_in_new, size: 18),
@@ -459,7 +460,7 @@ class SettingsScreen extends StatelessWidget {
           SnackBar(
             content: Text(l10n.exportSuccess),
             duration: const Duration(seconds: 2),
-            backgroundColor: Colors.green,
+            backgroundColor: Theme.of(context).colorScheme.primary,
           ),
         );
       }
