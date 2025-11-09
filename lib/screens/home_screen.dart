@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../config/custom_colors.dart';
 import '../l10n/app_localizations.dart';
 import '../services/diary_provider.dart';
 import '../models/meal_type.dart';
 import '../widgets/meal_section.dart';
+import '../widgets/branded_app_bar.dart';
 import 'goals_screen.dart';
 import 'charts_screen.dart';
 import 'settings_screen.dart';
@@ -18,10 +20,8 @@ class HomeScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(l10n.homeTitle),
+      appBar: BrandedAppBar(
+        title: l10n.homeTitle,
         actions: [
           IconButton(
             icon: const Icon(Icons.flag),
@@ -172,7 +172,7 @@ class HomeScreen extends StatelessWidget {
             label: l10n.calories,
             current: summary.calories,
             goal: goals?.caloriesGoal ?? 2000,
-            color: Colors.orange,
+            color: context.customColors.caloriesColor,
           ),
           const SizedBox(height: 12),
           Row(
@@ -182,7 +182,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.protein,
                   current: summary.proteins,
                   goal: goals?.proteinsGoal ?? 150,
-                  color: Colors.red,
+                  color: context.customColors.proteinColor,
                 ),
               ),
               const SizedBox(width: 8),
@@ -191,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.fat,
                   current: summary.fat,
                   goal: goals?.fatGoal ?? 65,
-                  color: Colors.yellow[700]!,
+                  color: context.customColors.fatColor,
                 ),
               ),
               const SizedBox(width: 8),
@@ -200,7 +200,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.carbs,
                   current: summary.carbs,
                   goal: goals?.carbsGoal ?? 200,
-                  color: Colors.blue,
+                  color: context.customColors.carbsColor,
                 ),
               ),
             ],

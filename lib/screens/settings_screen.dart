@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/custom_colors.dart';
+import '../widgets/branded_app_bar.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import '../services/export_service.dart';
 import 'local_products_list_screen.dart';
-import '../config/decorations.dart';
 import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -14,10 +15,8 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(l10n.settings),
+      appBar: BrandedAppBar(
+        title: l10n.settings,
       ),
       body: ListView(
         children: [
@@ -41,14 +40,16 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Widget _buildSectionHeader(String title) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey,
+    return Builder(
+      builder: (context) => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
       ),
     );
@@ -57,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildMyProductsOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.inventory_2, color: Colors.blue),
+      leading: Icon(Icons.inventory_2, color: context.customColors.infoColor),
       title: Text(l10n.myProducts),
       subtitle: Text(l10n.manageYourCustomProducts),
       trailing: const Icon(Icons.chevron_right),
@@ -75,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildLanguageOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.language, color: Colors.blue),
+      leading: Icon(Icons.language, color: context.customColors.infoColor),
       title: Text(l10n.language),
       subtitle: Text(_getLanguageSubtitle(context)),
       onTap: () => _showLanguageDialog(context),
@@ -85,7 +86,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildThemeOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.palette, color: Colors.purple),
+      leading: Icon(Icons.palette, color: context.customColors.themeColor),
       title: Text(l10n.theme),
       subtitle: Text(_getThemeSubtitle(context)),
       onTap: () => _showThemeDialog(context),
@@ -95,7 +96,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildExportDataOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.upload_file, color: Colors.green),
+      leading: Icon(Icons.upload_file, color: context.customColors.exportColor),
       title: Text(l10n.exportDiaryEntries),
       subtitle: Text(l10n.exportDiaryEntriesDescription),
       onTap: () => _handleExportDiary(context),
@@ -105,7 +106,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildClearCacheOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.delete_sweep, color: Colors.orange),
+      leading: Icon(Icons.delete_sweep, color: context.customColors.warningColor),
       title: Text(l10n.clearFrequentProductsCache),
       subtitle: Text(l10n.clearFrequentProductsDescription),
       onTap: () => _showClearCacheDialog(context),
@@ -142,7 +143,7 @@ class SettingsScreen extends StatelessWidget {
                 );
               }
             },
-            style: TextButton.styleFrom(foregroundColor: Colors.orange),
+            style: TextButton.styleFrom(foregroundColor: context.customColors.warningColor),
             child: Text(l10n.clear),
           ),
         ],
@@ -153,7 +154,7 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildAboutOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: const Icon(Icons.info_outline, color: Colors.blue),
+      leading: Icon(Icons.info_outline, color: context.customColors.infoColor),
       title: Text(l10n.appVersion),
       subtitle: Text(l10n.appVersionNumber),
       onTap: () {
@@ -481,7 +482,7 @@ class SettingsScreen extends StatelessWidget {
           SnackBar(
             content: Text(errorMessage),
             duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
+            backgroundColor: context.customColors.dangerColor,
           ),
         );
       }

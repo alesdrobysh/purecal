@@ -7,6 +7,8 @@ import '../services/diary_provider.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
+import '../widgets/branded_app_bar.dart';
 import 'create_local_product_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -75,10 +77,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final nutrition = widget.product.calculateNutrition(_currentPortion);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(l10n.productDetails),
+      appBar: BrandedAppBar(
+        title: l10n.productDetails,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
@@ -97,7 +97,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Container(
                   width: double.infinity,
                   height: 250,
-                  color: Colors.grey[200],
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   child: ProductImage(
                     imageUrl: widget.product.imageUrl,
                     fit: BoxFit.cover,
@@ -130,7 +130,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 widget.product.brand!,
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.grey[600],
+                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                 ),
                               ),
                             ],
@@ -142,7 +142,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -164,7 +164,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       '${l10n.barcode}: ${widget.product.barcode}',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -176,7 +176,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       l10n.basedOnOffProduct,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -190,7 +190,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.blue[50],
+                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(

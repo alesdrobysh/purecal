@@ -8,7 +8,9 @@ import '../l10n/app_localizations.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
+import '../widgets/branded_app_bar.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product; // For editing existing local products
@@ -268,10 +270,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(_isEditMode ? l10n.editProduct : l10n.createProduct),
+      appBar: BrandedAppBar(
+        title: _isEditMode ? l10n.editProduct : l10n.createProduct,
       ),
       body: Form(
         key: _formKey,
@@ -286,9 +286,9 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey[400]!),
+                    border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
                   ),
                   child: _imagePath != null
                       ? ClipRRect(
@@ -302,11 +302,11 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add_a_photo,
-                                size: 40, color: Colors.grey[600]),
+                                size: 40, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             const SizedBox(height: 8),
                             Text(
                               l10n.addPhoto,
-                              style: TextStyle(color: Colors.grey[600]),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                             ),
                           ],
                         ),

@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../config/custom_colors.dart';
 import '../services/database_service.dart';
 import '../l10n/app_localizations.dart';
 
@@ -46,7 +47,7 @@ class MacroTrendChart extends StatelessWidget {
               l10n.proteinFatCarbsGrams,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
             const SizedBox(height: 24),
@@ -62,13 +63,13 @@ class MacroTrendChart extends StatelessWidget {
                     horizontalInterval: chartMaxY / 5,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300]!,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         strokeWidth: 1,
                       );
                     },
                     getDrawingVerticalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300]!,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         strokeWidth: 1,
                       );
                     },
@@ -83,7 +84,7 @@ class MacroTrendChart extends StatelessWidget {
                           return Text(
                             value.toInt().toString(),
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                               fontSize: 12,
                             ),
                           );
@@ -112,7 +113,7 @@ class MacroTrendChart extends StatelessWidget {
                             child: Text(
                               dayName,
                               style: TextStyle(
-                                color: Colors.grey[600],
+                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -131,7 +132,7 @@ class MacroTrendChart extends StatelessWidget {
                   borderData: FlBorderData(
                     show: true,
                     border: Border.all(
-                      color: Colors.grey[300]!,
+                      color: Theme.of(context).colorScheme.outlineVariant,
                       width: 1,
                     ),
                   ),
@@ -146,16 +147,16 @@ class MacroTrendChart extends StatelessWidget {
                         ),
                       ),
                       isCurved: true,
-                      color: Colors.red,
+                      color: context.customColors.proteinColor,
                       barWidth: 2.5,
                       dotData: FlDotData(
                         show: true,
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 3,
-                            color: Colors.red,
+                            color: context.customColors.proteinColor,
                             strokeWidth: 1.5,
-                            strokeColor: Colors.white,
+                            strokeColor: Theme.of(context).colorScheme.surface,
                           );
                         },
                       ),
@@ -171,16 +172,16 @@ class MacroTrendChart extends StatelessWidget {
                         ),
                       ),
                       isCurved: true,
-                      color: Colors.yellow[700]!,
+                      color: context.customColors.fatColor,
                       barWidth: 2.5,
                       dotData: FlDotData(
                         show: true,
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 3,
-                            color: Colors.yellow[700]!,
+                            color: context.customColors.fatColor,
                             strokeWidth: 1.5,
-                            strokeColor: Colors.white,
+                            strokeColor: Theme.of(context).colorScheme.surface,
                           );
                         },
                       ),
@@ -196,16 +197,16 @@ class MacroTrendChart extends StatelessWidget {
                         ),
                       ),
                       isCurved: true,
-                      color: Colors.blue,
+                      color: context.customColors.carbsColor,
                       barWidth: 2.5,
                       dotData: FlDotData(
                         show: true,
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 3,
-                            color: Colors.blue,
+                            color: context.customColors.carbsColor,
                             strokeWidth: 1.5,
-                            strokeColor: Colors.white,
+                            strokeColor: Theme.of(context).colorScheme.surface,
                           );
                         },
                       ),
@@ -261,11 +262,11 @@ class MacroTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem(l10n.protein, Colors.red),
+                _buildLegendItem(l10n.protein, context.customColors.proteinColor),
                 const SizedBox(width: 16),
-                _buildLegendItem(l10n.fat, Colors.yellow[700]!),
+                _buildLegendItem(l10n.fat, context.customColors.fatColor),
                 const SizedBox(width: 16),
-                _buildLegendItem(l10n.carbs, Colors.blue),
+                _buildLegendItem(l10n.carbs, context.customColors.carbsColor),
               ],
             ),
           ],

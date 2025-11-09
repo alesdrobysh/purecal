@@ -20,7 +20,7 @@ class FrequentProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconColor = AppColors.iconAccent(context);
+    final iconColor = Theme.of(context).colorScheme.primary;
 
     return GestureDetector(
       onTap: onTap,

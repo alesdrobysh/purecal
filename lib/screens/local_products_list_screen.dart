@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/food_product.dart';
 import '../services/product_service.dart';
 import '../widgets/product_image.dart';
+import '../widgets/branded_app_bar.dart';
 import 'create_local_product_screen.dart';
 import 'product_detail_screen.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 import '../l10n/app_localizations.dart';
 
 class LocalProductsListScreen extends StatefulWidget {
@@ -80,10 +82,8 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(l10n.myProducts),
+      appBar: BrandedAppBar(
+        title: l10n.myProducts,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -95,14 +95,14 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                       Icon(
                         Icons.inventory_2_outlined,
                         size: 80,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       const SizedBox(height: 16),
                       Text(
                         l10n.noCustomProductsYet,
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -110,7 +110,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                         l10n.tapPlusToAdd,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey[500],
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -128,7 +128,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                         background: Container(
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 20),
-                          color: Colors.red,
+                          color: context.customColors.dangerColor,
                           child: const Icon(
                             Icons.delete,
                             color: Colors.white,
@@ -150,7 +150,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
                                   style: TextButton.styleFrom(
-                                    foregroundColor: Colors.red,
+                                    foregroundColor: context.customColors.dangerColor,
                                   ),
                                   child: Text(l10n.delete),
                                 ),
@@ -193,14 +193,19 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                 width: 56,
                                 height: 56,
                                 fit: BoxFit.cover,
-                                errorWidget: Container(
-                                  width: 56,
-                                  height: 56,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(8),
+                                errorWidget: Builder(
+                                  builder: (context) => Container(
+                                    width: 56,
+                                    height: 56,
+                                    decoration: BoxDecoration(
+                                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Icon(
+                                      Icons.fastfood,
+                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                    ),
                                   ),
-                                  child: const Icon(Icons.fastfood),
                                 ),
                               ),
                             ),
@@ -218,7 +223,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                   l10n.kcalPer100g(product.caloriesPer100g.toStringAsFixed(0)),
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey[600],
+                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                                   ),
                                 ),
                               ],
@@ -237,7 +242,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.badgeText(context),
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                                     ),
                                   ),
                                 ),

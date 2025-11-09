@@ -4,9 +4,11 @@ import '../services/diary_provider.dart';
 import '../services/database_service.dart';
 import '../widgets/macro_pie_chart.dart';
 import '../widgets/calorie_trend_chart.dart';
+import '../widgets/branded_app_bar.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/macro_trend_chart.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 
 class ChartsScreen extends StatefulWidget {
   const ChartsScreen({super.key});
@@ -70,14 +72,12 @@ class _ChartsScreenState extends State<ChartsScreen>
     final provider = Provider.of<DiaryProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: Text(l10n.nutritionCharts),
+      appBar: BrandedAppBar(
+        title: l10n.nutritionCharts,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Theme.of(context).colorScheme.onPrimary,
-          unselectedLabelColor: Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+          labelColor: brandAppBarForeground,
+          unselectedLabelColor: brandAppBarForegroundSecondary,
           tabs: [
             Tab(
               icon: const Icon(Icons.pie_chart),
@@ -115,12 +115,12 @@ class _ChartsScreenState extends State<ChartsScreen>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, size: 64, color: Colors.red[400]),
+            Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
             const SizedBox(height: 16),
             Text(
               l10n.errorLoadingProduct(_errorMessage!),
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.grey),
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
@@ -218,7 +218,7 @@ class _TodayStats extends StatelessWidget {
               actual: todaySummary.calories,
               goal: goals.caloriesGoal,
               unit: l10n.kcal,
-              color: Colors.orange,
+              color: context.customColors.caloriesColor,
             ),
             const SizedBox(height: 12),
             _GoalItem(
@@ -227,7 +227,7 @@ class _TodayStats extends StatelessWidget {
               actual: todaySummary.proteins,
               goal: goals.proteinsGoal,
               unit: l10n.grams,
-              color: Colors.red,
+              color: context.customColors.proteinColor,
             ),
             const SizedBox(height: 12),
             _GoalItem(
@@ -236,7 +236,7 @@ class _TodayStats extends StatelessWidget {
               actual: todaySummary.fat,
               goal: goals.fatGoal,
               unit: l10n.grams,
-              color: Colors.yellow[700] ?? Colors.yellow,
+              color: context.customColors.fatColor,
             ),
             const SizedBox(height: 12),
             _GoalItem(
@@ -245,7 +245,7 @@ class _TodayStats extends StatelessWidget {
               actual: todaySummary.carbs,
               goal: goals.carbsGoal,
               unit: l10n.grams,
-              color: Colors.blue,
+              color: context.customColors.carbsColor,
             ),
           ],
         ),
@@ -317,7 +317,7 @@ class _GoalItem extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.bold,
-                  color: percent > 100 ? Colors.red : color,
+                  color: percent > 100 ? context.customColors.dangerColor : color,
                 ),
                 textAlign: TextAlign.right,
               ),

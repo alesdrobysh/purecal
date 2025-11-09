@@ -64,25 +64,29 @@ class ProductImage extends StatelessWidget {
 
     // Default fallback: neutral container with icon that respects dimensions
     // If width/height are specified, use them; otherwise expand to fill parent
-    final Widget errorIcon = Icon(
-      Icons.image_not_supported_outlined,
-      size: _calculateDefaultIconSize(),
-      color: Colors.grey[400],
-    );
+    return Builder(
+      builder: (context) {
+        final Widget errorIcon = Icon(
+          Icons.image_not_supported_outlined,
+          size: _calculateDefaultIconSize(),
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        );
 
-    if (width != null || height != null) {
-      return Container(
-        width: width,
-        height: height,
-        color: Colors.grey[200],
-        child: Center(child: errorIcon),
-      );
-    }
+        if (width != null || height != null) {
+          return Container(
+            width: width,
+            height: height,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            child: Center(child: errorIcon),
+          );
+        }
 
-    // No dimensions specified - expand to fill parent container
-    return Container(
-      color: Colors.grey[200],
-      child: Center(child: errorIcon),
+        // No dimensions specified - expand to fill parent container
+        return Container(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          child: Center(child: errorIcon),
+        );
+      },
     );
   }
 
