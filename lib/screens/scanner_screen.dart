@@ -7,6 +7,7 @@ import 'product_detail_screen.dart';
 import 'create_local_product_screen.dart';
 import '../config/decorations.dart';
 import '../config/custom_colors.dart';
+import '../widgets/branded_app_bar.dart';
 
 class ScannerScreen extends StatefulWidget {
   final MealType? mealType;
@@ -162,10 +163,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
         : l10n.scanBarcode;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(title),
+      appBar: BrandedAppBar(
+        title: title,
       ),
       body: Stack(
         children: [

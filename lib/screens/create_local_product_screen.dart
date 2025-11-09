@@ -8,6 +8,7 @@ import '../l10n/app_localizations.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
+import '../widgets/branded_app_bar.dart';
 import '../config/decorations.dart';
 import '../config/custom_colors.dart';
 
@@ -269,10 +270,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(_isEditMode ? l10n.editProduct : l10n.createProduct),
+      appBar: BrandedAppBar(
+        title: _isEditMode ? l10n.editProduct : l10n.createProduct,
       ),
       body: Form(
         key: _formKey,

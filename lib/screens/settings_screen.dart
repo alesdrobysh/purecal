@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config/custom_colors.dart';
+import '../widgets/branded_app_bar.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import '../services/export_service.dart';
@@ -14,10 +15,8 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(l10n.settings),
+      appBar: BrandedAppBar(
+        title: l10n.settings,
       ),
       body: ListView(
         children: [

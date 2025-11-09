@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/food_product.dart';
 import '../services/product_service.dart';
 import '../widgets/product_image.dart';
+import '../widgets/branded_app_bar.dart';
 import 'create_local_product_screen.dart';
 import 'product_detail_screen.dart';
 import '../config/decorations.dart';
@@ -81,10 +82,8 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(l10n.myProducts),
+      appBar: BrandedAppBar(
+        title: l10n.myProducts,
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())

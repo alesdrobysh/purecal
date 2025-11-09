@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../services/diary_provider.dart';
 import '../models/meal_type.dart';
 import '../widgets/meal_section.dart';
+import '../widgets/branded_app_bar.dart';
 import 'goals_screen.dart';
 import 'charts_screen.dart';
 import 'settings_screen.dart';
@@ -19,10 +20,8 @@ class HomeScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(l10n.homeTitle),
+      appBar: BrandedAppBar(
+        title: l10n.homeTitle,
         actions: [
           IconButton(
             icon: const Icon(Icons.flag),

@@ -4,6 +4,7 @@ import '../services/diary_provider.dart';
 import '../services/database_service.dart';
 import '../widgets/macro_pie_chart.dart';
 import '../widgets/calorie_trend_chart.dart';
+import '../widgets/branded_app_bar.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/macro_trend_chart.dart';
 import '../config/decorations.dart';
@@ -71,14 +72,12 @@ class _ChartsScreenState extends State<ChartsScreen>
     final provider = Provider.of<DiaryProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text(l10n.nutritionCharts),
+      appBar: BrandedAppBar(
+        title: l10n.nutritionCharts,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
+          labelColor: Colors.black87,
+          unselectedLabelColor: Colors.black54,
           tabs: [
             Tab(
               icon: const Icon(Icons.pie_chart),

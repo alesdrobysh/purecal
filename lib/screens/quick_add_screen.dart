@@ -6,6 +6,7 @@ import '../l10n/app_localizations.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
 import '../config/custom_colors.dart';
+import '../widgets/branded_app_bar.dart';
 
 class QuickAddScreen extends StatefulWidget {
   final MealType? mealType;
@@ -60,10 +61,8 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: brandGreen,
-        foregroundColor: Colors.white,
-        title: Text('${l10n.quickAdd} - ${_selectedMealType.displayName(context)}'),
+      appBar: BrandedAppBar(
+        title: '${l10n.quickAdd} - ${_selectedMealType.displayName(context)}',
       ),
       body: Form(
         key: _formKey,
