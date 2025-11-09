@@ -78,7 +78,7 @@ class _ChartsScreenState extends State<ChartsScreen>
         bottom: TabBar(
           controller: _tabController,
           labelColor: Colors.white,
-          unselectedLabelColor: Colors.white.withOpacity(0.7),
+          unselectedLabelColor: Colors.white.withValues(alpha: 0.7),
           tabs: [
             Tab(
               icon: const Icon(Icons.pie_chart),

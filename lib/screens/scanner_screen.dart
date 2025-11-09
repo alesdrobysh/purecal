@@ -175,7 +175,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
           ),
           if (_isProcessing)
             Container(
-              color: Theme.of(context).colorScheme.scrim.withOpacity(0.54),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -201,7 +201,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             right: 0,
             child: Container(
               padding: const EdgeInsets.all(16),
-              color: Theme.of(context).colorScheme.scrim.withOpacity(0.54),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
               child: Text(
                 l10n.pointCameraAtBarcode,
                 style: TextStyle(

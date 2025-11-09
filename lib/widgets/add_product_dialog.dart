@@ -89,7 +89,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 widget.product.brand!,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],

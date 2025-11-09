@@ -119,7 +119,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               l10n.setDailyTargets,
               style: TextStyle(
                 fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 32),

@@ -89,7 +89,7 @@ class _MealSectionState extends State<MealSection> {
                                 '${AppLocalizations.of(context)!.itemCount(count)} • ${calories.toStringAsFixed(0)} ${AppLocalizations.of(context)!.kcal}',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                                 ),
                               ),
                             ],
@@ -131,7 +131,7 @@ class _MealSectionState extends State<MealSection> {
                         Text(
                           AppLocalizations.of(context)!.noItemsForMeal(widget.mealType.displayName(context).toLowerCase()),
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                             fontSize: 14,
                           ),
                         ),
@@ -202,7 +202,7 @@ class _MealSectionState extends State<MealSection> {
                     Text(
                       '${entry.portionGrams.toStringAsFixed(0)}g • ${entry.calories.toStringAsFixed(0)} kcal',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                         fontSize: 12,
                       ),
                     ),
@@ -211,7 +211,7 @@ class _MealSectionState extends State<MealSection> {
                       'F: ${entry.fat.toStringAsFixed(1)}g • '
                       'C: ${entry.carbs.toStringAsFixed(1)}g',
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                         fontSize: 11,
                       ),
                     ),

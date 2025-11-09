@@ -103,7 +103,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                         l10n.noCustomProductsYet,
                         style: TextStyle(
                           fontSize: 18,
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -111,7 +111,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                         l10n.tapPlusToAdd,
                         style: TextStyle(
                           fontSize: 14,
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ],
@@ -224,7 +224,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                   l10n.kcalPer100g(product.caloriesPer100g.toStringAsFixed(0)),
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
                                   ),
                                 ),
                               ],
