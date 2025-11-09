@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.1.0-beta.2+2
+
+### Added
+- Dynamic app version loading from pubspec.yaml
+- Portrait-only orientation restriction for better mobile UX
+
+### Changed
+- Implemented consistent brand color theme (#74B225 green) with Material 3 patterns
+- Refactored AppBar into BrandedAppBar with WCAG-compliant contrast
+- Made all UI components theme-aware (eliminated hardcoded colors)
+
+### Fixed
+- Fixed FlGridData.horizontalInterval zero assertion error in charts
+- Fixed deprecated surfaceVariant usage - replaced with surfaceContainerHighest
+
 ## 0.1.0-beta.1+1
 
 ### Added
