@@ -4,6 +4,7 @@ import '../services/diary_provider.dart';
 import '../models/user_goals.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 import '../l10n/app_localizations.dart';
 
 class GoalsScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.valueMustBeNonNegative),
-          backgroundColor: Colors.red,
+          backgroundColor: context.customColors.dangerColor,
         ),
       );
       return;
@@ -118,7 +119,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               l10n.setDailyTargets,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
               ),
             ),
             const SizedBox(height: 32),
@@ -128,7 +129,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               label: l10n.calories,
               suffix: l10n.kcal,
               icon: Icons.local_fire_department,
-              color: Colors.orange,
+              color: context.customColors.caloriesColor,
               hint: 'e.g., 2000',
             ),
             const SizedBox(height: 20),
@@ -138,7 +139,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               label: l10n.protein,
               suffix: l10n.grams,
               icon: Icons.egg,
-              color: Colors.red,
+              color: context.customColors.proteinColor,
               hint: 'e.g., 150',
             ),
             const SizedBox(height: 20),
@@ -148,7 +149,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               label: l10n.fat,
               suffix: l10n.grams,
               icon: Icons.water_drop,
-              color: Colors.yellow[700]!,
+              color: context.customColors.fatColor,
               hint: 'e.g., 65',
             ),
             const SizedBox(height: 20),
@@ -158,7 +159,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
               label: l10n.carbohydrates,
               suffix: l10n.grams,
               icon: Icons.grain,
-              color: Colors.blue,
+              color: context.customColors.carbsColor,
               hint: 'e.g., 200',
             ),
             const SizedBox(height: 32),

@@ -286,9 +286,9 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey[400]!),
+                    border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
                   ),
                   child: _imagePath != null
                       ? ClipRRect(
@@ -302,11 +302,11 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add_a_photo,
-                                size: 40, color: Colors.grey[600]),
+                                size: 40, color: Theme.of(context).colorScheme.onSurfaceVariant),
                             const SizedBox(height: 8),
                             Text(
                               l10n.addPhoto,
-                              style: TextStyle(color: Colors.grey[600]),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                             ),
                           ],
                         ),
