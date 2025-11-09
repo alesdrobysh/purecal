@@ -868,5 +868,68 @@
   "basedOnOffProduct": "Based on OpenFoodFacts product",
   "@basedOnOffProduct": {
     "description": "Text shown for products edited from OpenFoodFacts"
+  },
+
+  "importDiaryEntries": "Import Diary Entries",
+  "@importDiaryEntries": {
+    "description": "Import diary data button label"
+  },
+  "importDiaryEntriesDescription": "Import food diary from CSV file",
+  "@importDiaryEntriesDescription": {
+    "description": "Import diary data description"
+  },
+  "importingData": "Importing data...",
+  "@importingData": {
+    "description": "Loading message during import"
+  },
+  "importCompleted": "Import Completed",
+  "@importCompleted": {
+    "description": "Import success dialog title"
+  },
+  "importSuccessMessage": "Imported {imported} entries, skipped {skipped} duplicates",
+  "@importSuccessMessage": {
+    "description": "Success message after import",
+    "placeholders": {
+      "imported": {
+        "type": "int",
+        "example": "10"
+      },
+      "skipped": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "importError": "Failed to import data",
+  "@importError": {
+    "description": "Generic import error message"
+  },
+  "importSummary": "Import Summary",
+  "@importSummary": {
+    "description": "Import summary dialog title"
+  },
+  "importedEntries": "Imported entries",
+  "@importedEntries": {
+    "description": "Label for imported entries count"
+  },
+  "skippedDuplicates": "Skipped duplicates",
+  "@skippedDuplicates": {
+    "description": "Label for skipped duplicates count"
+  },
+  "failedEntries": "Failed entries",
+  "@failedEntries": {
+    "description": "Label for failed entries count"
+  },
+  "viewErrors": "View Errors",
+  "@viewErrors": {
+    "description": "Button to view import errors"
+  },
+  "importErrors": "Import Errors",
+  "@importErrors": {
+    "description": "Import errors dialog title"
+  },
+  "noFileSelected": "No file selected",
+  "@noFileSelected": {
+    "description": "Error message when no file is selected for import"
   }
 }

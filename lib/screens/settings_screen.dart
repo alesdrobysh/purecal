@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:file_picker/file_picker.dart';
 import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
-import 'package:file_picker/file_picker.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import '../services/export_service.dart';
 import '../services/product_export_service.dart';
 import '../services/product_import_service.dart';
+import '../services/import_service.dart';
 import '../widgets/conflict_resolution_dialog.dart';
 import '../widgets/import_progress_dialog.dart';
 import 'local_products_list_screen.dart';
@@ -55,6 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Divider(),
           _buildSectionHeader(l10n.dataManagement),
           _buildExportDataOption(context),
+          _buildImportDataOption(context),
           _buildExportProductsOption(context),
           _buildImportProductsOption(context),
           _buildClearCacheOption(context),
@@ -128,6 +130,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: Text(l10n.exportDiaryEntries),
       subtitle: Text(l10n.exportDiaryEntriesDescription),
       onTap: () => _handleExportDiary(context),
+    );
+  }
+
+  Widget _buildImportDataOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: Icon(Icons.download_outlined, color: context.customColors.infoColor),
+      title: Text(l10n.importDiaryEntries),
+      subtitle: Text(l10n.importDiaryEntriesDescription),
+      onTap: () => _handleImportDiary(context),
     );
   }
 
@@ -541,6 +553,229 @@ class _SettingsScreenState extends State<SettingsScreen> {
         );
       }
     }
+  }
+
+  Future<void> _handleImportDiary(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
+    try {
+      // Pick CSV file
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['csv'],
+        allowMultiple: false,
+      );
+
+      if (result == null || result.files.isEmpty) {
+        // User cancelled file picker
+        return;
+      }
+
+      final filePath = result.files.single.path;
+      if (filePath == null) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(l10n.noFileSelected),
+              duration: const Duration(seconds: 2),
+              backgroundColor: context.customColors.dangerColor,
+            ),
+          );
+        }
+        return;
+      }
+
+      // Perform import
+      await _performDiaryImport(context, filePath);
+
+    } catch (e) {
+      // Error picking file
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${l10n.error}: ${e.toString()}'),
+            duration: const Duration(seconds: 3),
+            backgroundColor: context.customColors.dangerColor,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _performDiaryImport(BuildContext context, String filePath) async {
+    final l10n = AppLocalizations.of(context)!;
+    final importService = ImportService();
+
+    BuildContext? dialogContext;
+
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        dialogContext = context;
+        return AlertDialog(
+          content: Row(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(l10n.importingData),
+            ],
+          ),
+        );
+      },
+    );
+
+    try {
+      final result = await importService.importDiaryEntriesFromCsv(filePath);
+
+      // Close loading dialog
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!);
+      }
+
+      // Reload diary data for current date
+      if (context.mounted) {
+        final diaryProvider = Provider.of<DiaryProvider>(context, listen: false);
+        await diaryProvider.loadEntriesForDate(DateTime.now());
+      }
+
+      // Show import summary dialog
+      if (context.mounted) {
+        _showImportSummaryDialog(context, result);
+      }
+
+    } catch (e) {
+      // Close loading dialog
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!);
+      }
+
+      // Show error message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${l10n.importError}: ${e.toString()}'),
+            duration: const Duration(seconds: 3),
+            backgroundColor: context.customColors.dangerColor,
+          ),
+        );
+      }
+    }
+  }
+
+  void _showImportSummaryDialog(BuildContext context, ImportResult result) {
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.importSummary),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (result.imported > 0)
+              Text(
+                l10n.importSuccessMessage(result.imported, result.skipped),
+                style: TextStyle(
+                  color: context.customColors.exportColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            const SizedBox(height: 16),
+            _buildSummaryRow(
+              context,
+              l10n.importedEntries,
+              result.imported.toString(),
+              context.customColors.exportColor,
+            ),
+            const SizedBox(height: 8),
+            _buildSummaryRow(
+              context,
+              l10n.skippedDuplicates,
+              result.skipped.toString(),
+              context.customColors.warningColor,
+            ),
+            if (result.errors > 0) ...[
+              const SizedBox(height: 8),
+              _buildSummaryRow(
+                context,
+                l10n.failedEntries,
+                result.errors.toString(),
+                context.customColors.dangerColor,
+              ),
+            ],
+          ],
+        ),
+        actions: [
+          if (result.hasErrors)
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _showImportErrorsDialog(context, result.errorMessages);
+              },
+              child: Text(l10n.viewErrors),
+            ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.ok),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(BuildContext context, String label, String value, Color color) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(label),
+        Text(
+          value,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showImportErrorsDialog(BuildContext context, List<String> errorMessages) {
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.importErrors),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: errorMessages.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Text(
+                  '${index + 1}. ${errorMessages[index]}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: context.customColors.dangerColor,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.ok),
+          ),
+        ],
+      ),
+    );
   }
 
   Future<void> _handleExportProducts(BuildContext context) async {
