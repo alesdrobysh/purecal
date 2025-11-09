@@ -1,22 +1,30 @@
 import 'dart:io';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+import 'package:flutter_gemma/flutter_gemma.dart';
 import '../../models/ocr_result.dart' as models;
 import '../../models/nutrition_extraction.dart';
+import '../model_download_service.dart';
 import 'image_preprocessing_service.dart';
 import 'nutrition_text_parser.dart';
+import 'llm_nutrition_parser.dart';
 
 /// Service for performing OCR on images using Google ML Kit
-/// Primary engine for text recognition with fallback support
+/// Supports both regex-based parsing (default) and LLM-based parsing (opt-in)
 class OcrService {
   final TextRecognizer _textRecognizer = TextRecognizer();
   final ImagePreprocessingService _preprocessingService = ImagePreprocessingService();
+  final ModelDownloadService _modelDownloadService = ModelDownloadService();
+
+  // LLM parser (initialized on first use if model is available)
+  LLMNutritionParser? _llmParser;
+  FlutterGemma? _gemma;
 
   /// Perform OCR on an image and extract nutrition data
   ///
   /// Steps:
   /// 1. Preprocess image (enhance contrast, sharpen)
   /// 2. Run Google ML Kit text recognition
-  /// 3. Parse recognized text for nutrition data
+  /// 3. Parse recognized text for nutrition data (LLM if available, otherwise regex)
   /// 4. Return extraction results with confidence scores
   ///
   /// [imagePath] - Path to the image file
@@ -38,7 +46,23 @@ class OcrService {
       final ocrResult = await recognizeText(processedImagePath);
 
       // Step 3: Parse nutrition data from OCR text
-      final nutritionData = NutritionTextParser.parse(ocrResult.fullText);
+      // Check if LLM model is available and use it, otherwise fall back to regex
+      NutritionExtraction nutritionData;
+
+      final useAI = await _modelDownloadService.isModelDownloaded();
+      if (useAI) {
+        try {
+          // Use LLM parser for universal language support
+          nutritionData = await _parseWithLLM(ocrResult.fullText);
+        } catch (e) {
+          // If LLM parsing fails, fall back to regex
+          print('LLM parsing failed, falling back to regex: $e');
+          nutritionData = NutritionTextParser.parse(ocrResult.fullText);
+        }
+      } else {
+        // Use regex parser (default)
+        nutritionData = NutritionTextParser.parse(ocrResult.fullText);
+      }
 
       // Clean up temporary preprocessed image
       if (preprocessImage && processedImagePath != imagePath) {
@@ -53,6 +77,20 @@ class OcrService {
     } catch (e) {
       throw OcrException('Failed to extract nutrition data: $e');
     }
+  }
+
+  /// Parse nutrition data using LLM (AI-powered, universal language support)
+  Future<NutritionExtraction> _parseWithLLM(String ocrText) async {
+    // Initialize LLM parser if not already initialized
+    if (_llmParser == null || _gemma == null) {
+      _gemma = FlutterGemma();
+      _llmParser = LLMNutritionParser(_gemma!);
+
+      final modelPath = await _modelDownloadService.getModelPath();
+      await _llmParser!.initialize(modelPath);
+    }
+
+    return await _llmParser!.parse(ocrText);
   }
 
   /// Recognize text from an image using Google ML Kit
@@ -178,6 +216,7 @@ class OcrService {
   /// Dispose of resources
   void dispose() {
     _textRecognizer.close();
+    _llmParser?.dispose();
   }
 }
 

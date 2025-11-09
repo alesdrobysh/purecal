@@ -969,5 +969,116 @@
   "cameraInitializationFailed": "Camera initialization failed",
   "@cameraInitializationFailed": {
     "description": "Error when camera fails to initialize"
+  },
+
+  "ocrScannerSettings": "OCR Scanner Settings",
+  "@ocrScannerSettings": {
+    "description": "OCR scanner settings screen title"
+  },
+  "manageAIModel": "Manage AI model for universal language support",
+  "@manageAIModel": {
+    "description": "Description for OCR settings menu item"
+  },
+  "currentMode": "Current Mode",
+  "@currentMode": {
+    "description": "Label for current scanning mode section"
+  },
+  "basicMode": "Basic Mode",
+  "@basicMode": {
+    "description": "Label for basic (regex) scanning mode"
+  },
+  "aiPoweredMode": "AI-Powered Mode",
+  "@aiPoweredMode": {
+    "description": "Label for AI-powered scanning mode"
+  },
+  "fiveLanguages": "5 Languages",
+  "@fiveLanguages": {
+    "description": "Indicates support for 5 languages"
+  },
+  "universalLanguageSupport": "Universal Language Support",
+  "@universalLanguageSupport": {
+    "description": "Indicates support for all languages"
+  },
+  "anyLanguageFromAnyCountry": "Any language from any country!",
+  "@anyLanguageFromAnyCountry": {
+    "description": "Description of universal language support"
+  },
+  "fastScanning": "Fast scanning",
+  "@fastScanning": {
+    "description": "Feature: fast scanning speed"
+  },
+  "noDownloadRequired": "No download required",
+  "@noDownloadRequired": {
+    "description": "Feature: no download needed"
+  },
+  "betterFormatHandling": "Better format handling",
+  "@betterFormatHandling": {
+    "description": "Feature: handles various label formats"
+  },
+  "contextAwareParsing": "Context-aware parsing",
+  "@contextAwareParsing": {
+    "description": "Feature: understands context"
+  },
+  "requiresDownload": "Requires Download",
+  "@requiresDownload": {
+    "description": "Warning that download is required"
+  },
+  "oneTimeDownload": "~1.5 GB (one-time download)",
+  "@oneTimeDownload": {
+    "description": "Download size information"
+  },
+  "downloadAIModel": "Download AI Model (1.5 GB)",
+  "@downloadAIModel": {
+    "description": "Button to download AI model"
+  },
+  "downloadingAIModel": "Downloading AI Model...",
+  "@downloadingAIModel": {
+    "description": "Status text while downloading"
+  },
+  "cancelDownload": "Cancel Download",
+  "@cancelDownload": {
+    "description": "Button to cancel download"
+  },
+  "aiModelReady": "AI Model Ready",
+  "@aiModelReady": {
+    "description": "Status text when model is downloaded"
+  },
+  "removeModel": "Remove Model (Free 1.5 GB)",
+  "@removeModel": {
+    "description": "Button to delete AI model"
+  },
+  "deleteAIModel": "Delete AI Model?",
+  "@deleteAIModel": {
+    "description": "Dialog title for model deletion"
+  },
+  "deleteAIModelConfirmation": "This will remove the AI model from your device and free up ~1.5 GB of storage. You can re-download it anytime.",
+  "@deleteAIModelConfirmation": {
+    "description": "Confirmation message for model deletion"
+  },
+  "aiModelDownloaded": "AI model downloaded successfully! 🎉",
+  "@aiModelDownloaded": {
+    "description": "Success message after download"
+  },
+  "aiModelDeleted": "AI model deleted",
+  "@aiModelDeleted": {
+    "description": "Confirmation message after deletion"
+  },
+  "downloadFailed": "Download failed: {error}",
+  "@downloadFailed": {
+    "description": "Error message when download fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+  "supportedLanguages": "Supported Languages",
+  "@supportedLanguages": {
+    "description": "Label for supported languages list"
+  },
+  "englishSpanishRussianPolishBelarusian": "English, Spanish, Russian, Polish, Belarusian",
+  "@englishSpanishRussianPolishBelarusian": {
+    "description": "List of 5 supported languages"
   }
 }

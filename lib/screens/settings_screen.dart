@@ -13,6 +13,7 @@ import '../widgets/conflict_resolution_dialog.dart';
 import '../widgets/import_progress_dialog.dart';
 import 'local_products_list_screen.dart';
 import 'ocr_scanner_screen.dart';
+import 'ocr_settings_screen.dart';
 import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -50,6 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildSectionHeader(l10n.myProducts),
           _buildMyProductsOption(context),
           _buildOcrScannerOption(context),
+          _buildOcrSettingsOption(context),
           const Divider(),
           _buildSectionHeader(l10n.appearance),
           _buildLanguageOption(context),
@@ -115,6 +117,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => const OcrScannerScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOcrSettingsOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.smart_toy, color: Colors.purple),
+      title: Text(l10n.ocrScannerSettings),
+      subtitle: Text(l10n.manageAIModel),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OcrSettingsScreen(),
           ),
         );
       },
