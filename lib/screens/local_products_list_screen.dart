@@ -237,7 +237,7 @@ class _LocalProductsListScreenState extends State<LocalProductsListScreen> {
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColors.badgeText(context),
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                                     ),
                                   ),
                                 ),

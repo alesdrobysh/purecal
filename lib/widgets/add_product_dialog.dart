@@ -89,7 +89,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 widget.product.brand!,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey[600],
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
             ],
@@ -206,8 +206,8 @@ class _AddProductDialogState extends State<AddProductDialog> {
             );
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.green,
-            foregroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
           ),
           child: Text(l10n.add),
         ),

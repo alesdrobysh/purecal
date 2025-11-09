@@ -174,19 +174,19 @@ class _ScannerScreenState extends State<ScannerScreen> {
           ),
           if (_isProcessing)
             Container(
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.scrim.withOpacity(0.54),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const CircularProgressIndicator(
-                      color: Colors.white,
+                    CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
                     ),
                     const SizedBox(height: 16),
                     Text(
                       l10n.loadingProduct,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
                         fontSize: 16,
                       ),
                     ),
@@ -200,11 +200,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
             right: 0,
             child: Container(
               padding: const EdgeInsets.all(16),
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.scrim.withOpacity(0.54),
               child: Text(
                 l10n.pointCameraAtBarcode,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.center,

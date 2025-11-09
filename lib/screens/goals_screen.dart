@@ -168,14 +168,14 @@ class _GoalsScreenState extends State<GoalsScreen> {
               child: Row(
                 children: [
                   Icon(Icons.info_outline,
-                      color: AppColors.infoBoxIcon(context)),
+                      color: Theme.of(context).colorScheme.primary),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       l10n.goalsRecommendation,
                       style: TextStyle(
                         fontSize: 13,
-                        color: AppColors.infoBoxText(context),
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),

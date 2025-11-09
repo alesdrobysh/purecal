@@ -1,9 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../config/custom_colors.dart';
 import '../services/database_service.dart';
 import '../models/user_goals.dart';
-import '../config/decorations.dart';
 import '../l10n/app_localizations.dart';
 
 class CalorieTrendChart extends StatelessWidget {
@@ -44,7 +44,7 @@ class CalorieTrendChart extends StatelessWidget {
               l10n.last7Days,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
               ),
             ),
             const SizedBox(height: 24),
@@ -60,13 +60,13 @@ class CalorieTrendChart extends StatelessWidget {
                     horizontalInterval: chartMaxY / 5,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300]!,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         strokeWidth: 1,
                       );
                     },
                     getDrawingVerticalLine: (value) {
                       return FlLine(
-                        color: Colors.grey[300]!,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         strokeWidth: 1,
                       );
                     },
@@ -81,7 +81,7 @@ class CalorieTrendChart extends StatelessWidget {
                           return Text(
                             value.toInt().toString(),
                             style: TextStyle(
-                              color: Colors.grey[600],
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                               fontSize: 12,
                             ),
                           );
@@ -110,7 +110,7 @@ class CalorieTrendChart extends StatelessWidget {
                             child: Text(
                               dayName,
                               style: TextStyle(
-                                color: Colors.grey[600],
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -129,7 +129,7 @@ class CalorieTrendChart extends StatelessWidget {
                   borderData: FlBorderData(
                     show: true,
                     border: Border.all(
-                      color: Colors.grey[300]!,
+                      color: Theme.of(context).colorScheme.outlineVariant,
                       width: 1,
                     ),
                   ),
@@ -158,22 +158,22 @@ class CalorieTrendChart extends StatelessWidget {
                         ),
                       ),
                       isCurved: true,
-                      color: Colors.orange,
+                      color: context.customColors.caloriesColor,
                       barWidth: 3,
                       dotData: FlDotData(
                         show: true,
                         getDotPainter: (spot, percent, barData, index) {
                           return FlDotCirclePainter(
                             radius: 4,
-                            color: Colors.orange,
+                            color: context.customColors.caloriesColor,
                             strokeWidth: 2,
-                            strokeColor: Colors.white,
+                            strokeColor: Theme.of(context).colorScheme.surface,
                           );
                         },
                       ),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: Colors.orange.withAlpha((0.2 * 255).toInt()),
+                        color: context.customColors.caloriesColor.withAlpha((0.2 * 255).toInt()),
                       ),
                     ),
                   ],
@@ -226,7 +226,7 @@ class CalorieTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem(l10n.actual, Colors.orange),
+                _buildLegendItem(l10n.actual, context.customColors.caloriesColor),
                 if (goals != null) ...[
                   const SizedBox(width: 24),
                   _buildLegendItem(

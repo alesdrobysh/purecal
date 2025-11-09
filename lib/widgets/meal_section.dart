@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../config/custom_colors.dart';
 import '../l10n/app_localizations.dart';
 import '../models/diary_entry.dart';
 import '../models/meal_type.dart';
@@ -88,7 +89,7 @@ class _MealSectionState extends State<MealSection> {
                                 '${AppLocalizations.of(context)!.itemCount(count)} • ${calories.toStringAsFixed(0)} ${AppLocalizations.of(context)!.kcal}',
                                 style: TextStyle(
                                   fontSize: 13,
-                                  color: Colors.grey[600],
+                                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                                 ),
                               ),
                             ],
@@ -124,13 +125,13 @@ class _MealSectionState extends State<MealSection> {
                         Icon(
                           Icons.restaurant,
                           size: 48,
-                          color: Colors.grey[400],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         const SizedBox(height: 12),
                         Text(
                           AppLocalizations.of(context)!.noItemsForMeal(widget.mealType.displayName(context).toLowerCase()),
                           style: TextStyle(
-                            color: Colors.grey[600],
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                             fontSize: 14,
                           ),
                         ),
@@ -138,7 +139,7 @@ class _MealSectionState extends State<MealSection> {
                         Text(
                           AppLocalizations.of(context)!.tapPlusToAdd,
                           style: TextStyle(
-                            color: Colors.grey[500],
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
                             fontSize: 12,
                           ),
                         ),
@@ -201,7 +202,7 @@ class _MealSectionState extends State<MealSection> {
                     Text(
                       '${entry.portionGrams.toStringAsFixed(0)}g • ${entry.calories.toStringAsFixed(0)} kcal',
                       style: TextStyle(
-                        color: Colors.grey[700],
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
                         fontSize: 12,
                       ),
                     ),
@@ -210,7 +211,7 @@ class _MealSectionState extends State<MealSection> {
                       'F: ${entry.fat.toStringAsFixed(1)}g • '
                       'C: ${entry.carbs.toStringAsFixed(1)}g',
                       style: TextStyle(
-                        color: Colors.grey[600],
+                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                         fontSize: 11,
                       ),
                     ),
@@ -229,10 +230,14 @@ class _MealSectionState extends State<MealSection> {
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: Theme.of(context).colorScheme.surfaceVariant,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(Icons.fastfood, color: Colors.grey[500], size: 24),
+      child: Icon(
+        Icons.fastfood,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+        size: 24,
+      ),
     );
   }
 
@@ -262,8 +267,8 @@ class _MealSectionState extends State<MealSection> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.delete, color: Colors.red),
-              title: Text(l10n.delete, style: const TextStyle(color: Colors.red)),
+              leading: Icon(Icons.delete, color: context.customColors.dangerColor),
+              title: Text(l10n.delete, style: TextStyle(color: context.customColors.dangerColor)),
               onTap: () {
                 Navigator.pop(context);
                 _deleteEntry(context, entry, provider);
@@ -364,7 +369,7 @@ class _MealSectionState extends State<MealSection> {
               }
               Navigator.pop(context);
             },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: context.customColors.dangerColor),
             child: Text(l10n.delete),
           ),
         ],

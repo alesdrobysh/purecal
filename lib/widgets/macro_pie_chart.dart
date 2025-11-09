@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import '../config/custom_colors.dart';
 import '../services/database_service.dart';
 import '../l10n/app_localizations.dart';
 
@@ -21,13 +22,17 @@ class MacroPieChart extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.pie_chart_outline, size: 64, color: Colors.grey[400]),
+              Icon(
+                Icons.pie_chart_outline,
+                size: 64,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
               const SizedBox(height: 16),
               Text(
                 l10n.noMacroDataForToday,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey[600],
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
               const SizedBox(height: 8),
@@ -35,7 +40,7 @@ class MacroPieChart extends StatelessWidget {
                 l10n.addSomeFoodToSeeMacros,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey[500],
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -73,34 +78,34 @@ class MacroPieChart extends StatelessWidget {
                         PieChartSectionData(
                           value: summary.proteins,
                           title: '${proteinPercentage.toStringAsFixed(1)}%',
-                          color: Colors.red,
+                          color: context.customColors.proteinColor,
                           radius: 80,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         PieChartSectionData(
                           value: summary.fat,
                           title: '${fatPercentage.toStringAsFixed(1)}%',
-                          color: Colors.yellow[700]!,
+                          color: context.customColors.fatColor,
                           radius: 80,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                         PieChartSectionData(
                           value: summary.carbs,
                           title: '${carbsPercentage.toStringAsFixed(1)}%',
-                          color: Colors.blue,
+                          color: context.customColors.carbsColor,
                           radius: 80,
-                          titleStyle: const TextStyle(
+                          titleStyle: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.onPrimary,
                           ),
                         ),
                       ],
@@ -118,19 +123,22 @@ class MacroPieChart extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildLegendItem(
+                      context,
                       l10n.protein,
                       '${summary.proteins.toStringAsFixed(1)}g',
-                      Colors.red,
+                      context.customColors.proteinColor,
                     ),
                     _buildLegendItem(
+                      context,
                       l10n.fat,
                       '${summary.fat.toStringAsFixed(1)}g',
-                      Colors.yellow[700]!,
+                      context.customColors.fatColor,
                     ),
                     _buildLegendItem(
+                      context,
                       l10n.carbs,
                       '${summary.carbs.toStringAsFixed(1)}g',
-                      Colors.blue,
+                      context.customColors.carbsColor,
                     ),
                   ],
                 )
@@ -142,7 +150,7 @@ class MacroPieChart extends StatelessWidget {
     );
   }
 
-  Widget _buildLegendItem(String label, String value, Color color) {
+  Widget _buildLegendItem(BuildContext context, String label, String value, Color color) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -160,9 +168,9 @@ class MacroPieChart extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 12,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             Text(
