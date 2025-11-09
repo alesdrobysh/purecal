@@ -529,6 +529,80 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exportLast30Days => 'Экспортировать записи за последние 30 дней';
 
   @override
+  String get exportProducts => 'Экспортировать продукты';
+
+  @override
+  String get exportProductsDescription =>
+      'Экспортируйте свои локальные продукты в формат JSON';
+
+  @override
+  String get exportProductsSuccess => 'Продукты успешно экспортированы!';
+
+  @override
+  String get noProductsToExport => 'Нет локальных продуктов для экспорта';
+
+  @override
+  String get importProducts => 'Импортировать продукты';
+
+  @override
+  String get importProductsDescription =>
+      'Импортировать продукты из файла JSON';
+
+  @override
+  String get importingProducts => 'Импорт продуктов';
+
+  @override
+  String importingProductsProgress(int current, int total) {
+    return 'Импортирование $current из $total продуктов...';
+  }
+
+  @override
+  String get importComplete => 'Импорт завершен';
+
+  @override
+  String get importError => 'Ошибка импорта';
+
+  @override
+  String get imported => 'Импортировано';
+
+  @override
+  String get skipped => 'Пропущено';
+
+  @override
+  String get errors => 'Ошибки';
+
+  @override
+  String get errorDetails => 'Детали ошибки';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String get productConflictTitle => 'Конфликт продуктов';
+
+  @override
+  String get productConflictMessage =>
+      'Продукт с этим штрих-кодом уже существует. Что вы хотите сделать?';
+
+  @override
+  String get existingProduct => 'Существующий';
+
+  @override
+  String get importedProduct => 'Импорт';
+
+  @override
+  String get keepExisting => 'Оставить существующий';
+
+  @override
+  String get replaceWithImport => 'Заменить';
+
+  @override
+  String get keepAllRemaining => 'Оставить все остальные';
+
+  @override
+  String get replaceAllRemaining => 'Заменить все остальные';
+
+  @override
   String get productDetails => 'Сведения о продукте';
 
   @override

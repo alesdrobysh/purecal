@@ -528,6 +528,79 @@ class AppLocalizationsBe extends AppLocalizations {
   String get exportLast30Days => 'Экспартаваць запісы за апошнія 30 дзён';
 
   @override
+  String get exportProducts => 'Экспартаваць прадукты';
+
+  @override
+  String get exportProductsDescription =>
+      'Экспартуйце свае лакальныя прадукты ў фармат JSON';
+
+  @override
+  String get exportProductsSuccess => 'Прадукты паспяхова экспартаваны!';
+
+  @override
+  String get noProductsToExport => 'Няма лакальных прадуктаў для экспарту';
+
+  @override
+  String get importProducts => 'Імпартаваць прадукты';
+
+  @override
+  String get importProductsDescription => 'Імпартаваць прадукты з файла JSON';
+
+  @override
+  String get importingProducts => 'Імпарт прадуктаў';
+
+  @override
+  String importingProductsProgress(int current, int total) {
+    return 'Імпартаванне $current з $total прадуктаў...';
+  }
+
+  @override
+  String get importComplete => 'Імпарт завершаны';
+
+  @override
+  String get importError => 'Памылка імпарту';
+
+  @override
+  String get imported => 'Імпартавана';
+
+  @override
+  String get skipped => 'Прапушчана';
+
+  @override
+  String get errors => 'Памылкі';
+
+  @override
+  String get errorDetails => 'Дэталі памылкі';
+
+  @override
+  String get close => 'Зачыніць';
+
+  @override
+  String get productConflictTitle => 'Канфлікт прадуктаў';
+
+  @override
+  String get productConflictMessage =>
+      'Прадукт з гэтым штрых-кодам ужо існуе. Што вы хочаце зрабіць?';
+
+  @override
+  String get existingProduct => 'Існуючы';
+
+  @override
+  String get importedProduct => 'Імпарт';
+
+  @override
+  String get keepExisting => 'Пакінуць існуючы';
+
+  @override
+  String get replaceWithImport => 'Замяніць';
+
+  @override
+  String get keepAllRemaining => 'Пакінуць усе астатнія';
+
+  @override
+  String get replaceAllRemaining => 'Замяніць усе астатнія';
+
+  @override
   String get productDetails => 'Дэталі прадукту';
 
   @override

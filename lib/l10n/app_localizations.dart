@@ -1034,6 +1034,144 @@ abstract class AppLocalizations {
   /// **'Export entries from the last 30 days'**
   String get exportLast30Days;
 
+  /// Export products button label
+  ///
+  /// In en, this message translates to:
+  /// **'Export Products'**
+  String get exportProducts;
+
+  /// Export products description
+  ///
+  /// In en, this message translates to:
+  /// **'Export your local products to JSON format'**
+  String get exportProductsDescription;
+
+  /// Success message after exporting products
+  ///
+  /// In en, this message translates to:
+  /// **'Products exported successfully!'**
+  String get exportProductsSuccess;
+
+  /// Error message when there are no products to export
+  ///
+  /// In en, this message translates to:
+  /// **'No local products to export'**
+  String get noProductsToExport;
+
+  /// Import products button label
+  ///
+  /// In en, this message translates to:
+  /// **'Import Products'**
+  String get importProducts;
+
+  /// Import products description
+  ///
+  /// In en, this message translates to:
+  /// **'Import products from a JSON file'**
+  String get importProductsDescription;
+
+  /// Dialog title during import
+  ///
+  /// In en, this message translates to:
+  /// **'Importing Products'**
+  String get importingProducts;
+
+  /// Progress message during import
+  ///
+  /// In en, this message translates to:
+  /// **'Importing {current} of {total} products...'**
+  String importingProductsProgress(int current, int total);
+
+  /// Dialog title when import is complete
+  ///
+  /// In en, this message translates to:
+  /// **'Import Complete'**
+  String get importComplete;
+
+  /// Generic import error message
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed'**
+  String get importError;
+
+  /// Label for number of imported products
+  ///
+  /// In en, this message translates to:
+  /// **'Imported'**
+  String get imported;
+
+  /// Label for number of skipped products
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get skipped;
+
+  /// Label for number of errors during import
+  ///
+  /// In en, this message translates to:
+  /// **'Errors'**
+  String get errors;
+
+  /// Section header for error messages
+  ///
+  /// In en, this message translates to:
+  /// **'Error Details'**
+  String get errorDetails;
+
+  /// Close button label
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Title for conflict resolution dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Product Conflict'**
+  String get productConflictTitle;
+
+  /// Message explaining the conflict
+  ///
+  /// In en, this message translates to:
+  /// **'A product with this barcode already exists. What would you like to do?'**
+  String get productConflictMessage;
+
+  /// Label for existing product in conflict dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Existing'**
+  String get existingProduct;
+
+  /// Label for imported product in conflict dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get importedProduct;
+
+  /// Button to keep the existing product
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Existing'**
+  String get keepExisting;
+
+  /// Button to replace with imported product
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get replaceWithImport;
+
+  /// Button to keep all remaining conflicting products
+  ///
+  /// In en, this message translates to:
+  /// **'Keep All Remaining'**
+  String get keepAllRemaining;
+
+  /// Button to replace all remaining conflicting products
+  ///
+  /// In en, this message translates to:
+  /// **'Replace All Remaining'**
+  String get replaceAllRemaining;
+
   /// Product detail screen title
   ///
   /// In en, this message translates to:

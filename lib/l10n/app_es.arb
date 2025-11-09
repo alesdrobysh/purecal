@@ -170,6 +170,32 @@
   "last30Days": "Últimos 30 Días",
   "exportLast30Days": "Exportar entradas de los últimos 30 días",
 
+  "exportProducts": "Exportar Productos",
+  "exportProductsDescription": "Exporta tus productos locales a formato JSON",
+  "exportProductsSuccess": "¡Productos exportados exitosamente!",
+  "noProductsToExport": "No hay productos locales para exportar",
+
+  "importProducts": "Importar Productos",
+  "importProductsDescription": "Importar productos desde un archivo JSON",
+  "importingProducts": "Importando Productos",
+  "importingProductsProgress": "Importando {current} de {total} productos...",
+  "importComplete": "Importación Completa",
+  "importError": "Error al importar",
+  "imported": "Importados",
+  "skipped": "Omitidos",
+  "errors": "Errores",
+  "errorDetails": "Detalles del Error",
+  "close": "Cerrar",
+
+  "productConflictTitle": "Conflicto de Producto",
+  "productConflictMessage": "Ya existe un producto con este código de barras. ¿Qué deseas hacer?",
+  "existingProduct": "Existente",
+  "importedProduct": "Importar",
+  "keepExisting": "Mantener Existente",
+  "replaceWithImport": "Reemplazar",
+  "keepAllRemaining": "Mantener Todos los Restantes",
+  "replaceAllRemaining": "Reemplazar Todos los Restantes",
+
   "productDetails": "Detalles del Producto",
   "@productDetails": {
     "description": "Product detail screen title"

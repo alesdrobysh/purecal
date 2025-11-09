@@ -752,6 +752,111 @@
     "description": "Description for last 30 days export"
   },
 
+  "exportProducts": "Export Products",
+  "@exportProducts": {
+    "description": "Export products button label"
+  },
+  "exportProductsDescription": "Export your local products to JSON format",
+  "@exportProductsDescription": {
+    "description": "Export products description"
+  },
+  "exportProductsSuccess": "Products exported successfully!",
+  "@exportProductsSuccess": {
+    "description": "Success message after exporting products"
+  },
+  "noProductsToExport": "No local products to export",
+  "@noProductsToExport": {
+    "description": "Error message when there are no products to export"
+  },
+
+  "importProducts": "Import Products",
+  "@importProducts": {
+    "description": "Import products button label"
+  },
+  "importProductsDescription": "Import products from a JSON file",
+  "@importProductsDescription": {
+    "description": "Import products description"
+  },
+  "importingProducts": "Importing Products",
+  "@importingProducts": {
+    "description": "Dialog title during import"
+  },
+  "importingProductsProgress": "Importing {current} of {total} products...",
+  "@importingProductsProgress": {
+    "description": "Progress message during import",
+    "placeholders": {
+      "current": {
+        "type": "int",
+        "example": "5"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+  "importComplete": "Import Complete",
+  "@importComplete": {
+    "description": "Dialog title when import is complete"
+  },
+  "importError": "Import failed",
+  "@importError": {
+    "description": "Generic import error message"
+  },
+  "imported": "Imported",
+  "@imported": {
+    "description": "Label for number of imported products"
+  },
+  "skipped": "Skipped",
+  "@skipped": {
+    "description": "Label for number of skipped products"
+  },
+  "errors": "Errors",
+  "@errors": {
+    "description": "Label for number of errors during import"
+  },
+  "errorDetails": "Error Details",
+  "@errorDetails": {
+    "description": "Section header for error messages"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button label"
+  },
+
+  "productConflictTitle": "Product Conflict",
+  "@productConflictTitle": {
+    "description": "Title for conflict resolution dialog"
+  },
+  "productConflictMessage": "A product with this barcode already exists. What would you like to do?",
+  "@productConflictMessage": {
+    "description": "Message explaining the conflict"
+  },
+  "existingProduct": "Existing",
+  "@existingProduct": {
+    "description": "Label for existing product in conflict dialog"
+  },
+  "importedProduct": "Import",
+  "@importedProduct": {
+    "description": "Label for imported product in conflict dialog"
+  },
+  "keepExisting": "Keep Existing",
+  "@keepExisting": {
+    "description": "Button to keep the existing product"
+  },
+  "replaceWithImport": "Replace",
+  "@replaceWithImport": {
+    "description": "Button to replace with imported product"
+  },
+  "keepAllRemaining": "Keep All Remaining",
+  "@keepAllRemaining": {
+    "description": "Button to keep all remaining conflicting products"
+  },
+  "replaceAllRemaining": "Replace All Remaining",
+  "@replaceAllRemaining": {
+    "description": "Button to replace all remaining conflicting products"
+  },
+
   "productDetails": "Product Details",
   "@productDetails": {
     "description": "Product detail screen title"

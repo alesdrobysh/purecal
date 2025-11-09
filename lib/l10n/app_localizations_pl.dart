@@ -529,6 +529,79 @@ class AppLocalizationsPl extends AppLocalizations {
   String get exportLast30Days => 'Eksportuj wpisy z ostatnich 30 dni';
 
   @override
+  String get exportProducts => 'Eksportuj Produkty';
+
+  @override
+  String get exportProductsDescription =>
+      'Eksportuj swoje lokalne produkty do formatu JSON';
+
+  @override
+  String get exportProductsSuccess => 'Produkty wyeksportowane pomyślnie!';
+
+  @override
+  String get noProductsToExport => 'Brak lokalnych produktów do eksportu';
+
+  @override
+  String get importProducts => 'Importuj Produkty';
+
+  @override
+  String get importProductsDescription => 'Importuj produkty z pliku JSON';
+
+  @override
+  String get importingProducts => 'Importowanie Produktów';
+
+  @override
+  String importingProductsProgress(int current, int total) {
+    return 'Importowanie $current z $total produktów...';
+  }
+
+  @override
+  String get importComplete => 'Import Zakończony';
+
+  @override
+  String get importError => 'Błąd importu';
+
+  @override
+  String get imported => 'Zaimportowano';
+
+  @override
+  String get skipped => 'Pominięto';
+
+  @override
+  String get errors => 'Błędy';
+
+  @override
+  String get errorDetails => 'Szczegóły Błędu';
+
+  @override
+  String get close => 'Zamknij';
+
+  @override
+  String get productConflictTitle => 'Konflikt Produktu';
+
+  @override
+  String get productConflictMessage =>
+      'Produkt z tym kodem kreskowym już istnieje. Co chcesz zrobić?';
+
+  @override
+  String get existingProduct => 'Istniejący';
+
+  @override
+  String get importedProduct => 'Import';
+
+  @override
+  String get keepExisting => 'Zachowaj Istniejący';
+
+  @override
+  String get replaceWithImport => 'Zamień';
+
+  @override
+  String get keepAllRemaining => 'Zachowaj Wszystkie Pozostałe';
+
+  @override
+  String get replaceAllRemaining => 'Zamień Wszystkie Pozostałe';
+
+  @override
   String get productDetails => 'Szczegóły Produktu';
 
   @override

@@ -170,6 +170,32 @@
   "last30Days": "Ostatnie 30 dni",
   "exportLast30Days": "Eksportuj wpisy z ostatnich 30 dni",
 
+  "exportProducts": "Eksportuj Produkty",
+  "exportProductsDescription": "Eksportuj swoje lokalne produkty do formatu JSON",
+  "exportProductsSuccess": "Produkty wyeksportowane pomyślnie!",
+  "noProductsToExport": "Brak lokalnych produktów do eksportu",
+
+  "importProducts": "Importuj Produkty",
+  "importProductsDescription": "Importuj produkty z pliku JSON",
+  "importingProducts": "Importowanie Produktów",
+  "importingProductsProgress": "Importowanie {current} z {total} produktów...",
+  "importComplete": "Import Zakończony",
+  "importError": "Błąd importu",
+  "imported": "Zaimportowano",
+  "skipped": "Pominięto",
+  "errors": "Błędy",
+  "errorDetails": "Szczegóły Błędu",
+  "close": "Zamknij",
+
+  "productConflictTitle": "Konflikt Produktu",
+  "productConflictMessage": "Produkt z tym kodem kreskowym już istnieje. Co chcesz zrobić?",
+  "existingProduct": "Istniejący",
+  "importedProduct": "Import",
+  "keepExisting": "Zachowaj Istniejący",
+  "replaceWithImport": "Zamień",
+  "keepAllRemaining": "Zachowaj Wszystkie Pozostałe",
+  "replaceAllRemaining": "Zamień Wszystkie Pozostałe",
+
   "productDetails": "Szczegóły Produktu",
   "@productDetails": {
     "description": "Product detail screen title"

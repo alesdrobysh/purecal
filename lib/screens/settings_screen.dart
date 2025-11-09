@@ -3,9 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
+import 'package:file_picker/file_picker.dart';
 import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
 import '../services/export_service.dart';
+import '../services/product_export_service.dart';
+import '../services/product_import_service.dart';
+import '../widgets/conflict_resolution_dialog.dart';
+import '../widgets/import_progress_dialog.dart';
 import 'local_products_list_screen.dart';
 import '../l10n/app_localizations.dart';
 
@@ -50,6 +55,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const Divider(),
           _buildSectionHeader(l10n.dataManagement),
           _buildExportDataOption(context),
+          _buildExportProductsOption(context),
+          _buildImportProductsOption(context),
           _buildClearCacheOption(context),
           const Divider(),
           _buildSectionHeader(l10n.about),
@@ -124,10 +131,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildExportProductsOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.inventory_2_outlined, color: Colors.teal),
+      title: Text(l10n.exportProducts),
+      subtitle: Text(l10n.exportProductsDescription),
+      onTap: () => _handleExportProducts(context),
+    );
+  }
+
+  Widget _buildImportProductsOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.download, color: Colors.indigo),
+      title: Text(l10n.importProducts),
+      subtitle: Text(l10n.importProductsDescription),
+      onTap: () => _handleImportProducts(context),
+    );
+  }
+
   Widget _buildClearCacheOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: Icon(Icons.delete_sweep, color: context.customColors.warningColor),
+      leading:
+          Icon(Icons.delete_sweep, color: context.customColors.warningColor),
       title: Text(l10n.clearFrequentProductsCache),
       subtitle: Text(l10n.clearFrequentProductsDescription),
       onTap: () => _showClearCacheDialog(context),
@@ -164,7 +192,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               }
             },
-            style: TextButton.styleFrom(foregroundColor: context.customColors.warningColor),
+            style: TextButton.styleFrom(
+                foregroundColor: context.customColors.warningColor),
             child: Text(l10n.clear),
           ),
         ],
@@ -174,9 +203,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Widget _buildAboutOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final version = _packageInfo != null
-        ? 'v${_packageInfo!.version}'
-        : l10n.loading;
+    final version =
+        _packageInfo != null ? 'v${_packageInfo!.version}' : l10n.loading;
 
     return ListTile(
       leading: Icon(Icons.info_outline, color: context.customColors.infoColor),
@@ -509,6 +537,174 @@ class _SettingsScreenState extends State<SettingsScreen> {
             content: Text(errorMessage),
             duration: const Duration(seconds: 3),
             backgroundColor: context.customColors.dangerColor,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _handleExportProducts(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+    final exportService = ProductExportService();
+
+    BuildContext? dialogContext;
+
+    // Show loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        dialogContext = context;
+        return AlertDialog(
+          content: Row(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(l10n.exportingData),
+            ],
+          ),
+        );
+      },
+    );
+
+    try {
+      await exportService.exportProductsToJSON();
+
+      // Close loading dialog
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!);
+      }
+
+      // Show success message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.exportProductsSuccess),
+            duration: const Duration(seconds: 2),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
+        );
+      }
+    } catch (e) {
+      // Close loading dialog
+      if (dialogContext != null && dialogContext!.mounted) {
+        Navigator.pop(dialogContext!);
+      }
+
+      // Show error message
+      if (context.mounted) {
+        String errorMessage = l10n.exportError;
+        if (e.toString().contains('No local products')) {
+          errorMessage = l10n.noProductsToExport;
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorMessage),
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _handleImportProducts(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
+
+    // Pick JSON file
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
+    );
+
+    if (result == null || result.files.single.path == null) {
+      return;
+    }
+
+    final filePath = result.files.single.path!;
+    final importService = ProductImportService();
+
+    // Show progress dialog
+    BuildContext? progressDialogContext;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        progressDialogContext = context;
+        return const ImportProgressDialog(
+          currentIndex: 0,
+          totalProducts: 0,
+        );
+      },
+    );
+
+    try {
+      // Import products with conflict resolution
+      final importResult = await importService.importProductsFromJSON(
+        filePath,
+        onConflict: (conflict) async {
+          // Close progress dialog temporarily
+          if (progressDialogContext != null && progressDialogContext!.mounted) {
+            Navigator.pop(progressDialogContext!);
+          }
+
+          // Show conflict resolution dialog
+          final resolution = await showDialog<ConflictResolution>(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => ConflictResolutionDialog(
+              existingProduct: conflict.existingProduct,
+              importedProduct: conflict.importedProduct,
+            ),
+          );
+
+          // Re-show progress dialog
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              progressDialogContext = context;
+              return const ImportProgressDialog(
+                currentIndex: 0,
+                totalProducts: 0,
+              );
+            },
+          );
+
+          return resolution ?? ConflictResolution.skip;
+        },
+      );
+
+      // Close progress dialog
+      if (progressDialogContext != null && progressDialogContext!.mounted) {
+        Navigator.pop(progressDialogContext!);
+      }
+
+      // Show result dialog
+      if (context.mounted) {
+        await showDialog(
+          context: context,
+          builder: (context) => ImportProgressDialog(
+            currentIndex: importResult.imported + importResult.skipped,
+            totalProducts: importResult.imported + importResult.skipped,
+            result: importResult,
+          ),
+        );
+      }
+    } catch (e) {
+      // Close progress dialog
+      if (progressDialogContext != null && progressDialogContext!.mounted) {
+        Navigator.pop(progressDialogContext!);
+      }
+
+      // Show error message
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${l10n.importError}: ${e.toString()}'),
+            duration: const Duration(seconds: 3),
+            backgroundColor: Colors.red,
           ),
         );
       }

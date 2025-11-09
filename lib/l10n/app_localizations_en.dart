@@ -525,6 +525,79 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exportLast30Days => 'Export entries from the last 30 days';
 
   @override
+  String get exportProducts => 'Export Products';
+
+  @override
+  String get exportProductsDescription =>
+      'Export your local products to JSON format';
+
+  @override
+  String get exportProductsSuccess => 'Products exported successfully!';
+
+  @override
+  String get noProductsToExport => 'No local products to export';
+
+  @override
+  String get importProducts => 'Import Products';
+
+  @override
+  String get importProductsDescription => 'Import products from a JSON file';
+
+  @override
+  String get importingProducts => 'Importing Products';
+
+  @override
+  String importingProductsProgress(int current, int total) {
+    return 'Importing $current of $total products...';
+  }
+
+  @override
+  String get importComplete => 'Import Complete';
+
+  @override
+  String get importError => 'Import failed';
+
+  @override
+  String get imported => 'Imported';
+
+  @override
+  String get skipped => 'Skipped';
+
+  @override
+  String get errors => 'Errors';
+
+  @override
+  String get errorDetails => 'Error Details';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get productConflictTitle => 'Product Conflict';
+
+  @override
+  String get productConflictMessage =>
+      'A product with this barcode already exists. What would you like to do?';
+
+  @override
+  String get existingProduct => 'Existing';
+
+  @override
+  String get importedProduct => 'Import';
+
+  @override
+  String get keepExisting => 'Keep Existing';
+
+  @override
+  String get replaceWithImport => 'Replace';
+
+  @override
+  String get keepAllRemaining => 'Keep All Remaining';
+
+  @override
+  String get replaceAllRemaining => 'Replace All Remaining';
+
+  @override
   String get productDetails => 'Product Details';
 
   @override

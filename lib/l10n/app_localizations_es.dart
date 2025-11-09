@@ -529,6 +529,80 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exportLast30Days => 'Exportar entradas de los últimos 30 días';
 
   @override
+  String get exportProducts => 'Exportar Productos';
+
+  @override
+  String get exportProductsDescription =>
+      'Exporta tus productos locales a formato JSON';
+
+  @override
+  String get exportProductsSuccess => '¡Productos exportados exitosamente!';
+
+  @override
+  String get noProductsToExport => 'No hay productos locales para exportar';
+
+  @override
+  String get importProducts => 'Importar Productos';
+
+  @override
+  String get importProductsDescription =>
+      'Importar productos desde un archivo JSON';
+
+  @override
+  String get importingProducts => 'Importando Productos';
+
+  @override
+  String importingProductsProgress(int current, int total) {
+    return 'Importando $current de $total productos...';
+  }
+
+  @override
+  String get importComplete => 'Importación Completa';
+
+  @override
+  String get importError => 'Error al importar';
+
+  @override
+  String get imported => 'Importados';
+
+  @override
+  String get skipped => 'Omitidos';
+
+  @override
+  String get errors => 'Errores';
+
+  @override
+  String get errorDetails => 'Detalles del Error';
+
+  @override
+  String get close => 'Cerrar';
+
+  @override
+  String get productConflictTitle => 'Conflicto de Producto';
+
+  @override
+  String get productConflictMessage =>
+      'Ya existe un producto con este código de barras. ¿Qué deseas hacer?';
+
+  @override
+  String get existingProduct => 'Existente';
+
+  @override
+  String get importedProduct => 'Importar';
+
+  @override
+  String get keepExisting => 'Mantener Existente';
+
+  @override
+  String get replaceWithImport => 'Reemplazar';
+
+  @override
+  String get keepAllRemaining => 'Mantener Todos los Restantes';
+
+  @override
+  String get replaceAllRemaining => 'Reemplazar Todos los Restantes';
+
+  @override
   String get productDetails => 'Detalles del Producto';
 
   @override
