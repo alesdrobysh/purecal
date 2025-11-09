@@ -326,7 +326,7 @@ class AppLocalizationsPl extends AppLocalizations {
   String get appVersion => 'Wersja aplikacji';
 
   @override
-  String get appVersionNumber => 'PureCal v1.0.0';
+  String get loading => 'Ładowanie...';
 
   @override
   String get appDescription =>

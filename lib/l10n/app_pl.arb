@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "Czy na pewno chcesz wyczyścić pamięć podręczną często używanych produktów? Spowoduje to usunięcie całej historii użycia.",
   "cacheCleared": "Pamięć podręczna wyczyszczona",
   "appVersion": "Wersja aplikacji",
-  "appVersionNumber": "PureCal v1.0.0",
+  "loading": "Ładowanie...",
   "appDescription": "Aplikacja dziennika żywieniowego do śledzenia codziennego odżywiania i osiągania celów.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Dane o produktach dostarczone przez Open Food Facts",

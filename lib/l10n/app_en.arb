@@ -463,9 +463,9 @@
   "@appVersion": {
     "description": "App version label"
   },
-  "appVersionNumber": "PureCal v1.0.0",
-  "@appVersionNumber": {
-    "description": "App version number"
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Generic loading message"
   },
   "appDescription": "A food diary app to track your daily nutrition and reach your goals.",
   "@appDescription": {

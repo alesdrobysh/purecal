@@ -325,7 +325,7 @@ class AppLocalizationsBe extends AppLocalizations {
   String get appVersion => 'Версія праграмы';
 
   @override
-  String get appVersionNumber => 'PureCal v1.0.0';
+  String get loading => 'Загрузка...';
 
   @override
   String get appDescription =>

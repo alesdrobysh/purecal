@@ -106,7 +106,7 @@
   "clearCacheConfirmation": "Вы уверены, что хотите очистить кэш часто используемых продуктов? Это удалит всю историю использования.",
   "cacheCleared": "Кэш очищен",
   "appVersion": "Версия приложения",
-  "appVersionNumber": "PureCal v1.0.0",
+  "loading": "Загрузка...",
   "appDescription": "Приложение для ведения дневника питания, отслеживания ежедневного рациона и достижения ваших целей.",
   "openFoodFacts": "Open Food Facts",
   "openFoodFactsAttribution": "Данные о продуктах предоставлены Open Food Facts",
