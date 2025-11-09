@@ -1,6 +1,7 @@
 import 'package:foodiefit/config/theme.dart';
 import 'package:foodiefit/services/off_api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'services/diary_provider.dart';
@@ -10,6 +11,10 @@ import 'l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   OFFApiService.initialize();
   final settingsProvider = SettingsProvider();
   await settingsProvider.loadInitialSettings();
