@@ -27,6 +27,13 @@ dependencies:
   package_info_plus: ^9.0.0
   file_picker: ^8.0.0
 
+  # OCR and ML dependencies
+  google_mlkit_text_recognition: ^0.14.0
+  flutter_tesseract_ocr: ^0.4.32
+  camera: ^0.11.0+2
+  image: ^4.3.0
+  flutter_vision: ^2.0.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,6 +47,7 @@ flutter:
   assets:
     - assets/icon/icon.png
     - assets/icon/splash.png
+    - assets/models/
 
 flutter_launcher_icons:
   android: true

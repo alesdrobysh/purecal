@@ -868,5 +868,106 @@
   "basedOnOffProduct": "Based on OpenFoodFacts product",
   "@basedOnOffProduct": {
     "description": "Text shown for products edited from OpenFoodFacts"
+  },
+
+  "scanNutritionLabel": "Scan Nutrition Label",
+  "@scanNutritionLabel": {
+    "description": "OCR scanner screen title"
+  },
+  "scanNutritionLabelDescription": "Use OCR to extract nutrition data from label photos",
+  "@scanNutritionLabelDescription": {
+    "description": "OCR scanner description in menu"
+  },
+  "positionLabelWithinFrame": "Position the nutrition label within the frame",
+  "@positionLabelWithinFrame": {
+    "description": "Instruction text for OCR camera screen"
+  },
+  "processingNutritionLabel": "Processing nutrition label...",
+  "@processingNutritionLabel": {
+    "description": "Loading message during OCR processing"
+  },
+  "pickFromGallery": "Pick from gallery",
+  "@pickFromGallery": {
+    "description": "Button to select image from gallery for OCR"
+  },
+  "reviewNutritionData": "Review Nutrition Data",
+  "@reviewNutritionData": {
+    "description": "OCR result screen title"
+  },
+  "extractedNutritionPer100g": "Extracted Nutrition (per 100g)",
+  "@extractedNutritionPer100g": {
+    "description": "Section title for OCR extracted nutrition values"
+  },
+  "pleaseVerifyAndCorrect": "Please verify and correct if needed",
+  "@pleaseVerifyAndCorrect": {
+    "description": "Instruction to verify OCR results"
+  },
+  "scannedNutritionLabel": "Scanned nutrition label",
+  "@scannedNutritionLabel": {
+    "description": "Caption for scanned image preview"
+  },
+  "highConfidence": "High confidence",
+  "@highConfidence": {
+    "description": "High confidence level text"
+  },
+  "mediumConfidence": "Medium confidence",
+  "@mediumConfidence": {
+    "description": "Medium confidence level text"
+  },
+  "lowConfidence": "Low confidence - please verify",
+  "@lowConfidence": {
+    "description": "Low confidence level warning text"
+  },
+  "overallConfidence": "{percentage}% overall confidence",
+  "@overallConfidence": {
+    "description": "Overall OCR confidence percentage",
+    "placeholders": {
+      "percentage": {
+        "type": "String",
+        "example": "85"
+      }
+    }
+  },
+  "missingFields": "Missing fields: {fields}",
+  "@missingFields": {
+    "description": "Warning for missing nutrition fields",
+    "placeholders": {
+      "fields": {
+        "type": "String",
+        "example": "protein, fat"
+      }
+    }
+  },
+  "scanAgain": "Scan Again",
+  "@scanAgain": {
+    "description": "Button to retry OCR scanning"
+  },
+  "ocrProcessingFailed": "OCR processing failed: {error}",
+  "@ocrProcessingFailed": {
+    "description": "Error message when OCR fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Image too blurry"
+      }
+    }
+  },
+  "failedToCaptureImage": "Failed to capture image: {error}",
+  "@failedToCaptureImage": {
+    "description": "Error message when camera capture fails",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Camera not available"
+      }
+    }
+  },
+  "noCameraFound": "No camera found",
+  "@noCameraFound": {
+    "description": "Error when no camera is available on device"
+  },
+  "cameraInitializationFailed": "Camera initialization failed",
+  "@cameraInitializationFailed": {
+    "description": "Error when camera fails to initialize"
   }
 }

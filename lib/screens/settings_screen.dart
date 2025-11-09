@@ -12,6 +12,7 @@ import '../services/product_import_service.dart';
 import '../widgets/conflict_resolution_dialog.dart';
 import '../widgets/import_progress_dialog.dart';
 import 'local_products_list_screen.dart';
+import 'ocr_scanner_screen.dart';
 import '../l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -48,6 +49,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           _buildSectionHeader(l10n.myProducts),
           _buildMyProductsOption(context),
+          _buildOcrScannerOption(context),
           const Divider(),
           _buildSectionHeader(l10n.appearance),
           _buildLanguageOption(context),
@@ -95,6 +97,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => const LocalProductsListScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildOcrScannerOption(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return ListTile(
+      leading: const Icon(Icons.document_scanner, color: Colors.deepOrange),
+      title: Text(l10n.scanNutritionLabel),
+      subtitle: Text(l10n.scanNutritionLabelDescription),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OcrScannerScreen(),
           ),
         );
       },
