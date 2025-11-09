@@ -706,7 +706,7 @@
   "@exportDiaryEntries": {
     "description": "Export diary data button label"
   },
-  "exportDiaryEntriesDescription": "Export your food diary to CSV format",
+  "exportDiaryEntriesDescription": "Export your food diary to CSV or JSON format",
   "@exportDiaryEntriesDescription": {
     "description": "Export diary data description"
   },
@@ -727,29 +727,67 @@
     "description": "Error message when there's no data to export"
   },
 
-  "selectExportTimeframe": "Select Export Timeframe",
-  "@selectExportTimeframe": {
-    "description": "Dialog title for selecting export timeframe"
+  "exportScreen": "Export Diary",
+  "@exportScreen": {
+    "description": "Export screen title"
   },
-  "allTime": "All Time",
-  "@allTime": {
-    "description": "Option to export all data"
+  "exportScreenDescription": "Choose date range and format",
+  "@exportScreenDescription": {
+    "description": "Export screen subtitle"
   },
-  "exportAllEntries": "Export all diary entries",
-  "@exportAllEntries": {
-    "description": "Description for all time export"
+  "selectDateRange": "Select Date Range",
+  "@selectDateRange": {
+    "description": "Date range selection section title"
   },
-  "exportLast7Days": "Export entries from the last 7 days",
-  "@exportLast7Days": {
-    "description": "Description for last 7 days export"
+  "startDate": "Start Date",
+  "@startDate": {
+    "description": "Start date label"
   },
-  "last30Days": "Last 30 Days",
-  "@last30Days": {
-    "description": "Option to export last 30 days"
+  "endDate": "End Date",
+  "@endDate": {
+    "description": "End date label"
   },
-  "exportLast30Days": "Export entries from the last 30 days",
-  "@exportLast30Days": {
-    "description": "Description for last 30 days export"
+  "exportFormat": "Export Format",
+  "@exportFormat": {
+    "description": "Export format section title"
+  },
+  "csvFormat": "CSV (Spreadsheet)",
+  "@csvFormat": {
+    "description": "CSV format option"
+  },
+  "jsonFormat": "JSON (Data)",
+  "@jsonFormat": {
+    "description": "JSON format option"
+  },
+  "entriesFound": "{count} entries found",
+  "@entriesFound": {
+    "description": "Number of entries found in date range",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "42"
+      }
+    }
+  },
+  "invalidDateRange": "Start date must be before or equal to end date",
+  "@invalidDateRange": {
+    "description": "Validation error for invalid date range"
+  },
+  "futureDateNotAllowed": "Cannot select dates in the future",
+  "@futureDateNotAllowed": {
+    "description": "Validation error for future dates"
+  },
+  "rangeTooLarge": "Date range cannot exceed 365 days",
+  "@rangeTooLarge": {
+    "description": "Validation error for date range too large"
+  },
+  "noEntriesInRange": "No entries found in this date range. Export anyway?",
+  "@noEntriesInRange": {
+    "description": "Warning when no entries exist in selected range"
+  },
+  "export": "Export",
+  "@export": {
+    "description": "Export button label"
   },
 
   "exportProducts": "Export Products",
