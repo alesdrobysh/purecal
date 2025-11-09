@@ -692,11 +692,11 @@ abstract class AppLocalizations {
   /// **'App Version'**
   String get appVersion;
 
-  /// App version number
+  /// Generic loading message
   ///
   /// In en, this message translates to:
-  /// **'PureCal v1.0.0'**
-  String get appVersionNumber;
+  /// **'Loading...'**
+  String get loading;
 
   /// App description text
   ///

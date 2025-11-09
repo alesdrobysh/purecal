@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
 import '../services/diary_provider.dart';
@@ -8,8 +9,28 @@ import '../services/export_service.dart';
 import 'local_products_list_screen.dart';
 import '../l10n/app_localizations.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  PackageInfo? _packageInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPackageInfo();
+  }
+
+  Future<void> _loadPackageInfo() async {
+    final info = await PackageInfo.fromPlatform();
+    setState(() {
+      _packageInfo = info;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,15 +174,20 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildAboutOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final version = _packageInfo != null
+        ? 'v${_packageInfo!.version}'
+        : l10n.loading;
+
     return ListTile(
       leading: Icon(Icons.info_outline, color: context.customColors.infoColor),
       title: Text(l10n.appVersion),
-      subtitle: Text(l10n.appVersionNumber),
+      subtitle: Text(version),
+      enabled: _packageInfo != null,
       onTap: () {
         showAboutDialog(
           context: context,
           applicationName: l10n.appTitle,
-          applicationVersion: '0.1.0-beta.1+1',
+          applicationVersion: _packageInfo?.version ?? '',
           applicationIcon: Icon(Icons.restaurant,
               size: 48, color: Theme.of(context).colorScheme.primary),
           children: [
