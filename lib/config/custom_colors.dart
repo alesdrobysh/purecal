@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// Brand green color - used consistently across light and dark modes.
+/// This is the primary brand color #74B225 that should be used for AppBars
+/// and other primary brand elements.
+const Color brandGreen = Color(0xFF74B225);
+
 /// Custom color extension for nutrition data visualization and semantic actions.
 /// Provides light/dark mode aware colors with proper contrast ratios for accessibility.
 @immutable

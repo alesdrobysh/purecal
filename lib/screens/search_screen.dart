@@ -8,6 +8,7 @@ import '../services/product_service.dart';
 import '../services/diary_provider.dart';
 import '../widgets/frequent_product_card.dart';
 import '../widgets/product_image.dart';
+import '../config/custom_colors.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
@@ -207,8 +208,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: brandGreen,
+        foregroundColor: Colors.white,
         title: Text(widget.preselectedMealType != null
             ? l10n.addToMeal(widget.preselectedMealType!.displayName(context))
             : l10n.searchProducts),

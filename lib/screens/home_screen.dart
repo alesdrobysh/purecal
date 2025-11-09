@@ -20,8 +20,8 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: brandGreen,
+        foregroundColor: Colors.white,
         title: Text(l10n.homeTitle),
         actions: [
           IconButton(

@@ -9,6 +9,7 @@ import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product; // For editing existing local products
@@ -269,8 +270,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: brandGreen,
+        foregroundColor: Colors.white,
         title: Text(_isEditMode ? l10n.editProduct : l10n.createProduct),
       ),
       body: Form(

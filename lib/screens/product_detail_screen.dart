@@ -7,6 +7,7 @@ import '../services/diary_provider.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 import 'create_local_product_screen.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -76,8 +77,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: brandGreen,
+        foregroundColor: Colors.white,
         title: Text(l10n.productDetails),
         actions: [
           IconButton(

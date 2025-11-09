@@ -6,6 +6,7 @@ import '../services/product_service.dart';
 import 'product_detail_screen.dart';
 import 'create_local_product_screen.dart';
 import '../config/decorations.dart';
+import '../config/custom_colors.dart';
 
 class ScannerScreen extends StatefulWidget {
   final MealType? mealType;
@@ -162,8 +163,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: brandGreen,
+        foregroundColor: Colors.white,
         title: Text(title),
       ),
       body: Stack(
