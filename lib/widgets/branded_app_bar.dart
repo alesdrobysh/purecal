@@ -25,20 +25,16 @@ class BrandedAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Use black for high contrast against brand green (#74B225)
-    // This provides >4.5:1 contrast ratio (WCAG AA compliant)
-    const foregroundColor = Colors.black87;
-
     return AppBar(
       backgroundColor: brandGreen,
-      foregroundColor: foregroundColor,
+      foregroundColor: brandAppBarForeground,
       leading: leading,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      iconTheme: const IconThemeData(color: foregroundColor),
+      iconTheme: const IconThemeData(color: brandAppBarForeground),
       title: Text(
         title,
         style: const TextStyle(
-          color: foregroundColor,
+          color: brandAppBarForeground,
           fontWeight: FontWeight.w600,
         ),
       ),

@@ -76,8 +76,8 @@ class _ChartsScreenState extends State<ChartsScreen>
         title: l10n.nutritionCharts,
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.black87,
-          unselectedLabelColor: Colors.black54,
+          labelColor: brandAppBarForeground,
+          unselectedLabelColor: brandAppBarForegroundSecondary,
           tabs: [
             Tab(
               icon: const Icon(Icons.pie_chart),

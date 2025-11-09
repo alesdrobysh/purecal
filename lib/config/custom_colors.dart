@@ -5,6 +5,15 @@ import 'package:flutter/material.dart';
 /// and other primary brand elements.
 const Color brandGreen = Color(0xFF74B225);
 
+/// Brand AppBar foreground color - high contrast black for accessibility.
+/// Provides >4.5:1 contrast ratio against brandGreen (WCAG AA compliant).
+/// Use this for AppBar text, icons, and TabBar labels on brand green background.
+const Color brandAppBarForeground = Colors.black87;
+
+/// Brand AppBar unselected/secondary foreground color.
+/// Used for unselected TabBar labels and secondary elements.
+const Color brandAppBarForegroundSecondary = Colors.black54;
+
 /// Custom color extension for nutrition data visualization and semantic actions.
 /// Provides light/dark mode aware colors with proper contrast ratios for accessibility.
 @immutable
