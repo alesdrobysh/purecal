@@ -182,6 +182,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       leading: Icon(Icons.info_outline, color: context.customColors.infoColor),
       title: Text(l10n.appVersion),
       subtitle: Text(version),
+      enabled: _packageInfo != null,
       onTap: () {
         showAboutDialog(
           context: context,
