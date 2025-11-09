@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import '../config/custom_colors.dart';
 import '../l10n/app_localizations.dart';
 import '../services/diary_provider.dart';
 import '../models/meal_type.dart';
@@ -172,7 +173,7 @@ class HomeScreen extends StatelessWidget {
             label: l10n.calories,
             current: summary.calories,
             goal: goals?.caloriesGoal ?? 2000,
-            color: Colors.orange,
+            color: context.customColors.caloriesColor,
           ),
           const SizedBox(height: 12),
           Row(
@@ -182,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.protein,
                   current: summary.proteins,
                   goal: goals?.proteinsGoal ?? 150,
-                  color: Colors.red,
+                  color: context.customColors.proteinColor,
                 ),
               ),
               const SizedBox(width: 8),
@@ -191,7 +192,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.fat,
                   current: summary.fat,
                   goal: goals?.fatGoal ?? 65,
-                  color: Colors.yellow[700]!,
+                  color: context.customColors.fatColor,
                 ),
               ),
               const SizedBox(width: 8),
@@ -200,7 +201,7 @@ class HomeScreen extends StatelessWidget {
                   label: l10n.carbs,
                   current: summary.carbs,
                   goal: goals?.carbsGoal ?? 200,
-                  color: Colors.blue,
+                  color: context.customColors.carbsColor,
                 ),
               ),
             ],
