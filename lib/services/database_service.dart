@@ -40,7 +40,7 @@ class DatabaseService {
 
     return await openDatabase(
       path,
-      version: 6,
+      version: 7,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -123,6 +123,20 @@ class DatabaseService {
     await db.execute('''
         CREATE INDEX idx_local_name ON local_products(product_name)
       ''');
+
+    // AI chat messages table
+    await db.execute('''
+      CREATE TABLE ai_chat_messages (
+        id TEXT PRIMARY KEY,
+        role TEXT NOT NULL,
+        content TEXT NOT NULL,
+        timestamp TEXT NOT NULL
+      )
+    ''');
+
+    await db.execute('''
+      CREATE INDEX idx_chat_timestamp ON ai_chat_messages(timestamp DESC)
+    ''');
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -217,6 +231,22 @@ class DatabaseService {
       // Add source_type column to local_products table
       await db.execute('''
         ALTER TABLE local_products ADD COLUMN source_type TEXT
+      ''');
+    }
+
+    if (oldVersion < 7) {
+      // Add AI chat messages table
+      await db.execute('''
+        CREATE TABLE ai_chat_messages (
+          id TEXT PRIMARY KEY,
+          role TEXT NOT NULL,
+          content TEXT NOT NULL,
+          timestamp TEXT NOT NULL
+        )
+      ''');
+
+      await db.execute('''
+        CREATE INDEX idx_chat_timestamp ON ai_chat_messages(timestamp DESC)
       ''');
     }
   }

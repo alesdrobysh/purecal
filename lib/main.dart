@@ -6,8 +6,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'services/diary_provider.dart';
 import 'services/settings_provider.dart';
+import 'services/database_service.dart';
 import 'screens/home_screen.dart';
 import 'l10n/app_localizations.dart';
+import 'features/ai_chat/services/chat_provider.dart';
+import 'features/ai_chat/services/gemma_service.dart';
+import 'features/ai_chat/services/nutrition_prompt_builder.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,12 +21,24 @@ Future<void> main() async {
   OFFApiService.initialize();
   final settingsProvider = SettingsProvider();
   await settingsProvider.loadInitialSettings();
-  runApp(FoodieApp(settingsProvider: settingsProvider));
+
+  // Initialize database for AI chat
+  final database = await DatabaseService().database;
+
+  runApp(FoodieApp(
+    settingsProvider: settingsProvider,
+    database: database,
+  ));
 }
 
 class FoodieApp extends StatelessWidget {
   final SettingsProvider settingsProvider;
-  const FoodieApp({super.key, required this.settingsProvider});
+  final dynamic database;
+  const FoodieApp({
+    super.key,
+    required this.settingsProvider,
+    required this.database,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +47,13 @@ class FoodieApp extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => DiaryProvider()..initialize()),
         ChangeNotifierProvider.value(value: settingsProvider),
+        ChangeNotifierProvider(
+          create: (context) => ChatProvider(
+            gemmaService: GemmaService(),
+            promptBuilder: NutritionPromptBuilder(),
+            database: database,
+          ),
+        ),
       ],
       child: Consumer<SettingsProvider>(
         builder: (context, settingsProvider, child) {

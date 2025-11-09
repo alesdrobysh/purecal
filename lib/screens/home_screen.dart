@@ -11,6 +11,7 @@ import 'goals_screen.dart';
 import 'charts_screen.dart';
 import 'settings_screen.dart';
 import '../config/decorations.dart';
+import '../features/ai_chat/screens/chat_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,18 @@ class HomeScreen extends StatelessWidget {
       appBar: BrandedAppBar(
         title: l10n.homeTitle,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.psychology),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatScreen(),
+                ),
+              );
+            },
+            tooltip: 'AI Assistant',
+          ),
           IconButton(
             icon: const Icon(Icons.flag),
             onPressed: () {
