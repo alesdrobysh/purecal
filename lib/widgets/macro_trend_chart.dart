@@ -28,6 +28,7 @@ class MacroTrendChart extends StatelessWidget {
 
     final chartMaxY =
         ([maxProtein, maxFat, maxCarbs].reduce((a, b) => a > b ? a : b)) * 1.2;
+    final safeChartMaxY = chartMaxY > 0 ? chartMaxY : 10.0;
 
     return Card(
       child: Padding(
@@ -56,11 +57,11 @@ class MacroTrendChart extends StatelessWidget {
               child: LineChart(
                 LineChartData(
                   minY: 0,
-                  maxY: chartMaxY,
+                  maxY: safeChartMaxY,
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: true,
-                    horizontalInterval: chartMaxY / 5,
+                    horizontalInterval: safeChartMaxY / 5,
                     getDrawingHorizontalLine: (value) {
                       return FlLine(
                         color: Theme.of(context).colorScheme.outlineVariant,
@@ -79,7 +80,7 @@ class MacroTrendChart extends StatelessWidget {
                       sideTitles: SideTitles(
                         showTitles: true,
                         reservedSize: 40,
-                        interval: chartMaxY / 5,
+                        interval: safeChartMaxY / 5,
                         getTitlesWidget: (value, meta) {
                           return Text(
                             value.toInt().toString(),
