@@ -230,7 +230,7 @@ class _MealSectionState extends State<MealSection> {
       width: 50,
       height: 50,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Icon(

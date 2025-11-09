@@ -76,14 +76,14 @@ class ProductImage extends StatelessWidget {
           return Container(
             width: width,
             height: height,
-            color: Theme.of(context).colorScheme.surfaceVariant,
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: Center(child: errorIcon),
           );
         }
 
         // No dimensions specified - expand to fill parent container
         return Container(
-          color: Theme.of(context).colorScheme.surfaceVariant,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           child: Center(child: errorIcon),
         );
       },

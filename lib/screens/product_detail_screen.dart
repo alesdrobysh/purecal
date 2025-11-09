@@ -97,7 +97,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: Container(
                   width: double.infinity,
                   height: 250,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   child: ProductImage(
                     imageUrl: widget.product.imageUrl,
                     fit: BoxFit.cover,
