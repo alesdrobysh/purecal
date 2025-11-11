@@ -166,6 +166,12 @@ class ProductImportService {
                 );
 
                 await _db.updateLocalProduct(updatedProduct);
+
+                // Update the in-memory map to reflect the latest state
+                if (barcode.isNotEmpty) {
+                  existingByBarcode[barcode] = updatedProduct;
+                }
+
                 imported++;
                 break;
             }
@@ -194,7 +200,29 @@ class ProductImportService {
               updatedAt: DateTime.now(),
             );
 
-            await _db.insertLocalProduct(newProduct);
+            final insertedId = await _db.insertLocalProduct(newProduct);
+
+            // Update the in-memory map to reflect the newly inserted product
+            if (barcode.isNotEmpty) {
+              existingByBarcode[barcode] = FoodProduct(
+                barcode: newProduct.barcode,
+                name: newProduct.name,
+                brand: newProduct.brand,
+                caloriesPer100g: newProduct.caloriesPer100g,
+                proteinsPer100g: newProduct.proteinsPer100g,
+                fatPer100g: newProduct.fatPer100g,
+                carbsPer100g: newProduct.carbsPer100g,
+                servingSize: newProduct.servingSize,
+                imageUrl: newProduct.imageUrl,
+                isLocal: true,
+                localId: insertedId,
+                notes: newProduct.notes,
+                sourceType: newProduct.sourceType,
+                createdAt: newProduct.createdAt,
+                updatedAt: newProduct.updatedAt,
+              );
+            }
+
             imported++;
           }
         } catch (e) {
