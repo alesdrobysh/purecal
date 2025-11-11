@@ -190,7 +190,7 @@
   "productConflictTitle": "Conflicto de Producto",
   "productConflictMessage": "Ya existe un producto con este código de barras. ¿Qué deseas hacer?",
   "existingProduct": "Existente",
-  "importedProduct": "Importar",
+  "importedProduct": "Importado",
   "keepExisting": "Mantener Existente",
   "replaceWithImport": "Reemplazar",
   "keepAllRemaining": "Mantener Todos los Restantes",
