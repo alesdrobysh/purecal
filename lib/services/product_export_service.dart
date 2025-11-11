@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -80,7 +81,7 @@ class ProductExportService {
           }
         } catch (e) {
           // If image cannot be read, skip it but continue with product export
-          print('Warning: Could not read image for product ${product.name}: $e');
+          debugPrint('Warning: Could not read image for product ${product.name}: $e');
         }
       }
 

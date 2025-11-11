@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'database_service.dart';
@@ -259,16 +260,24 @@ class ProductImportService {
     return true;
   }
 
+  /// Safely parse a numeric value to double, handling both num and String types
+  double _parseDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is num) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
+
   /// Create a FoodProduct instance from imported data
   FoodProduct _createProductFromImportData(Map<String, dynamic> data) {
     return FoodProduct(
       barcode: data['barcode']?.toString() ?? '',
       name: data['product_name']?.toString() ?? 'Unknown Product',
       brand: data['brand']?.toString(),
-      caloriesPer100g: (data['calories_per_100g'] ?? 0).toDouble(),
-      proteinsPer100g: (data['proteins_per_100g'] ?? 0).toDouble(),
-      fatPer100g: (data['fat_per_100g'] ?? 0).toDouble(),
-      carbsPer100g: (data['carbs_per_100g'] ?? 0).toDouble(),
+      caloriesPer100g: _parseDouble(data['calories_per_100g']),
+      proteinsPer100g: _parseDouble(data['proteins_per_100g']),
+      fatPer100g: _parseDouble(data['fat_per_100g']),
+      carbsPer100g: _parseDouble(data['carbs_per_100g']),
       servingSize: data['serving_size'] != null
           ? double.tryParse(data['serving_size'].toString())
           : null,
@@ -307,7 +316,7 @@ class ProductImportService {
 
       return 'product_images/$filename';
     } catch (e) {
-      print('Warning: Could not save image: $e');
+      debugPrint('Warning: Could not save image: $e');
       return null;
     }
   }
