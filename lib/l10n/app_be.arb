@@ -170,6 +170,32 @@
   "last30Days": "Апошнія 30 дзён",
   "exportLast30Days": "Экспартаваць запісы за апошнія 30 дзён",
 
+  "exportProducts": "Экспартаваць прадукты",
+  "exportProductsDescription": "Экспартуйце свае лакальныя прадукты ў фармат JSON",
+  "exportProductsSuccess": "Прадукты паспяхова экспартаваны!",
+  "noProductsToExport": "Няма лакальных прадуктаў для экспарту",
+
+  "importProducts": "Імпартаваць прадукты",
+  "importProductsDescription": "Імпартаваць прадукты з файла JSON",
+  "importingProducts": "Імпарт прадуктаў",
+  "importingProductsProgress": "Імпартаванне {current} з {total} прадуктаў...",
+  "importComplete": "Імпарт завершаны",
+  "importError": "Памылка імпарту",
+  "imported": "Імпартавана",
+  "skipped": "Прапушчана",
+  "errors": "Памылкі",
+  "errorDetails": "Дэталі памылкі",
+  "close": "Зачыніць",
+
+  "productConflictTitle": "Канфлікт прадуктаў",
+  "productConflictMessage": "Прадукт з гэтым штрых-кодам ужо існуе. Што вы хочаце зрабіць?",
+  "existingProduct": "Існуючы",
+  "importedProduct": "Імпарт",
+  "keepExisting": "Пакінуць існуючы",
+  "replaceWithImport": "Замяніць",
+  "keepAllRemaining": "Пакінуць усе астатнія",
+  "replaceAllRemaining": "Замяніць усе астатнія",
+
   "productDetails": "Дэталі прадукту",
   "@productDetails": {
     "description": "Product detail screen title"

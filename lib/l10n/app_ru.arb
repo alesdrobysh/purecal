@@ -168,8 +168,34 @@
   "exportAllEntries": "Экспортировать все записи дневника",
   "exportLast7Days": "Экспортировать записи за последние 7 дней",
   "last30Days": "Последние 30 дней",
-  "exportLast30Days": "Экспортировать записи за последние 30 дней"
-,
+  "exportLast30Days": "Экспортировать записи за последние 30 дней",
+
+  "exportProducts": "Экспортировать продукты",
+  "exportProductsDescription": "Экспортируйте свои локальные продукты в формат JSON",
+  "exportProductsSuccess": "Продукты успешно экспортированы!",
+  "noProductsToExport": "Нет локальных продуктов для экспорта",
+
+  "importProducts": "Импортировать продукты",
+  "importProductsDescription": "Импортировать продукты из файла JSON",
+  "importingProducts": "Импорт продуктов",
+  "importingProductsProgress": "Импортирование {current} из {total} продуктов...",
+  "importComplete": "Импорт завершен",
+  "importError": "Ошибка импорта",
+  "imported": "Импортировано",
+  "skipped": "Пропущено",
+  "errors": "Ошибки",
+  "errorDetails": "Детали ошибки",
+  "close": "Закрыть",
+
+  "productConflictTitle": "Конфликт продуктов",
+  "productConflictMessage": "Продукт с этим штрих-кодом уже существует. Что вы хотите сделать?",
+  "existingProduct": "Существующий",
+  "importedProduct": "Импорт",
+  "keepExisting": "Оставить существующий",
+  "replaceWithImport": "Заменить",
+  "keepAllRemaining": "Оставить все остальные",
+  "replaceAllRemaining": "Заменить все остальные",
+
   "productDetails": "Сведения о продукте",
   "@productDetails": {
     "description": "Product detail screen title"
