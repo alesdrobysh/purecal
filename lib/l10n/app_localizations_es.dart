@@ -585,10 +585,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ya existe un producto con este código de barras. ¿Qué deseas hacer?';
 
   @override
-  String get existingProduct => 'Existente';
+  String get existingProduct => 'Producto existente';
 
   @override
-  String get importedProduct => 'Importar';
+  String get importedProduct => 'Producto importado';
 
   @override
   String get keepExisting => 'Mantener Existente';
