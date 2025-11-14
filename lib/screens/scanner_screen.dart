@@ -5,8 +5,6 @@ import '../models/meal_type.dart';
 import '../services/product_service.dart';
 import 'product_detail_screen.dart';
 import 'create_local_product_screen.dart';
-import '../config/decorations.dart';
-import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
 
 class ScannerScreen extends StatefulWidget {
@@ -174,7 +172,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
           ),
           if (_isProcessing)
             Container(
-              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
+              color:
+                  Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
               child: Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -200,7 +199,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
             right: 0,
             child: Container(
               padding: const EdgeInsets.all(16),
-              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
+              color:
+                  Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),
               child: Text(
                 l10n.pointCameraAtBarcode,
                 style: TextStyle(

@@ -241,9 +241,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           builder: (context) => AlertDialog(
             title: Text(l10n.openFoodFacts),
             content: Text(
-              l10n.openFoodFactsDescription +
-                  '\n\n'
-                      'Visit: https://world.openfoodfacts.org',
+              '${l10n.openFoodFactsDescription}\n\nVisit: https://world.openfoodfacts.org',
             ),
             actions: [
               TextButton(
@@ -287,7 +285,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         return l10n.lightTheme;
       case ThemeMode.dark:
         return l10n.darkTheme;
-      case ThemeMode.system:
       default:
         return l10n.systemDefault;
     }
@@ -303,64 +300,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
       builder: (context) => AlertDialog(
         title: Text(l10n.chooseLanguage),
         content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              RadioListTile<Locale?>(
-                title: Text(l10n.systemDefault),
-                value: null,
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<Locale?>(
-                title: const Text('English'),
-                value: const Locale('en'),
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<Locale?>(
-                title: const Text('Español'),
-                value: const Locale('es'),
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<Locale?>(
-                title: const Text('Русский'),
-                value: const Locale('ru'),
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<Locale?>(
-                title: const Text('Polski'),
-                value: const Locale('pl'),
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-              RadioListTile<Locale?>(
-                title: const Text('Беларуская'),
-                value: const Locale('be'),
-                groupValue: settingsProvider.locale,
-                onChanged: (value) {
-                  settingsProvider.setLocale(value);
-                  Navigator.pop(context);
-                },
-              ),
-            ],
+          child: RadioGroup<Locale?>(
+            groupValue: settingsProvider.locale,
+            onChanged: (value) {
+              settingsProvider.setLocale(value);
+              Navigator.pop(context);
+            },
+            child: Column(
+              children: [
+                RadioListTile<Locale?>(
+                    value: null, title: Text(l10n.systemDefault)),
+                const RadioListTile<Locale?>(
+                    value: Locale('en'), title: Text('English')),
+                const RadioListTile<Locale?>(
+                    value: Locale('es'), title: Text('Español')),
+                const RadioListTile<Locale?>(
+                    value: Locale('ru'), title: Text('Русский')),
+                const RadioListTile<Locale?>(
+                    value: Locale('be'), title: Text('Беларуская')),
+                const RadioListTile<Locale?>(
+                    value: Locale('pl'), title: Text('Polski')),
+              ],
+            ),
           ),
         ),
       ),
@@ -376,43 +337,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.chooseTheme),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.lightTheme),
-              value: ThemeMode.light,
-              groupValue: settingsProvider.themeMode,
-              onChanged: (value) {
-                if (value != null) {
-                  settingsProvider.setThemeMode(value);
-                }
-                Navigator.pop(context);
-              },
-            ),
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.darkTheme),
-              value: ThemeMode.dark,
-              groupValue: settingsProvider.themeMode,
-              onChanged: (value) {
-                if (value != null) {
-                  settingsProvider.setThemeMode(value);
-                }
-                Navigator.pop(context);
-              },
-            ),
-            RadioListTile<ThemeMode>(
-              title: Text(l10n.systemDefault),
-              value: ThemeMode.system,
-              groupValue: settingsProvider.themeMode,
-              onChanged: (value) {
-                if (value != null) {
-                  settingsProvider.setThemeMode(value);
-                }
-                Navigator.pop(context);
-              },
-            ),
-          ],
+        content: RadioGroup<ThemeMode>(
+          groupValue: settingsProvider.themeMode,
+          onChanged: (value) {
+            if (value != null) {
+              settingsProvider.setThemeMode(value);
+            }
+            Navigator.pop(context);
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<ThemeMode>(
+                  value: ThemeMode.light, title: Text(l10n.lightTheme)),
+              RadioListTile<ThemeMode>(
+                  value: ThemeMode.dark, title: Text(l10n.darkTheme)),
+              RadioListTile<ThemeMode>(
+                  value: ThemeMode.system, title: Text(l10n.systemDefault)),
+            ],
+          ),
         ),
       ),
     );

@@ -7,7 +7,6 @@ import '../services/diary_provider.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../config/decorations.dart';
-import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
 import 'create_local_product_screen.dart';
 
@@ -130,7 +129,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 widget.product.brand!,
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurface
+                                      .withValues(alpha: 0.6),
                                 ),
                               ),
                             ],
@@ -142,7 +144,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.2),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -164,7 +169,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       '${l10n.barcode}: ${widget.product.barcode}',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -176,7 +184,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       l10n.basedOnOffProduct,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.6),
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -190,7 +201,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
@@ -249,7 +262,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   const SizedBox(height: 12),
                   DropdownButtonFormField<MealType>(
-                    value: _selectedMealType,
+                    initialValue: _selectedMealType,
                     decoration: customInputDecoration(context).copyWith(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 8),
@@ -343,7 +356,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
                       ),
                       child: Text(
                         l10n.addToDiary,

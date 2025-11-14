@@ -9,7 +9,6 @@ import '../services/diary_provider.dart';
 import '../widgets/frequent_product_card.dart';
 import '../widgets/product_image.dart';
 import '../widgets/branded_app_bar.dart';
-import '../config/custom_colors.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
@@ -274,12 +273,18 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            Icon(Icons.error_outline,
+                size: 64,
+                color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 16),
             Text(
               _errorMessage!,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
+              style: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7)),
             ),
           ],
         ),
@@ -295,7 +300,12 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
-                  Icon(Icons.history, size: 20, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.8)),
+                  Icon(Icons.history,
+                      size: 20,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.8)),
                   const SizedBox(width: 8),
                   Text(
                     l10n.frequentlyUsed,
@@ -335,16 +345,28 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.search, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  Icon(Icons.search,
+                      size: 64,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                   const SizedBox(height: 16),
                   Text(
                     l10n.searchForProducts,
-                    style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.7)),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     l10n.searchExamples,
-                    style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6)),
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.6)),
                   ),
                 ],
               ),
@@ -359,11 +381,18 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.search_off, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
+            Icon(Icons.search_off,
+                size: 64,
+                color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 16),
             Text(
               l10n.noProductsFound,
-              style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7)),
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.7)),
             ),
           ],
         ),
@@ -432,7 +461,9 @@ class _SearchScreenState extends State<SearchScreen> {
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
                               ),
                             ),
                           ),
@@ -444,7 +475,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       Text(
                         product.brand!,
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withValues(alpha: 0.7),
                           fontSize: 13,
                         ),
                       ),
@@ -466,13 +500,17 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                       style: TextStyle(
                         fontSize: 12,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.7),
                       ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.add_circle_outline, color: Theme.of(context).colorScheme.primary),
+              Icon(Icons.add_circle_outline,
+                  color: Theme.of(context).colorScheme.primary),
             ],
           ),
         ),
@@ -488,7 +526,8 @@ class _SearchScreenState extends State<SearchScreen> {
         color: Theme.of(context).colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(Icons.fastfood, color: Theme.of(context).colorScheme.onSurfaceVariant),
+      child: Icon(Icons.fastfood,
+          color: Theme.of(context).colorScheme.onSurfaceVariant),
     );
   }
 }

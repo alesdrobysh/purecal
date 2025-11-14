@@ -10,7 +10,6 @@ import '../widgets/branded_app_bar.dart';
 import 'goals_screen.dart';
 import 'charts_screen.dart';
 import 'settings_screen.dart';
-import '../config/decorations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

@@ -9,8 +9,6 @@ import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../widgets/branded_app_bar.dart';
-import '../config/decorations.dart';
-import '../config/custom_colors.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product; // For editing existing local products
@@ -25,7 +23,8 @@ class CreateLocalProductScreen extends StatefulWidget {
   });
 
   @override
-  State<CreateLocalProductScreen> createState() => _CreateLocalProductScreenState();
+  State<CreateLocalProductScreen> createState() =>
+      _CreateLocalProductScreenState();
 }
 
 class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
@@ -74,9 +73,8 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
     );
 
     // For OFF products, add a default note
-    final defaultNotes = widget.sourceOffProduct != null
-        ? 'Based on OpenFoodFacts product'
-        : '';
+    final defaultNotes =
+        widget.sourceOffProduct != null ? 'Based on OpenFoodFacts product' : '';
     _notesController = TextEditingController(
       text: sourceProduct?.notes ?? defaultNotes,
     );
@@ -286,9 +284,11 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    color:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.outlineVariant),
                   ),
                   child: _imagePath != null
                       ? ClipRRect(
@@ -302,11 +302,17 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add_a_photo,
-                                size: 40, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                size: 40,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant),
                             const SizedBox(height: 8),
                             Text(
                               l10n.addPhoto,
-                              style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSurfaceVariant),
                             ),
                           ],
                         ),
@@ -434,11 +440,14 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
                       width: 20,
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.onPrimary),
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).colorScheme.onPrimary),
                       ),
                     )
                   : Text(
-                      _isEditMode ? l10n.updateProduct : l10n.createProductButton,
+                      _isEditMode
+                          ? l10n.updateProduct
+                          : l10n.createProductButton,
                       style: TextStyle(
                         fontSize: 16,
                         color: Theme.of(context).colorScheme.onPrimary,

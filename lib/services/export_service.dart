@@ -31,12 +31,12 @@ class ExportService {
 
     // Save to temporary file
     final file = await _saveToTempFile(csv, startDate, endDate);
-
-    // Share the file
-    await Share.shareXFiles(
-      [XFile(file.path)],
-      subject: 'FoodieFit Diary Export',
+    final params = ShareParams(
+      files: [XFile(file.path)],
+      subject: 'PureCal Diary Export',
     );
+
+    await SharePlus.instance.share(params);
   }
 
   /// Generate CSV data from diary entries
@@ -90,9 +90,9 @@ class ExportService {
     if (startDate != null && endDate != null) {
       final startStr = DateFormat('yyyyMMdd').format(startDate);
       final endStr = DateFormat('yyyyMMdd').format(endDate);
-      fileName = 'foodiefit_diary_${startStr}_to_$endStr.csv';
+      fileName = 'purecal_diary_${startStr}_to_$endStr.csv';
     } else {
-      fileName = 'foodiefit_diary_$timestamp.csv';
+      fileName = 'purecal_diary_$timestamp.csv';
     }
 
     final filePath = '${directory.path}/$fileName';

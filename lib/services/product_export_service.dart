@@ -31,14 +31,13 @@ class ProductExportService {
     // Convert to JSON string
     final jsonString = const JsonEncoder.withIndent('  ').convert(exportData);
 
-    // Save to temporary file
     final file = await _saveToTempFile(jsonString);
-
-    // Share the file
-    await Share.shareXFiles(
-      [XFile(file.path)],
-      subject: 'PureCal Products Export',
+    final params = ShareParams(
+      text: 'PureCal Products Export',
+      files: [XFile(file.path)],
     );
+
+    await SharePlus.instance.share(params);
   }
 
   /// Convert products to export format with base64-encoded images
@@ -75,13 +74,13 @@ class ProductExportService {
               final imageBytes = await imageFile.readAsBytes();
               final base64Image = base64Encode(imageBytes);
               productData['image_base64'] = base64Image;
-              productData['image_filename'] =
-                  product.imageUrl!.split('/').last;
+              productData['image_filename'] = product.imageUrl!.split('/').last;
             }
           }
         } catch (e) {
           // If image cannot be read, skip it but continue with product export
-          debugPrint('Warning: Could not read image for product ${product.name}: $e');
+          debugPrint(
+              'Warning: Could not read image for product ${product.name}: $e');
         }
       }
 

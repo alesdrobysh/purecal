@@ -48,7 +48,10 @@ class MacroTrendChart extends StatelessWidget {
               l10n.proteinFatCarbsGrams,
               style: TextStyle(
                 fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.6),
               ),
             ),
             const SizedBox(height: 24),
@@ -85,7 +88,10 @@ class MacroTrendChart extends StatelessWidget {
                           return Text(
                             value.toInt().toString(),
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.6),
                               fontSize: 12,
                             ),
                           );
@@ -98,8 +104,9 @@ class MacroTrendChart extends StatelessWidget {
                         reservedSize: 32,
                         getTitlesWidget: (value, meta) {
                           final dayIndex = value.toInt();
-                          if (dayIndex < 0 || dayIndex >= 7)
+                          if (dayIndex < 0 || dayIndex >= 7) {
                             return const SizedBox();
+                          }
 
                           final today = DateTime.now();
                           final date = DateTime(
@@ -114,7 +121,10 @@ class MacroTrendChart extends StatelessWidget {
                             child: Text(
                               dayName,
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.6),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -244,8 +254,7 @@ class MacroTrendChart extends StatelessWidget {
                           }
 
                           return LineTooltipItem(
-                            '$formattedDate\n$macroName: ${touchedSpot.y.toStringAsFixed(1)}' +
-                                l10n.grams,
+                            '$formattedDate\n$macroName: ${touchedSpot.y.toStringAsFixed(1)}${l10n.grams}',
                             const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -263,7 +272,8 @@ class MacroTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem(l10n.protein, context.customColors.proteinColor),
+                _buildLegendItem(
+                    l10n.protein, context.customColors.proteinColor),
                 const SizedBox(width: 16),
                 _buildLegendItem(l10n.fat, context.customColors.fatColor),
                 const SizedBox(width: 16),

@@ -4,8 +4,6 @@ import 'package:foodiefit/services/diary_provider.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/custom_input_decoration.dart';
-import '../config/decorations.dart';
-import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
 
 class QuickAddScreen extends StatefulWidget {
@@ -49,8 +47,8 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
       Navigator.of(context).pop(true);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content:
-              Text(l10n.addedProductToMeal(_productName, _selectedMealType.displayName(context))),
+          content: Text(l10n.addedProductToMeal(
+              _productName, _selectedMealType.displayName(context))),
           duration: const Duration(seconds: 2),
         ),
       );
@@ -73,7 +71,8 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
             spacing: 16.0,
             children: [
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: l10n.productName),
+                decoration: customInputDecoration(context)
+                    .copyWith(labelText: l10n.productName),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return l10n.pleaseEnterProductName;
@@ -83,7 +82,8 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _productName = value!,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: l10n.calories),
+                decoration: customInputDecoration(context)
+                    .copyWith(labelText: l10n.calories),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || double.tryParse(value) == null) {
@@ -94,17 +94,20 @@ class _QuickAddScreenState extends State<QuickAddScreen> {
                 onSaved: (value) => _calories = double.parse(value!),
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.protein} (${l10n.grams})'),
+                decoration: customInputDecoration(context)
+                    .copyWith(labelText: '${l10n.protein} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _proteins = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.fat} (${l10n.grams})'),
+                decoration: customInputDecoration(context)
+                    .copyWith(labelText: '${l10n.fat} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _fat = double.tryParse(value!) ?? 0,
               ),
               TextFormField(
-                decoration: customInputDecoration(context).copyWith(labelText: '${l10n.carbs} (${l10n.grams})'),
+                decoration: customInputDecoration(context)
+                    .copyWith(labelText: '${l10n.carbs} (${l10n.grams})'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) => _carbs = double.tryParse(value!) ?? 0,
               ),

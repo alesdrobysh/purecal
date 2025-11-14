@@ -44,7 +44,10 @@ class CalorieTrendChart extends StatelessWidget {
               l10n.last7Days,
               style: TextStyle(
                 fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                color: Theme.of(context)
+                    .colorScheme
+                    .onSurface
+                    .withValues(alpha: 0.6),
               ),
             ),
             const SizedBox(height: 24),
@@ -81,7 +84,10 @@ class CalorieTrendChart extends StatelessWidget {
                           return Text(
                             value.toInt().toString(),
                             style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.6),
                               fontSize: 12,
                             ),
                           );
@@ -94,8 +100,9 @@ class CalorieTrendChart extends StatelessWidget {
                         reservedSize: 32,
                         getTitlesWidget: (value, meta) {
                           final dayIndex = value.toInt();
-                          if (dayIndex < 0 || dayIndex >= 7)
+                          if (dayIndex < 0 || dayIndex >= 7) {
                             return const SizedBox();
+                          }
 
                           final today = DateTime.now();
                           final date = DateTime(
@@ -110,7 +117,10 @@ class CalorieTrendChart extends StatelessWidget {
                             child: Text(
                               dayName,
                               style: TextStyle(
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withValues(alpha: 0.6),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -142,7 +152,10 @@ class CalorieTrendChart extends StatelessWidget {
                           FlSpot(6, goalCalories),
                         ],
                         isCurved: false,
-                        color: Theme.of(context).colorScheme.primary.withAlpha((0.5 * 255).toInt()),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withAlpha((0.5 * 255).toInt()),
                         barWidth: 2,
                         dotData: const FlDotData(show: false),
                         dashArray: [5, 5],
@@ -173,7 +186,8 @@ class CalorieTrendChart extends StatelessWidget {
                       ),
                       belowBarData: BarAreaData(
                         show: true,
-                        color: context.customColors.caloriesColor.withAlpha((0.2 * 255).toInt()),
+                        color: context.customColors.caloriesColor
+                            .withAlpha((0.2 * 255).toInt()),
                       ),
                     ),
                   ],
@@ -184,9 +198,7 @@ class CalorieTrendChart extends StatelessWidget {
                           if (touchedSpot.barIndex == 0 && goals != null) {
                             // Goal line
                             return LineTooltipItem(
-                              l10n.goal +
-                                  ': ${goalCalories.toInt()} ' +
-                                  l10n.kcal,
+                              '${l10n.goal}: ${goalCalories.toInt()} ${l10n.kcal}',
                               const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -206,8 +218,7 @@ class CalorieTrendChart extends StatelessWidget {
                                 DateFormat('MMM d').format(date);
 
                             return LineTooltipItem(
-                              '$formattedDate\n${touchedSpot.y.toInt()} ' +
-                                  l10n.kcal,
+                              '$formattedDate\n${touchedSpot.y.toInt()} ${l10n.kcal}',
                               const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -226,11 +237,16 @@ class CalorieTrendChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildLegendItem(l10n.actual, context.customColors.caloriesColor),
+                _buildLegendItem(
+                    l10n.actual, context.customColors.caloriesColor),
                 if (goals != null) ...[
                   const SizedBox(width: 24),
                   _buildLegendItem(
-                      l10n.goal, Theme.of(context).colorScheme.primary.withAlpha((0.5 * 255).toInt()),
+                      l10n.goal,
+                      Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withAlpha((0.5 * 255).toInt()),
                       isDashed: true),
                 ],
               ],
