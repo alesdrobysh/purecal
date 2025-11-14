@@ -192,6 +192,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ],
+                  if (widget.product.sourceType == 'usda') ...[
+                    const SizedBox(height: 8),
+                    Text(
+                      l10n.fromUsdaDatabase,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
 
                   // Notes
                   if (widget.product.notes != null &&
