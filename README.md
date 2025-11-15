@@ -6,6 +6,7 @@ A privacy-focused Flutter nutrition tracking app that helps you monitor your dai
 
 - **Barcode Scanning** - Quickly log food items by scanning product barcodes
 - **OpenFoodFacts Integration** - Access a vast database of food products with detailed nutritional information
+- **USDA Database Integration** - Search the USDA Standard Reference food composition database
 - **Custom Products** - Create and save your own local products with custom nutrition data
 - **Meal Tracking** - Organize entries by meal type (breakfast, lunch, dinner, snacks)
 - **Nutrition Goals** - Set and track daily targets for calories, protein, fats, and carbohydrates
@@ -56,7 +57,7 @@ flutter build ios
 ## Usage
 
 1. **Set Your Goals** - Navigate to the Goals screen to configure your daily nutrition targets
-2. **Search for Products** - Use the search function to find products from OpenFoodFacts database
+2. **Search for Products** - Use the search function to find products from OpenFoodFacts and USDA databases
 3. **Scan Barcodes** - Tap the scanner button to quickly add products by scanning their barcodes
 4. **Create Custom Items** - Add products not in the database using the custom product feature
 5. **Log Your Meals** - Select portions and add items to your daily diary organized by meal type
@@ -81,7 +82,7 @@ The app will automatically use your system language if supported, or default to 
 - No cloud synchronization or remote servers
 - No account registration required
 - No personal data collection or tracking
-- Product lookups use OpenFoodFacts public API (barcode queries only)
+- Product lookups use OpenFoodFacts and USDA public APIs (search queries only)
 - All diary entries, custom products, and goals are stored locally on your device
 - You have full control over your data with CSV export functionality
 
@@ -94,6 +95,7 @@ Navigate to Settings and use the "Export Data to CSV" option to create a backup 
 This app is made possible by:
 
 - **[OpenFoodFacts](https://world.openfoodfacts.org/)** - Providing the comprehensive open food products database
+- **[USDA FoodData Central](https://fdc.nal.usda.gov/)** - Providing the Standard Reference food composition database
 - **Flutter Community** - For the excellent ecosystem of packages:
   - [provider](https://pub.dev/packages/provider) - State management
   - [sqflite](https://pub.dev/packages/sqflite) - Local database

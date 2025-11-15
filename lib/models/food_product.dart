@@ -15,7 +15,7 @@ class FoodProduct {
   final bool isLocal;
   final int? localId;
   final String? notes;
-  final String? sourceType; // 'local', 'off', 'edited_off'
+  final String? sourceType; // 'local', 'off', 'edited_off', 'usda'
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
