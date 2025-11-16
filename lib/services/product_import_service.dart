@@ -42,9 +42,11 @@ class ProductImportService {
   /// Import products from a JSON file
   /// Returns ImportResult with counts and error messages
   /// onConflict callback is called for each duplicate barcode (if user hasn't chosen Keep All / Replace All)
+  /// onProgress callback is called for each product processed with (currentIndex, totalProducts)
   Future<ImportResult> importProductsFromJSON(
     String filePath, {
     required Future<ConflictResolution> Function(ProductConflict) onConflict,
+    Function(int currentIndex, int totalProducts)? onProgress,
   }) async {
     int imported = 0;
     int skipped = 0;
@@ -86,6 +88,9 @@ class ProductImportService {
 
       // Process each product
       for (int i = 0; i < productsData.length; i++) {
+        // Report progress
+        onProgress?.call(i + 1, productsData.length);
+
         try {
           final productData = productsData[i] as Map<String, dynamic>;
           final barcode = productData['barcode']?.toString() ?? '';

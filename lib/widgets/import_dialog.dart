@@ -2,48 +2,90 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../services/product_import_service.dart';
 
-class ImportProgressDialog extends StatelessWidget {
-  final int currentIndex;
+class ImportDialog extends StatefulWidget {
+  final Future<ImportResult> importFuture;
   final int totalProducts;
-  final ImportResult? result;
 
-  const ImportProgressDialog({
+  const ImportDialog({
     super.key,
-    required this.currentIndex,
+    required this.importFuture,
     required this.totalProducts,
-    this.result,
   });
+
+  @override
+  State<ImportDialog> createState() => _ImportDialogState();
+}
+
+class _ImportDialogState extends State<ImportDialog> {
+  int _currentIndex = 0;
+  ImportResult? _result;
+
+  @override
+  void initState() {
+    super.initState();
+    _waitForResult();
+  }
+
+  Future<void> _waitForResult() async {
+    try {
+      final result = await widget.importFuture;
+      if (mounted) {
+        setState(() {
+          _result = result;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _result = ImportResult(
+            imported: 0,
+            skipped: 0,
+            errors: 1,
+            errorMessages: ['Import failed: ${e.toString()}'],
+          );
+        });
+      }
+    }
+  }
+
+  void updateProgress(int currentIndex) {
+    if (mounted) {
+      setState(() {
+        _currentIndex = currentIndex;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     return AlertDialog(
-      title: Text(result == null
-          ? l10n.importingProducts
-          : l10n.importComplete),
+      title: Text(
+        _result == null ? l10n.importingProducts : l10n.importComplete,
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (result == null) ...[
+          if (_result == null) ...[
             const CircularProgressIndicator(),
             const SizedBox(height: 16),
             Text(
-              l10n.importingProductsProgress(currentIndex, totalProducts),
+              l10n.importingProductsProgress(_currentIndex, widget.totalProducts),
               textAlign: TextAlign.center,
             ),
           ] else ...[
             Icon(
-              result!.errors > 0 ? Icons.warning : Icons.check_circle,
-              color: result!.errors > 0 ? Colors.orange : Colors.green,
+              _result!.errors > 0 ? Icons.warning : Icons.check_circle,
+              color: _result!.errors > 0 ? Colors.orange : Colors.green,
               size: 48,
             ),
             const SizedBox(height: 16),
-            _buildResultSummary(context, l10n, result!),
+            _buildResultSummary(context, l10n, _result!),
           ],
         ],
       ),
-      actions: result != null
+      actions: _result != null
           ? [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),

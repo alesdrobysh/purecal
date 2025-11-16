@@ -10,9 +10,11 @@ import '../services/export_service.dart';
 import '../services/product_export_service.dart';
 import '../services/product_import_service.dart';
 import '../widgets/conflict_resolution_dialog.dart';
-import '../widgets/import_progress_dialog.dart';
+import '../widgets/import_dialog.dart';
 import 'local_products_list_screen.dart';
 import '../l10n/app_localizations.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -566,32 +568,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
 
     final filePath = result.files.single.path!;
-    final importService = ProductImportService();
-
-    // Show progress dialog
-    BuildContext? progressDialogContext;
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        progressDialogContext = context;
-        return const ImportProgressDialog(
-          currentIndex: 0,
-          totalProducts: 0,
-        );
-      },
-    );
 
     try {
-      // Import products with conflict resolution
-      final importResult = await importService.importProductsFromJSON(
+      // Read JSON to get product count
+      final file = File(filePath);
+      final jsonString = await file.readAsString();
+      final Map<String, dynamic> data = jsonDecode(jsonString);
+      final int totalProducts = data['productCount'] as int? ?? 0;
+
+      if (!context.mounted) return;
+
+      // Create a GlobalKey to access the dialog state
+      final dialogKey = GlobalKey<State<ImportDialog>>();
+
+      // Start the import operation (returns a Future)
+      final importService = ProductImportService();
+      final importFuture = importService.importProductsFromJSON(
         filePath,
         onConflict: (conflict) async {
-          // Close progress dialog temporarily
-          if (progressDialogContext != null && progressDialogContext!.mounted) {
-            Navigator.pop(progressDialogContext!);
-          }
-
           // Show conflict resolution dialog
           final resolution = await showDialog<ConflictResolution>(
             context: context,
@@ -602,46 +596,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           );
 
-          // Re-show progress dialog
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) {
-              progressDialogContext = context;
-              return const ImportProgressDialog(
-                currentIndex: 0,
-                totalProducts: 0,
-              );
-            },
-          );
-
           return resolution ?? ConflictResolution.skip;
+        },
+        onProgress: (currentIndex, total) {
+          // Update progress in the dialog
+          final state = dialogKey.currentState;
+          if (state != null && state.mounted) {
+            (state as dynamic).updateProgress(currentIndex);
+          }
         },
       );
 
-      // Close progress dialog
-      if (progressDialogContext != null && progressDialogContext!.mounted) {
-        Navigator.pop(progressDialogContext!);
-      }
-
-      // Show result dialog
-      if (context.mounted) {
-        await showDialog(
-          context: context,
-          builder: (context) => ImportProgressDialog(
-            currentIndex: importResult.imported + importResult.skipped,
-            totalProducts: importResult.imported + importResult.skipped,
-            result: importResult,
-          ),
-        );
-      }
+      // Show the dialog that awaits the import future
+      await showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => ImportDialog(
+          key: dialogKey,
+          importFuture: importFuture,
+          totalProducts: totalProducts,
+        ),
+      );
     } catch (e) {
-      // Close progress dialog
-      if (progressDialogContext != null && progressDialogContext!.mounted) {
-        Navigator.pop(progressDialogContext!);
-      }
-
-      // Show error message
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
