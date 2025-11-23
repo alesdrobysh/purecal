@@ -92,6 +92,10 @@
 
   "appearance": "Внешний вид",
   "dataManagement": "Управление данными",
+  "manageDataExportImport": "Экспорт, импорт и управление данными",
+  "dataExport": "Экспорт данных",
+  "dataImport": "Импорт данных",
+  "cacheManagement": "Управление кэшем",
   "about": "О приложении",
   "language": "Язык",
   "chooseLanguage": "Выбрать язык",

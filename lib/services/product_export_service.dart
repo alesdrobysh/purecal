@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'database_service.dart';
 import '../models/food_product.dart';
+import '../exceptions/export_exceptions.dart';
 
 class ProductExportService {
   /// Export all local products to JSON with base64-encoded images
@@ -14,7 +15,7 @@ class ProductExportService {
     final products = await DatabaseService().getAllLocalProducts();
 
     if (products.isEmpty) {
-      throw Exception('No local products to export');
+      throw NoProductsToExportException();
     }
 
     // Convert products to JSON-serializable format with base64 images

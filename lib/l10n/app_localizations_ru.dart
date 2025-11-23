@@ -281,6 +281,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get dataManagement => 'Управление данными';
 
   @override
+  String get manageDataExportImport => 'Экспорт, импорт и управление данными';
+
+  @override
+  String get dataExport => 'Экспорт данных';
+
+  @override
+  String get dataImport => 'Импорт данных';
+
+  @override
+  String get cacheManagement => 'Управление кэшем';
+
+  @override
   String get about => 'О приложении';
 
   @override

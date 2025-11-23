@@ -281,6 +281,18 @@ class AppLocalizationsPl extends AppLocalizations {
   String get dataManagement => 'Zarządzanie danymi';
 
   @override
+  String get manageDataExportImport => 'Eksportuj, importuj i zarządzaj danymi';
+
+  @override
+  String get dataExport => 'Eksport danych';
+
+  @override
+  String get dataImport => 'Import danych';
+
+  @override
+  String get cacheManagement => 'Zarządzanie pamięcią podręczną';
+
+  @override
   String get about => 'O aplikacji';
 
   @override

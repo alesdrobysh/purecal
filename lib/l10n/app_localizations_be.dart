@@ -280,6 +280,18 @@ class AppLocalizationsBe extends AppLocalizations {
   String get dataManagement => 'Кіраванне данымі';
 
   @override
+  String get manageDataExportImport => 'Экспарт, імпарт і кіраванне данымі';
+
+  @override
+  String get dataExport => 'Экспарт даных';
+
+  @override
+  String get dataImport => 'Імпарт даных';
+
+  @override
+  String get cacheManagement => 'Кіраванне кэшам';
+
+  @override
   String get about => 'Пра праграму';
 
   @override

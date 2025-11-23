@@ -3,18 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../config/custom_colors.dart';
 import '../widgets/branded_app_bar.dart';
-import 'package:file_picker/file_picker.dart';
-import '../services/diary_provider.dart';
 import '../services/settings_provider.dart';
-import '../services/export_service.dart';
-import '../services/product_export_service.dart';
-import '../services/product_import_service.dart';
-import '../widgets/conflict_resolution_dialog.dart';
-import '../widgets/import_dialog.dart';
 import 'local_products_list_screen.dart';
+import 'data_management_screen.dart';
 import '../l10n/app_localizations.dart';
-import 'dart:convert';
-import 'dart:io';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -56,10 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _buildThemeOption(context),
           const Divider(),
           _buildSectionHeader(l10n.dataManagement),
-          _buildExportDataOption(context),
-          _buildExportProductsOption(context),
-          _buildImportProductsOption(context),
-          _buildClearCacheOption(context),
+          _buildDataManagementOption(context),
           const Divider(),
           _buildSectionHeader(l10n.about),
           _buildAboutOption(context),
@@ -123,85 +112,24 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildExportDataOption(BuildContext context) {
+  Widget _buildDataManagementOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return ListTile(
-      leading: Icon(Icons.upload_file, color: context.customColors.exportColor),
-      title: Text(l10n.exportDiaryEntries),
-      subtitle: Text(l10n.exportDiaryEntriesDescription),
-      onTap: () => _handleExportDiary(context),
-    );
-  }
-
-  Widget _buildExportProductsOption(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return ListTile(
-      leading: const Icon(Icons.inventory_2_outlined, color: Colors.teal),
-      title: Text(l10n.exportProducts),
-      subtitle: Text(l10n.exportProductsDescription),
-      onTap: () => _handleExportProducts(context),
-    );
-  }
-
-  Widget _buildImportProductsOption(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return ListTile(
-      leading: const Icon(Icons.download, color: Colors.indigo),
-      title: Text(l10n.importProducts),
-      subtitle: Text(l10n.importProductsDescription),
-      onTap: () => _handleImportProducts(context),
-    );
-  }
-
-  Widget _buildClearCacheOption(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return ListTile(
-      leading:
-          Icon(Icons.delete_sweep, color: context.customColors.warningColor),
-      title: Text(l10n.clearFrequentProductsCache),
-      subtitle: Text(l10n.clearFrequentProductsDescription),
-      onTap: () => _showClearCacheDialog(context),
-    );
-  }
-
-  void _showClearCacheDialog(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.clearCache),
-        content: Text(
-          l10n.clearCacheConfirmation,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
+      leading: Icon(Icons.storage, color: context.customColors.infoColor),
+      title: Text(l10n.dataManagement),
+      subtitle: Text(l10n.manageDataExportImport),
+      trailing: const Icon(Icons.chevron_right),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DataManagementScreen(),
           ),
-          TextButton(
-            onPressed: () async {
-              final provider =
-                  Provider.of<DiaryProvider>(context, listen: false);
-              await provider.clearFrequentProductsCache();
-
-              if (context.mounted) {
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(l10n.cacheCleared),
-                    duration: const Duration(seconds: 2),
-                  ),
-                );
-              }
-            },
-            style: TextButton.styleFrom(
-                foregroundColor: context.customColors.warningColor),
-            child: Text(l10n.clear),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
+
 
   Widget _buildAboutOption(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
@@ -363,270 +291,4 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Future<void> _handleExportDiary(BuildContext context) async {
-    // Show date range selection dialog
-    await _showExportOptionsDialog(context);
-  }
-
-  Future<void> _showExportOptionsDialog(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.selectExportTimeframe),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.all_inclusive),
-              title: Text(l10n.allTime),
-              subtitle: Text(l10n.exportAllEntries),
-              onTap: () {
-                Navigator.pop(context);
-                _performExport(context, null, null);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.calendar_today),
-              title: Text(l10n.last7Days),
-              subtitle: Text(l10n.exportLast7Days),
-              onTap: () {
-                Navigator.pop(context);
-                final endDate = DateTime.now();
-                final startDate = endDate.subtract(const Duration(days: 7));
-                _performExport(context, startDate, endDate);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.calendar_month),
-              title: Text(l10n.last30Days),
-              subtitle: Text(l10n.exportLast30Days),
-              onTap: () {
-                Navigator.pop(context);
-                final endDate = DateTime.now();
-                final startDate = endDate.subtract(const Duration(days: 30));
-                _performExport(context, startDate, endDate);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _performExport(
-    BuildContext context,
-    DateTime? startDate,
-    DateTime? endDate,
-  ) async {
-    final l10n = AppLocalizations.of(context)!;
-    final exportService = ExportService();
-
-    BuildContext? dialogContext;
-
-    // Show loading dialog
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        dialogContext = context;
-        return AlertDialog(
-          content: Row(
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(width: 20),
-              Text(l10n.exportingData),
-            ],
-          ),
-        );
-      },
-    );
-
-    try {
-      await exportService.exportDiaryEntriesToCSV(
-        startDate: startDate,
-        endDate: endDate,
-      );
-
-      // Close loading dialog
-      if (dialogContext != null && dialogContext!.mounted) {
-        Navigator.pop(dialogContext!);
-      }
-
-      // Show success message
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.exportSuccess),
-            duration: const Duration(seconds: 2),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-          ),
-        );
-      }
-    } catch (e) {
-      // Close loading dialog
-      if (dialogContext != null && dialogContext!.mounted) {
-        Navigator.pop(dialogContext!);
-      }
-
-      // Show error message
-      if (context.mounted) {
-        String errorMessage = l10n.exportError;
-        if (e.toString().contains('No diary entries')) {
-          errorMessage = l10n.noDataToExport;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-            duration: const Duration(seconds: 3),
-            backgroundColor: context.customColors.dangerColor,
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _handleExportProducts(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-    final exportService = ProductExportService();
-
-    BuildContext? dialogContext;
-
-    // Show loading dialog
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        dialogContext = context;
-        return AlertDialog(
-          content: Row(
-            children: [
-              const CircularProgressIndicator(),
-              const SizedBox(width: 20),
-              Text(l10n.exportingData),
-            ],
-          ),
-        );
-      },
-    );
-
-    try {
-      await exportService.exportProductsToJSON();
-
-      // Close loading dialog
-      if (dialogContext != null && dialogContext!.mounted) {
-        Navigator.pop(dialogContext!);
-      }
-
-      // Show success message
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.exportProductsSuccess),
-            duration: const Duration(seconds: 2),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-          ),
-        );
-      }
-    } catch (e) {
-      // Close loading dialog
-      if (dialogContext != null && dialogContext!.mounted) {
-        Navigator.pop(dialogContext!);
-      }
-
-      // Show error message
-      if (context.mounted) {
-        String errorMessage = l10n.exportError;
-        if (e.toString().contains('No local products')) {
-          errorMessage = l10n.noProductsToExport;
-        }
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorMessage),
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _handleImportProducts(BuildContext context) async {
-    final l10n = AppLocalizations.of(context)!;
-
-    // Pick JSON file
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-    );
-
-    if (result == null || result.files.single.path == null) {
-      return;
-    }
-
-    final filePath = result.files.single.path!;
-
-    try {
-      // Read JSON to get product count
-      final file = File(filePath);
-      final jsonString = await file.readAsString();
-      final Map<String, dynamic> data = jsonDecode(jsonString);
-      final int totalProducts = data['productCount'] as int? ?? 0;
-
-      if (!context.mounted) return;
-
-      // Create a GlobalKey to access the dialog state
-      final dialogKey = GlobalKey<State<ImportDialog>>();
-
-      // Start the import operation (returns a Future)
-      final importService = ProductImportService();
-      final importFuture = importService.importProductsFromJSON(
-        filePath,
-        onConflict: (conflict) async {
-          // Show conflict resolution dialog
-          final resolution = await showDialog<ConflictResolution>(
-            context: context,
-            barrierDismissible: false,
-            builder: (context) => ConflictResolutionDialog(
-              existingProduct: conflict.existingProduct,
-              importedProduct: conflict.importedProduct,
-            ),
-          );
-
-          return resolution ?? ConflictResolution.skip;
-        },
-        onProgress: (currentIndex, total) {
-          // Update progress in the dialog
-          final state = dialogKey.currentState;
-          if (state != null && state.mounted) {
-            (state as dynamic).updateProgress(currentIndex);
-          }
-        },
-      );
-
-      // Show the dialog that awaits the import future
-      await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => ImportDialog(
-          key: dialogKey,
-          importFuture: importFuture,
-          totalProducts: totalProducts,
-        ),
-      );
-    } catch (e) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('${l10n.importError}: ${e.toString()}'),
-            duration: const Duration(seconds: 3),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
-  }
 }

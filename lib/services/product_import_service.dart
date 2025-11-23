@@ -16,12 +16,14 @@ class ImportResult {
   final int imported;
   final int skipped;
   final int errors;
+  final int total;
   final List<String> errorMessages;
 
   ImportResult({
     required this.imported,
     required this.skipped,
     required this.errors,
+    required this.total,
     this.errorMessages = const [],
   });
 }
@@ -244,6 +246,7 @@ class ProductImportService {
       imported: imported,
       skipped: skipped,
       errors: errors,
+      total: imported + skipped + errors,
       errorMessages: errorMessages,
     );
   }

@@ -92,6 +92,10 @@
 
   "appearance": "Apariencia",
   "dataManagement": "Gestión de Datos",
+  "manageDataExportImport": "Exportar, importar y gestionar datos",
+  "dataExport": "Exportación de Datos",
+  "dataImport": "Importación de Datos",
+  "cacheManagement": "Gestión de Caché",
   "about": "Acerca de",
   "language": "Idioma",
   "chooseLanguage": "Elegir Idioma",

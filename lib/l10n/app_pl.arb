@@ -92,6 +92,10 @@
 
   "appearance": "Wygląd",
   "dataManagement": "Zarządzanie danymi",
+  "manageDataExportImport": "Eksportuj, importuj i zarządzaj danymi",
+  "dataExport": "Eksport danych",
+  "dataImport": "Import danych",
+  "cacheManagement": "Zarządzanie pamięcią podręczną",
   "about": "O aplikacji",
   "language": "Język",
   "chooseLanguage": "Wybierz język",

@@ -608,6 +608,30 @@ abstract class AppLocalizations {
   /// **'Data Management'**
   String get dataManagement;
 
+  /// Data management subtitle description
+  ///
+  /// In en, this message translates to:
+  /// **'Export, import, and manage data'**
+  String get manageDataExportImport;
+
+  /// Data export section title
+  ///
+  /// In en, this message translates to:
+  /// **'Data Export'**
+  String get dataExport;
+
+  /// Data import section title
+  ///
+  /// In en, this message translates to:
+  /// **'Data Import'**
+  String get dataImport;
+
+  /// Cache management section title
+  ///
+  /// In en, this message translates to:
+  /// **'Cache Management'**
+  String get cacheManagement;
+
   /// About section title
   ///
   /// In en, this message translates to:

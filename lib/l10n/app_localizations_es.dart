@@ -282,6 +282,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get dataManagement => 'Gestión de Datos';
 
   @override
+  String get manageDataExportImport => 'Exportar, importar y gestionar datos';
+
+  @override
+  String get dataExport => 'Exportación de Datos';
+
+  @override
+  String get dataImport => 'Importación de Datos';
+
+  @override
+  String get cacheManagement => 'Gestión de Caché';
+
+  @override
   String get about => 'Acerca de';
 
   @override

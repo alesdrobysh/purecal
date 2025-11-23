@@ -407,6 +407,22 @@
   "@dataManagement": {
     "description": "Data management settings section title"
   },
+  "manageDataExportImport": "Export, import, and manage data",
+  "@manageDataExportImport": {
+    "description": "Data management subtitle description"
+  },
+  "dataExport": "Data Export",
+  "@dataExport": {
+    "description": "Data export section title"
+  },
+  "dataImport": "Data Import",
+  "@dataImport": {
+    "description": "Data import section title"
+  },
+  "cacheManagement": "Cache Management",
+  "@cacheManagement": {
+    "description": "Cache management section title"
+  },
   "about": "About",
   "@about": {
     "description": "About section title"

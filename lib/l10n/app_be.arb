@@ -92,6 +92,10 @@
 
   "appearance": "Знешні выгляд",
   "dataManagement": "Кіраванне данымі",
+  "manageDataExportImport": "Экспарт, імпарт і кіраванне данымі",
+  "dataExport": "Экспарт даных",
+  "dataImport": "Імпарт даных",
+  "cacheManagement": "Кіраванне кэшам",
   "about": "Пра праграму",
   "language": "Мова",
   "chooseLanguage": "Выбраць мову",

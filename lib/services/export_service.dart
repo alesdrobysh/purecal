@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'database_service.dart';
 import '../models/diary_entry.dart';
+import '../exceptions/export_exceptions.dart';
 
 class ExportService {
   Future<void> exportDiaryEntriesToCSV({
@@ -20,7 +21,7 @@ class ExportService {
     }
 
     if (entries.isEmpty) {
-      throw Exception('No diary entries to export');
+      throw NoDataToExportException();
     }
 
     // Create CSV data

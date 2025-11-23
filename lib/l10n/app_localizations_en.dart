@@ -280,6 +280,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dataManagement => 'Data Management';
 
   @override
+  String get manageDataExportImport => 'Export, import, and manage data';
+
+  @override
+  String get dataExport => 'Data Export';
+
+  @override
+  String get dataImport => 'Data Import';
+
+  @override
+  String get cacheManagement => 'Cache Management';
+
+  @override
   String get about => 'About';
 
   @override

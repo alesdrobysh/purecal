@@ -41,6 +41,7 @@ class _ImportDialogState extends State<ImportDialog> {
             imported: 0,
             skipped: 0,
             errors: 1,
+            total: 0,
             errorMessages: ['Import failed: ${e.toString()}'],
           );
         });
