@@ -1213,6 +1213,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Based on OpenFoodFacts product'**
   String get basedOnOffProduct;
+
+  /// Text shown for products from USDA database
+  ///
+  /// In en, this message translates to:
+  /// **'From USDA Food Database'**
+  String get fromUsdaDatabase;
 }
 
 class _AppLocalizationsDelegate

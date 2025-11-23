@@ -617,4 +617,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get basedOnOffProduct => 'Based on OpenFoodFacts product';
+
+  @override
+  String get fromUsdaDatabase => 'From USDA Food Database';
 }
