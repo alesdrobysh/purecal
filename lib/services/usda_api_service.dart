@@ -1,19 +1,19 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/food_product.dart';
 
 class USDAApiService {
   static const String baseUrl = 'https://api.nal.usda.gov/fdc/v1';
 
-  // API key is optional - the API allows limited requests without it
-  // Users can set their own API key by getting one from https://fdc.nal.usda.gov/api-key-signup.html
-  String? _apiKey;
+  // API key is loaded at compile time from .env.json
+  // To build with API key: flutter run --dart-define-from-file=.env.json
+  static const String _apiKey = String.fromEnvironment(
+    'USDA_API_KEY',
+    defaultValue: 'DEMO_KEY',
+  );
 
-  USDAApiService({String? apiKey}) : _apiKey = apiKey;
-
-  void setApiKey(String? apiKey) {
-    _apiKey = apiKey;
-  }
+  USDAApiService();
 
   /// Search for foods in the USDA database
   ///
@@ -36,7 +36,7 @@ class USDAApiService {
         'query': query,
         'pageSize': pageSize.toString(),
         'pageNumber': (page - 1).toString(), // API uses 0-indexed pages
-        if (_apiKey != null) 'api_key': _apiKey!,
+        'api_key': _apiKey,
         if (dataType != null && dataType.isNotEmpty)
           'dataType': dataType.join(','),
       };
@@ -60,14 +60,17 @@ class USDAApiService {
       } else if (response.statusCode == 403) {
         throw Exception(
             'USDA API access denied. You may need to set an API key or have exceeded rate limits.');
+      } else if (response.statusCode == 404) {
+        throw Exception(
+            'USDA API endpoint not found. URL: $uri\nResponse: ${response.body}');
       } else {
-        throw Exception('USDA API error: ${response.statusCode}');
+        throw Exception(
+            'USDA API error: ${response.statusCode}\nURL: $uri\nResponse: ${response.body}');
       }
 
       return [];
     } catch (e) {
-      // Return empty list instead of throwing to allow graceful degradation
-      print('Error searching USDA: $e');
+      debugPrint('Error searching USDA: $e');
       return [];
     }
   }
@@ -76,7 +79,7 @@ class USDAApiService {
   Future<FoodProduct?> getFoodById(String fdcId) async {
     try {
       final queryParams = {
-        if (_apiKey != null) 'api_key': _apiKey!,
+        'api_key': _apiKey,
       };
 
       final uri = Uri.parse('$baseUrl/food/$fdcId')
@@ -91,7 +94,7 @@ class USDAApiService {
 
       return null;
     } catch (e) {
-      print('Error fetching USDA food by ID: $e');
+      debugPrint('Error fetching USDA food by ID: $e');
       return null;
     }
   }
@@ -116,7 +119,6 @@ class USDAApiService {
 
       for (var nutrient in nutrients) {
         final nutrientNumber = nutrient['nutrientNumber']?.toString();
-        final nutrientName = nutrient['nutrientName']?.toString() ?? '';
         final value = (nutrient['value'] ?? 0).toDouble();
 
         // USDA nutrient numbers:
@@ -152,7 +154,7 @@ class USDAApiService {
         sourceType: 'usda',
       );
     } catch (e) {
-      print('Error parsing USDA food: $e');
+      debugPrint('Error parsing USDA food: $e');
       return null;
     }
   }
