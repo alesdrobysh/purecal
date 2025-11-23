@@ -57,14 +57,15 @@ class ProductService {
         dataType: ['SR Legacy'], // Focus on Standard Reference Legacy database
       );
 
-      // Combine and return results from all sources
+      // Combine results from all sources and enforce page size limit
       final combined = await Future.wait([
         localProductsFuture,
         offProductsFuture,
         usdaProductsFuture,
       ]);
 
-      return [...combined[0], ...combined[1], ...combined[2]];
+      final merged = [...combined[0], ...combined[1], ...combined[2]];
+      return merged.take(pageSize).toList();
     } catch (e) {
       // Return empty list on error
       return [];

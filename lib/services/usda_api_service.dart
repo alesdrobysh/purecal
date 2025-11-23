@@ -112,14 +112,16 @@ class USDAApiService {
       }
 
       // Extract nutrition data per 100g
-      double calories = 0;
-      double proteins = 0;
-      double fat = 0;
-      double carbs = 0;
+      double? calories;
+      double? proteins;
+      double? fat;
+      double? carbs;
 
       for (var nutrient in nutrients) {
         final nutrientNumber = nutrient['nutrientNumber']?.toString();
-        final value = (nutrient['value'] ?? 0).toDouble();
+        final value = nutrient['value'];
+
+        if (value == null) continue;
 
         // USDA nutrient numbers:
         // 208 = Energy (kcal)
@@ -128,18 +130,25 @@ class USDAApiService {
         // 205 = Carbohydrate, by difference
         switch (nutrientNumber) {
           case '208':
-            calories = value;
+            calories = value.toDouble();
             break;
           case '203':
-            proteins = value;
+            proteins = value.toDouble();
             break;
           case '204':
-            fat = value;
+            fat = value.toDouble();
             break;
           case '205':
-            carbs = value;
+            carbs = value.toDouble();
             break;
         }
+      }
+
+      if (calories == null ||
+          proteins == null ||
+          fat == null ||
+          carbs == null) {
+        return null;
       }
 
       return FoodProduct(
