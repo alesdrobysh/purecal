@@ -884,5 +884,9 @@
   "basedOnOffProduct": "Based on OpenFoodFacts product",
   "@basedOnOffProduct": {
     "description": "Text shown for products edited from OpenFoodFacts"
+  },
+  "fromUsdaDatabase": "From USDA Food Database",
+  "@fromUsdaDatabase": {
+    "description": "Text shown for products from USDA database"
   }
 }

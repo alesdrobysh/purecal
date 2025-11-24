@@ -622,4 +622,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get basedOnOffProduct => 'Basado en el producto de OpenFoodFacts';
+
+  @override
+  String get fromUsdaDatabase => 'De la Base de Datos de USDA';
 }

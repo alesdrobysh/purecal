@@ -1,17 +1,21 @@
 import '../models/food_product.dart';
 import 'database_service.dart';
 import 'off_api_service.dart';
+import 'usda_api_service.dart';
 
-/// Unified product service that searches local products first, then falls back to OFF API
+/// Unified product service that searches local products, OFF API, and USDA database
 class ProductService {
   final DatabaseService _dbService;
   final OFFApiService _offApiService;
+  final USDAApiService _usdaApiService;
 
   ProductService({
     DatabaseService? dbService,
     OFFApiService? offApiService,
+    USDAApiService? usdaApiService,
   })  : _dbService = dbService ?? DatabaseService(),
-        _offApiService = offApiService ?? OFFApiService();
+        _offApiService = offApiService ?? OFFApiService(),
+        _usdaApiService = usdaApiService ?? USDAApiService();
 
   /// Get product by barcode - checks local DB first, then OFF API
   Future<FoodProduct?> getProductByBarcode(String barcode) async {
@@ -32,7 +36,7 @@ class ProductService {
     }
   }
 
-  /// Search products - searches both local and OFF
+  /// Search products - searches local, OFF, and USDA databases
   Future<List<FoodProduct>> searchProducts(
     String query, {
     int page = 1,
@@ -46,12 +50,22 @@ class ProductService {
       final localProductsFuture = _dbService.searchLocalProducts(query);
       final offProductsFuture =
           _offApiService.searchProducts(query, page: page, pageSize: pageSize);
+      final usdaProductsFuture = _usdaApiService.searchFoods(
+        query,
+        page: page,
+        pageSize: pageSize,
+        dataType: ['SR Legacy'], // Focus on Standard Reference Legacy database
+      );
 
-      // Combine and return results
-      final combined =
-          await Future.wait([localProductsFuture, offProductsFuture]);
+      // Combine results from all sources and enforce page size limit
+      final combined = await Future.wait([
+        localProductsFuture,
+        offProductsFuture,
+        usdaProductsFuture,
+      ]);
 
-      return [...combined[0], ...combined[1]];
+      final merged = [...combined[0], ...combined[1], ...combined[2]];
+      return merged.take(pageSize).toList();
     } catch (e) {
       // Return empty list on error
       return [];

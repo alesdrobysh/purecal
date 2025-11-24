@@ -211,5 +211,9 @@
   "basedOnOffProduct": "На аснове прадукту OpenFoodFacts",
   "@basedOnOffProduct": {
     "description": "Text shown for products edited from OpenFoodFacts"
+  },
+  "fromUsdaDatabase": "З базы даных USDA",
+  "@fromUsdaDatabase": {
+    "description": "Text shown for products from USDA database"
   }
 }
