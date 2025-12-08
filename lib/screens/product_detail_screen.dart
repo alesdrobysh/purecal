@@ -58,7 +58,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => CreateLocalProductScreen(
-          sourceOffProduct: widget.product.isLocal ? null : widget.product,
+          sourceProduct: widget.product.isLocal ? null : widget.product,
           product: widget.product.isLocal ? widget.product : null,
         ),
       ),
@@ -178,31 +178,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ],
 
                   // Source Type
-                  if (widget.product.sourceType == 'edited_off') ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.basedOnOffProduct,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
-                            .withValues(alpha: 0.6),
-                        fontStyle: FontStyle.italic,
-                      ),
+                  const SizedBox(height: 8),
+                  Text(
+                    _getSourceDescription(widget.product.source, l10n),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                      fontStyle: FontStyle.italic,
                     ),
-                  ],
-                  if (widget.product.sourceType == 'usda') ...[
-                    const SizedBox(height: 8),
-                    Text(
-                      l10n.fromUsdaDatabase,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ],
+                  ),
 
                   // Notes
                   if (widget.product.notes != null &&
@@ -406,5 +393,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ],
       ),
     );
+  }
+
+  String _getSourceDescription(ProductSource source, AppLocalizations l10n) {
+    switch (source) {
+      case ProductSource.local:
+        return l10n.customProduct;
+      case ProductSource.openFoodFacts:
+        return l10n.fromOpenFoodFacts;
+      case ProductSource.usda:
+        return l10n.fromUsdaDatabase;
+      case ProductSource.editedOpenFoodFacts:
+        return l10n.basedOnOffProduct;
+      case ProductSource.editedUsda:
+        return l10n.basedOnUsdaProduct;
+    }
   }
 }

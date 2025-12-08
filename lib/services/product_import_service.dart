@@ -167,7 +167,7 @@ class ProductImportService {
                   isLocal: true,
                   localId: existingProduct.localId,
                   notes: importedProduct.notes,
-                  sourceType: importedProduct.sourceType ?? 'local',
+                  source: importedProduct.source,
                   createdAt: existingProduct.createdAt,
                   updatedAt: DateTime.now(),
                 );
@@ -202,7 +202,7 @@ class ProductImportService {
               imageUrl: imagePath,
               isLocal: true,
               notes: importedProduct.notes,
-              sourceType: importedProduct.sourceType ?? 'local',
+              source: importedProduct.source,
               createdAt: importedProduct.createdAt ?? DateTime.now(),
               updatedAt: DateTime.now(),
             );
@@ -224,7 +224,7 @@ class ProductImportService {
                 isLocal: true,
                 localId: insertedId,
                 notes: newProduct.notes,
-                sourceType: newProduct.sourceType,
+                source: newProduct.source,
                 createdAt: newProduct.createdAt,
                 updatedAt: newProduct.updatedAt,
               );
@@ -289,7 +289,9 @@ class ProductImportService {
           ? double.tryParse(data['serving_size'].toString())
           : null,
       notes: data['notes']?.toString(),
-      sourceType: data['source_type']?.toString(),
+      source: data['source_type'] != null
+          ? ProductSource.fromDbString(data['source_type'].toString())
+          : ProductSource.local,
       createdAt: data['created_at'] != null
           ? DateTime.tryParse(data['created_at'].toString())
           : null,

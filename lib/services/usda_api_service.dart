@@ -38,7 +38,9 @@ class USDAApiService {
         'pageNumber': (page - 1).toString(), // API uses 0-indexed pages
         'api_key': _apiKey,
         if (dataType != null && dataType.isNotEmpty)
-          'dataType': dataType.join(','),
+          'dataType': dataType.join(',')
+        else
+          'dataType': 'Foundation',
       };
 
       final uri = Uri.parse('$baseUrl/foods/search')
@@ -100,14 +102,35 @@ class USDAApiService {
   }
 
   /// Parse USDA food data into FoodProduct model
+  ///
+  /// Foundation API Response Schema:
+  /// - fdcId: int - Unique FDC ID
+  /// - description: string - Product name
+  /// - foodCategory: string - Category like "Fruits and Fruit Juices"
+  /// - scientificName: string (optional) - Scientific name
+  /// - dataType: string - "Foundation", "SR Legacy", "Branded", etc.
+  /// - foodNutrients: array of objects:
+  ///   - nutrientId: int
+  ///   - nutrientName: string
+  ///   - nutrientNumber: string - e.g. "203", "204", "205", "957", "958"
+  ///   - unitName: string - e.g. "G", "KCAL", "MG"
+  ///   - value: number - Nutrient value
+  ///
+  /// Key nutrient numbers:
+  /// - "203" = Protein (G)
+  /// - "204" = Total lipid/fat (G)
+  /// - "205" = Carbohydrate by difference (G)
+  /// - "957" = Energy (Atwater General Factors) (KCAL) - preferred
+  /// - "958" = Energy (Atwater Specific Factors) (KCAL)
   FoodProduct? _parseUSDAFood(Map<String, dynamic> food) {
     try {
       final fdcId = food['fdcId']?.toString() ?? '';
       final description = food['description']?.toString() ?? 'Unknown';
-      final brandOwner = food['brandOwner']?.toString();
+      final foodCategory = food['foodCategory']?.toString();
       final nutrients = food['foodNutrients'] as List<dynamic>?;
 
-      if (nutrients == null) {
+      if (nutrients == null || nutrients.isEmpty) {
+        debugPrint('USDA food $fdcId has no nutrients, skipping');
         return null;
       }
 
@@ -123,47 +146,54 @@ class USDAApiService {
 
         if (value == null) continue;
 
-        // USDA nutrient numbers:
-        // 208 = Energy (kcal)
-        // 203 = Protein
-        // 204 = Total lipid (fat)
-        // 205 = Carbohydrate, by difference
         switch (nutrientNumber) {
-          case '208':
-            calories = value.toDouble();
+          case '957': // Energy (Atwater General Factors) - preferred for calories
+            calories = (value is num)
+                ? value.toDouble()
+                : double.tryParse(value.toString());
             break;
-          case '203':
-            proteins = value.toDouble();
+          case '203': // Protein
+            proteins = (value is num)
+                ? value.toDouble()
+                : double.tryParse(value.toString());
             break;
-          case '204':
-            fat = value.toDouble();
+          case '204': // Total lipid (fat)
+            fat = (value is num)
+                ? value.toDouble()
+                : double.tryParse(value.toString());
             break;
-          case '205':
-            carbs = value.toDouble();
+          case '205': // Carbohydrate, by difference
+            carbs = (value is num)
+                ? value.toDouble()
+                : double.tryParse(value.toString());
             break;
         }
       }
 
+      // Validate we have all required macros
       if (calories == null ||
           proteins == null ||
           fat == null ||
           carbs == null) {
+        debugPrint('USDA food $fdcId missing required nutrients: '
+            'cal=$calories, pro=$proteins, fat=$fat, carbs=$carbs');
         return null;
       }
 
       return FoodProduct(
-        barcode: fdcId, // Use FDC ID as barcode
+        barcode: fdcId,
         name: description,
-        brand: brandOwner,
+        brand: foodCategory,
         caloriesPer100g: calories,
         proteinsPer100g: proteins,
         fatPer100g: fat,
         carbsPer100g: carbs,
-        servingSize: 100.0, // USDA data is typically per 100g
-        sourceType: 'usda',
+        servingSize: 100.0,
+        source: ProductSource.usda,
       );
-    } catch (e) {
+    } catch (e, stackTrace) {
       debugPrint('Error parsing USDA food: $e');
+      debugPrint('Stack trace: $stackTrace');
       return null;
     }
   }

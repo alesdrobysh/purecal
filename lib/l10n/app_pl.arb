@@ -215,5 +215,17 @@
   "fromUsdaDatabase": "Z bazy danych USDA",
   "@fromUsdaDatabase": {
     "description": "Text shown for products from USDA database"
+  },
+  "basedOnUsdaProduct": "Na podstawie produktu USDA",
+  "@basedOnUsdaProduct": {
+    "description": "Text shown for products edited from USDA database"
+  },
+  "customProduct": "Produkt niestandardowy",
+  "@customProduct": {
+    "description": "Text shown for custom local products"
+  },
+  "fromOpenFoodFacts": "Z OpenFoodFacts",
+  "@fromOpenFoodFacts": {
+    "description": "Text shown for products from OpenFoodFacts database"
   }
 }

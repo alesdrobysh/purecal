@@ -1,5 +1,47 @@
 import 'package:openfoodfacts/openfoodfacts.dart';
 
+enum DataSource { local, openFoodFacts, usda }
+
+enum ProductSource {
+  local,
+  openFoodFacts,
+  usda,
+  editedOpenFoodFacts,
+  editedUsda;
+
+  String toDbString() {
+    switch (this) {
+      case ProductSource.local:
+        return 'local';
+      case ProductSource.openFoodFacts:
+        return 'off';
+      case ProductSource.usda:
+        return 'usda';
+      case ProductSource.editedOpenFoodFacts:
+        return 'edited_off';
+      case ProductSource.editedUsda:
+        return 'edited_usda';
+    }
+  }
+
+  static ProductSource fromDbString(String value) {
+    switch (value) {
+      case 'local':
+        return ProductSource.local;
+      case 'off':
+        return ProductSource.openFoodFacts;
+      case 'usda':
+        return ProductSource.usda;
+      case 'edited_off':
+        return ProductSource.editedOpenFoodFacts;
+      case 'edited_usda':
+        return ProductSource.editedUsda;
+      default:
+        return ProductSource.local;
+    }
+  }
+}
+
 class FoodProduct {
   final String barcode;
   final String name;
@@ -15,7 +57,7 @@ class FoodProduct {
   final bool isLocal;
   final int? localId;
   final String? notes;
-  final String? sourceType; // 'local', 'off', 'edited_off', 'usda'
+  final ProductSource source;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -32,7 +74,7 @@ class FoodProduct {
     this.isLocal = false,
     this.localId,
     this.notes,
-    this.sourceType,
+    this.source = ProductSource.openFoodFacts,
     this.createdAt,
     this.updatedAt,
   });
@@ -55,6 +97,7 @@ class FoodProduct {
       carbsPer100g: nutriments?.getValue(Nutrient.carbohydrates, PerSize.oneHundredGrams) ?? 0,
       servingSize: double.tryParse(product.servingSize ?? '100'),
       imageUrl: product.imageFrontUrl,
+      source: ProductSource.openFoodFacts,
     );
   }
 
@@ -104,7 +147,9 @@ class FoodProduct {
       isLocal: true,
       localId: map['id'] as int?,
       notes: map['notes']?.toString(),
-      sourceType: map['source_type']?.toString(),
+      source: map['source_type'] != null
+          ? ProductSource.fromDbString(map['source_type'].toString())
+          : ProductSource.local,
       createdAt: map['created_at'] != null
           ? DateTime.tryParse(map['created_at'].toString())
           : null,
@@ -127,7 +172,7 @@ class FoodProduct {
       'serving_size': servingSize,
       'image_path': imageUrl,
       'notes': notes,
-      'source_type': sourceType,
+      'source_type': source.toDbString(),
       'is_deleted': 0,
       'created_at': (createdAt ?? DateTime.now()).toIso8601String(),
       'updated_at': (updatedAt ?? DateTime.now()).toIso8601String(),

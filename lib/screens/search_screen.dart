@@ -9,6 +9,7 @@ import '../services/diary_provider.dart';
 import '../widgets/frequent_product_card.dart';
 import '../widgets/product_image.dart';
 import '../widgets/branded_app_bar.dart';
+import '../widgets/product_card_skeleton.dart';
 import 'scanner_screen.dart';
 import 'local_products_list_screen.dart';
 import 'quick_add_screen.dart';
@@ -31,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   List<FoodProduct> _searchResults = [];
   List<Map<String, dynamic>> _frequentProducts = [];
-  bool _isSearching = false;
+  Set<DataSource> _loadingSources = {};
   String? _errorMessage;
   Timer? _debounceTimer;
   int _searchId = 0;
@@ -67,42 +68,67 @@ class _SearchScreenState extends State<SearchScreen> {
       setState(() {
         _searchResults = [];
         _errorMessage = null;
-        _isSearching = false;
+        _loadingSources.clear();
       });
       return;
     }
 
     setState(() {
-      _isSearching = true;
+      _searchResults = [];
+      _loadingSources = {DataSource.local, DataSource.openFoodFacts, DataSource.usda};
       _errorMessage = null;
     });
 
     _debounceTimer = Timer(const Duration(milliseconds: 500), () {
       _searchId++;
-      _performSearch(query, _searchId);
+      _performSearch(query.trim(), _searchId);
     });
   }
 
   Future<void> _performSearch(String query, int searchId) async {
-    final l10n = AppLocalizations.of(context)!;
     try {
-      final results = await _productService.searchProducts(query);
+      await _productService.searchProducts(
+        query,
+        onPartialResult: (results, source) {
+          if (mounted && searchId == _searchId) {
+            setState(() {
+              _searchResults.addAll(results);
+              _loadingSources.remove(source);
 
-      if (mounted && searchId == _searchId) {
-        setState(() {
-          _searchResults = results;
-          _isSearching = false;
-          // Error message will be shown in build method using localized string
-        });
-      }
+              if (_loadingSources.isEmpty) {
+                _sortBySourcePriority(_searchResults);
+              }
+            });
+          }
+        },
+      );
     } catch (e) {
       if (mounted && searchId == _searchId) {
         setState(() {
-          _isSearching = false;
-          _errorMessage = l10n.errorSearching(e.toString());
-          _searchResults = [];
+          _loadingSources.clear();
         });
       }
+    }
+  }
+
+  void _sortBySourcePriority(List<FoodProduct> products) {
+    products.sort((a, b) {
+      final aSourcePriority = _getSourcePriority(a);
+      final bSourcePriority = _getSourcePriority(b);
+      return aSourcePriority.compareTo(bSourcePriority);
+    });
+  }
+
+  int _getSourcePriority(FoodProduct product) {
+    switch (product.source) {
+      case ProductSource.local:
+      case ProductSource.editedUsda:
+        return 0;
+      case ProductSource.usda:
+        return 1;
+      case ProductSource.openFoodFacts:
+      case ProductSource.editedOpenFoodFacts:
+        return 2;
     }
   }
 
@@ -139,18 +165,10 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> _onFrequentProductTap(String barcode) async {
-    setState(() {
-      _isSearching = true;
-    });
-
     try {
       final product = await _productService.getProductByBarcode(barcode);
 
       if (mounted) {
-        setState(() {
-          _isSearching = false;
-        });
-
         if (product != null) {
           _showAddDialog(product);
         } else {
@@ -165,9 +183,6 @@ class _SearchScreenState extends State<SearchScreen> {
       }
     } catch (e) {
       if (mounted) {
-        setState(() {
-          _isSearching = false;
-        });
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -255,18 +270,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildSearchResults() {
     final l10n = AppLocalizations.of(context)!;
 
-    if (_isSearching) {
-      return Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const CircularProgressIndicator(),
-            const SizedBox(height: 16),
-            Text(l10n.searching),
-          ],
-        ),
-      );
-    }
+    final bool isAnyLoading = _loadingSources.isNotEmpty;
 
     if (_errorMessage != null) {
       return Center(
@@ -376,7 +380,7 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     }
 
-    if (_searchResults.isEmpty) {
+    if (_searchResults.isEmpty && !isAnyLoading) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -399,12 +403,21 @@ class _SearchScreenState extends State<SearchScreen> {
       );
     }
 
+    final int skeletonCount = _loadingSources.isEmpty
+        ? 0
+        : (_searchResults.isEmpty ? 10 : 3);
+    final int totalItems = _searchResults.length + skeletonCount;
+
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: _searchResults.length,
+      itemCount: totalItems,
       itemBuilder: (context, index) {
-        final product = _searchResults[index];
-        return _buildProductCard(product);
+        if (index < _searchResults.length) {
+          final product = _searchResults[index];
+          return _buildProductCard(product);
+        } else {
+          return const ProductCardSkeleton();
+        }
       },
     );
   }

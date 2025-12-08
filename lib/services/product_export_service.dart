@@ -58,7 +58,7 @@ class ProductExportService {
         'carbs_per_100g': product.carbsPer100g,
         'serving_size': product.servingSize,
         'notes': product.notes,
-        'source_type': product.sourceType,
+        'source_type': product.source.toDbString(),
         'created_at': product.createdAt?.toIso8601String(),
         'updated_at': product.updatedAt?.toIso8601String(),
       };

@@ -620,4 +620,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fromUsdaDatabase => 'From USDA Food Database';
+
+  @override
+  String get basedOnUsdaProduct => 'Based on USDA product';
+
+  @override
+  String get customProduct => 'Custom product';
+
+  @override
+  String get fromOpenFoodFacts => 'From OpenFoodFacts';
 }

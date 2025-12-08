@@ -888,5 +888,17 @@
   "fromUsdaDatabase": "From USDA Food Database",
   "@fromUsdaDatabase": {
     "description": "Text shown for products from USDA database"
+  },
+  "basedOnUsdaProduct": "Based on USDA product",
+  "@basedOnUsdaProduct": {
+    "description": "Text shown for products edited from USDA database"
+  },
+  "customProduct": "Custom product",
+  "@customProduct": {
+    "description": "Text shown for custom local products"
+  },
+  "fromOpenFoodFacts": "From OpenFoodFacts",
+  "@fromOpenFoodFacts": {
+    "description": "Text shown for products from OpenFoodFacts database"
   }
 }

@@ -215,5 +215,17 @@
   "fromUsdaDatabase": "Из базы данных USDA",
   "@fromUsdaDatabase": {
     "description": "Text shown for products from USDA database"
+  },
+  "basedOnUsdaProduct": "На основе продукта USDA",
+  "@basedOnUsdaProduct": {
+    "description": "Text shown for products edited from USDA database"
+  },
+  "customProduct": "Пользовательский продукт",
+  "@customProduct": {
+    "description": "Text shown for custom local products"
+  },
+  "fromOpenFoodFacts": "Из OpenFoodFacts",
+  "@fromOpenFoodFacts": {
+    "description": "Text shown for products from OpenFoodFacts database"
   }
 }

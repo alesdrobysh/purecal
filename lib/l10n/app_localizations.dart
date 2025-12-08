@@ -1219,6 +1219,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From USDA Food Database'**
   String get fromUsdaDatabase;
+
+  /// Text shown for products edited from USDA database
+  ///
+  /// In en, this message translates to:
+  /// **'Based on USDA product'**
+  String get basedOnUsdaProduct;
+
+  /// Text shown for custom local products
+  ///
+  /// In en, this message translates to:
+  /// **'Custom product'**
+  String get customProduct;
+
+  /// Text shown for products from OpenFoodFacts database
+  ///
+  /// In en, this message translates to:
+  /// **'From OpenFoodFacts'**
+  String get fromOpenFoodFacts;
 }
 
 class _AppLocalizationsDelegate

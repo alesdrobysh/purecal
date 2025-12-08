@@ -623,4 +623,13 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get fromUsdaDatabase => 'З базы даных USDA';
+
+  @override
+  String get basedOnUsdaProduct => 'На аснове прадукту USDA';
+
+  @override
+  String get customProduct => 'Карыстальніцкі прадукт';
+
+  @override
+  String get fromOpenFoodFacts => 'З OpenFoodFacts';
 }
