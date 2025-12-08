@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## 0.1.0-beta.3+3
+
+### Added
+- USDA FoodData Central API integration for comprehensive food database access
+- Product source enum system (Custom, OpenFoodFacts, USDA Original, USDA Edited)
+- Product import/export functionality with JSON format
+- Conflict resolution dialog for duplicate products during import
+- Import progress dialog with real-time updates
+- Dedicated Data Management screen consolidating export, import, and cache operations
+- Base64 image encoding/decoding for portable product data
+- Skeleton loading widget for product cards
+- USDA API key configuration via environment file (.env.json)
+- Custom export exceptions (NoDataToExportException, NoProductsToExportException)
+- Localization strings for USDA database and product sources in all supported languages
+
+### Changed
+- Refactored ProductService to search across local, OpenFoodFacts, and USDA databases
+- Updated product search to enforce pageSize limit across all sources
+- Refactored import dialog to be stateful with built-in progress management
+- Moved data management features from Settings to dedicated screen
+- Updated share_plus package usage to SharePlus.instance.share with ShareParams
+- Refactored language and theme selection using RadioGroup widget
+- Improved app theme with hybrid ColorScheme approach (neutral surfaces with brand accents)
+- Defined consistent styles for AppBar, Card, and FloatingActionButton
+- Updated diary and product export filenames to "PureCal"
+- Generalized local product creation screen to support external source products (OFF, USDA)
+- Made USDA nutrient values nullable (returns null if essential data missing)
+- Updated error logging from print() to debugPrint() for better production handling
+
+### Fixed
+- Fixed existingByBarcode map updates during product import (duplicate detection within same file)
+- Fixed defensive numeric field parsing in import service (handles both num and String types)
+- Fixed Spanish translations for product labels and import dialog
+- Removed unused imports (decorations.dart, custom_colors.dart, intl.dart)
+- Replaced deprecated 'value' with 'initialValue' in DropdownButtonFormField
+
 ## 0.1.0-beta.2+2
 
 ### Added
