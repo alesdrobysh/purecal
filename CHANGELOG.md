@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 1.0.0-beta.1+4
+
+### Changed
+- Renamed project from FoodieFit to PureCal across all platforms and configurations
+- Updated application ID to com.example.purecal (Android)
+- Updated bundle identifier to com.example.purecal (iOS/macOS)
+- Updated product name and executable name to PureCal in all platform configurations
+
 ## 0.1.0-beta.3+3
 
 ### Added
