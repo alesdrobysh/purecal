@@ -2,7 +2,7 @@ import 'package:openfoodfacts/openfoodfacts.dart';
 import '../models/food_product.dart';
 
 class OFFApiService {
-  static const String userAgent = 'FoodieApp/0.1.0 (Development)';
+  static const String userAgent = 'PureCalApp/0.1.0 (Development)';
 
   static void initialize() {
     OpenFoodAPIConfiguration.userAgent = UserAgent(name: userAgent);

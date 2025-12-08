@@ -1,5 +1,5 @@
-import 'package:foodiefit/config/theme.dart';
-import 'package:foodiefit/services/off_api_service.dart';
+import 'package:purecal/config/theme.dart';
+import 'package:purecal/services/off_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,12 +17,12 @@ Future<void> main() async {
   OFFApiService.initialize();
   final settingsProvider = SettingsProvider();
   await settingsProvider.loadInitialSettings();
-  runApp(FoodieApp(settingsProvider: settingsProvider));
+  runApp(PureCalApp(settingsProvider: settingsProvider));
 }
 
-class FoodieApp extends StatelessWidget {
+class PureCalApp extends StatelessWidget {
   final SettingsProvider settingsProvider;
-  const FoodieApp({super.key, required this.settingsProvider});
+  const PureCalApp({super.key, required this.settingsProvider});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class FoodieApp extends StatelessWidget {
       child: Consumer<SettingsProvider>(
         builder: (context, settingsProvider, child) {
           return MaterialApp(
-      title: 'PureCal',
-      theme: AppTheme.lightTheme,
+            title: 'PureCal',
+            theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: settingsProvider.themeMode,
             locale: settingsProvider.locale,

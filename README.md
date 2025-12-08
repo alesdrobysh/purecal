@@ -29,7 +29,7 @@ A privacy-focused Flutter nutrition tracking app that helps you monitor your dai
 1. Clone this repository:
    ```bash
    git clone <repository-url>
-   cd foodie
+   cd purecal
    ```
 
 2. Install dependencies:

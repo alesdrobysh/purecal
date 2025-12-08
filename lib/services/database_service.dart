@@ -36,7 +36,7 @@ class DatabaseService {
 
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
-    final path = join(databasePath, 'foodiefit.db');
+    final path = join(databasePath, 'purecal.db');
 
     return await openDatabase(
       path,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodiefit/models/meal_type.dart';
-import 'package:foodiefit/services/diary_provider.dart';
+import 'package:purecal/models/meal_type.dart';
+import 'package:purecal/services/diary_provider.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../widgets/custom_input_decoration.dart';
