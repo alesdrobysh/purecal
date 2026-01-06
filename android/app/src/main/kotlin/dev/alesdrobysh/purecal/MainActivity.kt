@@ -1,4 +1,4 @@
-package com.example.purecal
+package dev.alesdrobysh.purecal
 
 import io.flutter.embedding.android.FlutterActivity
 
