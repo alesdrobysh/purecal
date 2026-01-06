@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 1.0.0-beta.2+5
+
+### Changed
+- Updated application ID to dev.alesdrobysh.purecal (Android)
+- Updated bundle identifier to dev.alesdrobysh.purecal (iOS/macOS/Linux)
+- Updated namespace to dev.alesdrobysh.purecal across all platforms
+
 ## 1.0.0-beta.1+4
 
 ### Changed
