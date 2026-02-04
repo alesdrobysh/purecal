@@ -528,7 +528,7 @@ build_apk() {
 
     # Build release APK with environment file
     log "Building release APK (this may take a few minutes)..."
-    if ! flutter build apk --dart-define-from-file=.env.json --release 2>&1 | grep -E "(Built|ERROR|FAILURE)"; then
+    if ! flutter build apk --dart-define-from-file=.env.json --release 2>&1 | grep -E "(Built|ERROR|FAILURE)" >&2; then
         error "APK build failed"
         return 1
     fi
