@@ -54,6 +54,81 @@ Build for iOS:
 flutter build ios
 ```
 
+## Releasing
+
+PureCal uses an automated release script that leverages LLM analysis to determine semantic versioning and generate changelogs.
+
+### Prerequisites for Releases
+
+- **Git repository** with clean working directory
+- **LLM Backend** (choose one):
+  - Gemini API: Set `GEMINI_API_KEY` environment variable (get free key at [ai.google.dev](https://ai.google.dev/))
+  - Ollama: Install locally from [ollama.ai](https://ollama.ai/)
+- **GitHub CLI** (`gh`): For creating GitHub releases (optional)
+- **Environment file**: `.env.json` with USDA_API_KEY for APK builds
+
+### Quick Release
+
+```bash
+# Set Gemini API key (recommended)
+export GEMINI_API_KEY=your-api-key
+
+# Run release script
+./release.sh
+```
+
+The script will:
+1. Analyze git changes since last release using LLM
+2. Suggest semantic version bump (major/minor/patch)
+3. Auto-increment build number
+4. Update `pubspec.yaml` and `CHANGELOG.md`
+5. Create git commit and tag
+6. Push to remote repository
+7. Build Android APK (signed)
+8. Create GitHub release with APK attachment
+
+### Configuration
+
+Create `.release.config` (optional) to customize behavior:
+
+```bash
+# Copy example configuration
+cp .release.config.example .release.config
+
+# Edit with your preferences
+nano .release.config
+```
+
+Available options:
+- `LLM_BACKEND`: `auto` (default), `gemini`, or `ollama`
+- `GEMINI_API_KEY`: Your Gemini API key
+- `GEMINI_MODEL`: Model to use (default: `gemini-2.0-flash-exp`)
+- `OLLAMA_MODEL`: Local model (default: `llama3:latest`)
+- `BUILD_APK`: Build Android APK (`yes`/`no`)
+- `CREATE_GITHUB_RELEASE`: Create GitHub release (`yes`/`no`)
+- `PUSH_TO_REMOTE`: Push to git remote (`yes`/`no`)
+
+### Manual Release Steps
+
+If you prefer manual releases:
+
+```bash
+# 1. Update version in pubspec.yaml
+# 2. Update CHANGELOG.md
+# 3. Commit and tag
+git add pubspec.yaml CHANGELOG.md
+git commit -m "Release 1.0.0+1"
+git tag -a v1.0.0+1 -m "Release 1.0.0+1"
+git push && git push --tags
+
+# 4. Build APK
+flutter build apk --dart-define-from-file=.env.json
+
+# 5. Create GitHub release
+gh release create v1.0.0+1 build/app/outputs/flutter-apk/app-release.apk \
+  --title "Release 1.0.0+1" --notes "Release notes here"
+```
+
 ## Usage
 
 1. **Set Your Goals** - Navigate to the Goals screen to configure your daily nutrition targets
