@@ -1,5 +1,15 @@
 # CHANGELOG
 
+
+## [1.0.0+6] - 2026-02-04
+
+### Added
+-   **Automated Release Process**: Introduced an automated release script to streamline our deployment process, allowing for more consistent and efficient updates.
+
+### Changed
+-   **Enhanced Barcode Scanning**: Migrated the barcode scanning functionality to a new library (`flutter_zxing`) for improved performance, reliability, and broader compatibility with various barcode types.
+-   **Improved Android Build Process**: Configured Android release signing, a crucial step for ensuring secure and official releases of the app on platforms like the Google Play Store.
+
 ## 1.0.0-beta.2+5
 
 ### Changed
