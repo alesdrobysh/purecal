@@ -99,7 +99,7 @@ This app is made possible by:
 - **Flutter Community** - For the excellent ecosystem of packages:
   - [provider](https://pub.dev/packages/provider) - State management
   - [sqflite](https://pub.dev/packages/sqflite) - Local database
-  - [mobile_scanner](https://pub.dev/packages/mobile_scanner) - Barcode scanning
+  - [flutter_zxing](https://pub.dev/packages/flutter_zxing) - Barcode scanning
   - [fl_chart](https://pub.dev/packages/fl_chart) - Data visualization
   - And many other open source contributors
 

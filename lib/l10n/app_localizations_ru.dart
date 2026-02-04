@@ -504,6 +504,13 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get networkErrorTitle => 'Ошибка подключения';
+
+  @override
+  String get networkErrorMessage =>
+      'Не удалось получить информацию о продукте. Проверьте подключение к интернету и попробуйте снова.';
+
+  @override
   String get exportDiaryEntries => 'Экспорт записей дневника';
 
   @override

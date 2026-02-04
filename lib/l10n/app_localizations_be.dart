@@ -503,6 +503,13 @@ class AppLocalizationsBe extends AppLocalizations {
   }
 
   @override
+  String get networkErrorTitle => 'Памылка падлучэння';
+
+  @override
+  String get networkErrorMessage =>
+      'Не ўдалося атрымаць інфармацыю пра прадукт. Праверце падлучэнне да інтэрнэту і паспрабуйце зноў.';
+
+  @override
   String get exportDiaryEntries => 'Экспарт запісаў дзённіка';
 
   @override

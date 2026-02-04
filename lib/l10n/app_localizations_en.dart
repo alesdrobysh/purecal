@@ -500,6 +500,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get networkErrorTitle => 'Connection Error';
+
+  @override
+  String get networkErrorMessage =>
+      'Unable to fetch product information. Please check your internet connection and try again.';
+
+  @override
   String get exportDiaryEntries => 'Export Diary Entries';
 
   @override

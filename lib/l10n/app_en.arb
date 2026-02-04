@@ -717,6 +717,14 @@
       }
     }
   },
+  "networkErrorTitle": "Connection Error",
+  "@networkErrorTitle": {
+    "description": "Title for network error dialog"
+  },
+  "networkErrorMessage": "Unable to fetch product information. Please check your internet connection and try again.",
+  "@networkErrorMessage": {
+    "description": "User-friendly message when product fetch fails due to network issues"
+  },
 
   "exportDiaryEntries": "Export Diary Entries",
   "@exportDiaryEntries": {

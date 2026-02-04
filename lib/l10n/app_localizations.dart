@@ -986,6 +986,18 @@ abstract class AppLocalizations {
   /// **'Error searching: {error}'**
   String errorSearching(String error);
 
+  /// Title for network error dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Connection Error'**
+  String get networkErrorTitle;
+
+  /// User-friendly message when product fetch fails due to network issues
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to fetch product information. Please check your internet connection and try again.'**
+  String get networkErrorMessage;
+
   /// Export diary data button label
   ///
   /// In en, this message translates to:

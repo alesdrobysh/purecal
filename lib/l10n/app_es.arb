@@ -159,6 +159,8 @@
   "goalsRecommendation": "Estos objetivos son recomendaciones generales. Consulta a un nutricionista para obtener asesoramiento personalizado.",
   "failedToFetchProduct": "Error al obtener producto: {error}",
   "errorSearching": "Error al buscar: {error}",
+  "networkErrorTitle": "Error de Conexión",
+  "networkErrorMessage": "No se pudo obtener la información del producto. Verifica tu conexión a internet e inténtalo de nuevo.",
 
   "exportDiaryEntries": "Exportar Entradas del Diario",
   "exportDiaryEntriesDescription": "Exporta tu diario de alimentos a formato CSV",

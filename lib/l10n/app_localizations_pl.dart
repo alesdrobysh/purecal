@@ -504,6 +504,13 @@ class AppLocalizationsPl extends AppLocalizations {
   }
 
   @override
+  String get networkErrorTitle => 'Błąd połączenia';
+
+  @override
+  String get networkErrorMessage =>
+      'Nie można pobrać informacji o produkcie. Sprawdź połączenie z internetem i spróbuj ponownie.';
+
+  @override
   String get exportDiaryEntries => 'Eksportuj wpisy dziennika';
 
   @override

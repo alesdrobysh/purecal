@@ -24,19 +24,14 @@ class ProductService {
   Future<FoodProduct?> getProductByBarcode(String barcode) async {
     if (barcode.isEmpty) return null;
 
-    try {
-      // Check local products first
-      final localProduct = await _dbService.getLocalProductByBarcode(barcode);
-      if (localProduct != null) {
-        return localProduct;
-      }
-
-      // Fall back to OFF API
-      return await _offApiService.getProductByBarcode(barcode);
-    } catch (e) {
-      // If OFF API fails, return null
-      return null;
+    // Check local products first
+    final localProduct = await _dbService.getLocalProductByBarcode(barcode);
+    if (localProduct != null) {
+      return localProduct;
     }
+
+    // Fall back to OFF API (exceptions propagate to caller)
+    return await _offApiService.getProductByBarcode(barcode);
   }
 
   /// Search products - searches local, OFF, and USDA databases

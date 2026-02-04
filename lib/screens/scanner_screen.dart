@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:flutter_zxing/flutter_zxing.dart';
 import '../l10n/app_localizations.dart';
 import '../models/meal_type.dart';
 import '../services/product_service.dart';
@@ -17,34 +17,27 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
-  final MobileScannerController _controller = MobileScannerController();
   final ProductService _productService = ProductService();
-  bool _isProcessing = false;
+  bool _isScannerActive = true;
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
-  Future<void> _handleBarcode(BarcodeCapture capture) async {
-    if (_isProcessing) return;
+  Future<void> _handleBarcode(Code result) async {
+    if (!result.isValid) return;
+
+    final String? code = result.text;
+    if (code == null || code.isEmpty) return;
 
     final l10n = AppLocalizations.of(context)!;
 
-    final List<Barcode> barcodes = capture.barcodes;
-    if (barcodes.isEmpty) return;
-
-    final String? code = barcodes.first.rawValue;
-    if (code == null || code.isEmpty) return;
-
     setState(() {
-      _isProcessing = true;
+      _isScannerActive = false;
     });
 
     try {
-      await _controller.stop();
-
       final product = await _productService.getProductByBarcode(code);
 
       if (!mounted) return;
@@ -68,9 +61,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
         } else {
           // User cancelled, resume scanning
           setState(() {
-            _isProcessing = false;
+            _isScannerActive = true;
           });
-          await _controller.start();
         }
       } else {
         // Product not found - offer to create custom product
@@ -78,11 +70,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      _showErrorDialog(l10n.error, l10n.failedToFetchProduct(e.toString()));
+      _showErrorDialog(l10n.networkErrorTitle, l10n.networkErrorMessage);
       setState(() {
-        _isProcessing = false;
+        _isScannerActive = true;
       });
-      await _controller.start();
     }
   }
 
@@ -100,9 +91,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
             onPressed: () {
               Navigator.of(context).pop();
               setState(() {
-                _isProcessing = false;
+                _isScannerActive = true;
               });
-              _controller.start();
             },
             child: Text(l10n.cancel),
           ),
@@ -124,9 +114,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
               } else {
                 // Resume scanning
                 setState(() {
-                  _isProcessing = false;
+                  _isScannerActive = true;
                 });
-                await _controller.start();
               }
             },
             child: Text(l10n.createProductButton),
@@ -166,11 +155,19 @@ class _ScannerScreenState extends State<ScannerScreen> {
       ),
       body: Stack(
         children: [
-          MobileScanner(
-            controller: _controller,
-            onDetect: _handleBarcode,
-          ),
-          if (_isProcessing)
+          if (_isScannerActive)
+            ReaderWidget(
+              onScan: _handleBarcode,
+              scanDelay: const Duration(milliseconds: 250),
+              codeFormat: Format.any,
+              tryHarder: true,
+              tryInverted: true,
+              resolution: ResolutionPreset.high,
+              showFlashlight: true,
+              showToggleCamera: false,
+              showGallery: false,
+            ),
+          if (!_isScannerActive)
             Container(
               color:
                   Theme.of(context).colorScheme.scrim.withValues(alpha: 0.54),

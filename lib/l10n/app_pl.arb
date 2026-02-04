@@ -159,6 +159,8 @@
   "goalsRecommendation": "Te cele są ogólnymi zaleceniami. Skonsultuj się z dietetykiem, aby uzyskać spersonalizowane porady.",
   "failedToFetchProduct": "Nie udało się pobrać produktu: {error}",
   "errorSearching": "Błąd wyszukiwania: {error}",
+  "networkErrorTitle": "Błąd połączenia",
+  "networkErrorMessage": "Nie można pobrać informacji o produkcie. Sprawdź połączenie z internetem i spróbuj ponownie.",
 
   "exportDiaryEntries": "Eksportuj wpisy dziennika",
   "exportDiaryEntriesDescription": "Eksportuj dziennik żywieniowy do formatu CSV",
