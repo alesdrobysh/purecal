@@ -1,0 +1,26 @@
+A privacy-focused nutrition tracking app that helps you monitor your daily food intake and achieve your health goals.
+
+Features:
+
+* Barcode Scanning - Quickly log food items by scanning product barcodes
+* OpenFoodFacts Integration - Access a vast database of food products with detailed nutritional information
+* USDA Database Integration - Search the USDA Standard Reference food composition database
+* Custom Products - Create and save your own local products with custom nutrition data
+* Meal Tracking - Organize entries by meal type (breakfast, lunch, dinner, snacks)
+* Nutrition Goals - Set and track daily targets for calories, protein, fats, and carbohydrates
+* Visual Analytics - View weekly nutrition trends with interactive charts
+* Frequent Products - Quick access to your most-used items
+* Data Export - Export your diary data to CSV format for external analysis
+* Multi-language Support - Available in English, Spanish, Russian, Polish, and Belarusian
+* Dark Mode - Choose between light and dark themes
+
+Privacy & Data:
+
+Your data stays on your device. PureCal stores all your information locally using SQLite:
+
+* No cloud synchronization or remote servers
+* No account registration required
+* No personal data collection or tracking
+* Product lookups use OpenFoodFacts and USDA public APIs (search queries only)
+* All diary entries, custom products, and goals are stored locally on your device
+* You have full control over your data with CSV export functionality
