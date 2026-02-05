@@ -1,0 +1,6 @@
+Added
+- Android app store metadata, enabling proper listing and description of the app on Google Play.
+- Automated changelog generation using Fastlane, streamlining the release process and ensuring consistent changelog formatting.
+
+Changed
+- Improved build script logging by redirecting grep output to stderr, enhancing clarity and debugging during the build process.

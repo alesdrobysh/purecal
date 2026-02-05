@@ -1,0 +1,6 @@
+Añadido
+- Metadatos de la tienda Android, permitiendo su correcta publicación y descripción en Google Play.
+- Generación automática de changelog con Fastlane, agilizando el lanzamiento y asegurando formato coherente.
+
+Cambiado
+- Mejora del registro de scripts de compilación: salida de grep redirigida a stderr para mayor claridad y depuración.

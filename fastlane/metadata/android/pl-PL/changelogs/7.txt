@@ -1,0 +1,6 @@
+Dodano
+- Metadane dla sklepu Android, umożliwiające prawidłowe wyświetlanie i opis aplikacji w Google Play.
+- Automatyczne generowanie changelogu za pomocą Fastlane, usprawniające proces wydania i zapewniające spójne formatowanie changelogu.
+
+Zmieniono
+- Usprawniono logowanie skryptów kompilacji przez przekierowanie wyjścia grep do stderr, zwiększając przejrzystość i ułatwiając debugowanie podczas procesu kompilacji.

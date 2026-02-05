@@ -1,6 +1,16 @@
 # CHANGELOG
 
 
+## [1.0.1+7] - 2026-02-05
+
+### Added
+- Android app store metadata, enabling proper listing and description of the app on Google Play.
+- Automated changelog generation using Fastlane, streamlining the release process and ensuring consistent changelog formatting.
+
+### Changed
+- Improved build script logging by redirecting `grep` output to `stderr`, enhancing clarity and debugging during the build process.
+
+
 ## [1.0.0+6] - 2026-02-04
 
 ### Added
