@@ -22,3 +22,8 @@ OLLAMA_MODEL=llama3:latest
 BUILD_APK=yes              # Build Android APK after versioning (yes/no)
 CREATE_GITHUB_RELEASE=yes  # Create GitHub release with APK (yes/no)
 PUSH_TO_REMOTE=yes         # Push commit and tag to remote (yes/no)
+
+# Fastlane Changelog Generation
+WRITE_FASTLANE_CHANGELOGS=yes         # Generate Play Store changelogs (yes/no)
+TRANSLATE_FASTLANE_CHANGELOGS=yes     # Translate changelogs to all locales (yes/no)
+FASTLANE_CHANGELOG_MAX_LENGTH=500     # Maximum character limit for Play Store

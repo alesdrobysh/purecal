@@ -6,7 +6,8 @@ set -euo pipefail
 # PureCal Release Script
 # =============================================================================
 # Automates version releases with LLM-powered semantic versioning and changelog
-# generation. Supports Gemini API (primary) and Ollama (fallback).
+# generation. Generates Play Store changelogs in fastlane metadata format.
+# Supports Gemini API (primary) and Ollama (fallback).
 #
 # Usage: ./release.sh
 # Configuration: .release.config (optional)
@@ -34,6 +35,9 @@ OLLAMA_MODEL="${OLLAMA_MODEL:-llama3:latest}"
 BUILD_APK="${BUILD_APK:-yes}"
 CREATE_GITHUB_RELEASE="${CREATE_GITHUB_RELEASE:-yes}"
 PUSH_TO_REMOTE="${PUSH_TO_REMOTE:-yes}"
+WRITE_FASTLANE_CHANGELOGS="${WRITE_FASTLANE_CHANGELOGS:-yes}"
+TRANSLATE_FASTLANE_CHANGELOGS="${TRANSLATE_FASTLANE_CHANGELOGS:-yes}"
+FASTLANE_CHANGELOG_MAX_LENGTH="${FASTLANE_CHANGELOG_MAX_LENGTH:-500}"
 
 # Trap for error handling (disabled during specific sections)
 TRAP_ENABLED=1
@@ -86,6 +90,18 @@ parse_version() {
     local version
     version=$(echo "$version_line" | sed 's/version: *//' | tr -d '"' | tr -d "'")
     echo "$version"
+}
+
+extract_build_number() {
+    local version="$1"
+
+    # Extract build number using regex
+    if [[ "$version" =~ \+([0-9]+)$ ]]; then
+        echo "${BASH_REMATCH[1]}"
+    else
+        error "No build number found in version: $version"
+        return 1
+    fi
 }
 
 increment_version() {
@@ -367,6 +383,61 @@ EOF
     call_llm "$prompt"
 }
 
+format_changelog_for_playstore() {
+    local markdown_content="$1"
+    local max_length="${FASTLANE_CHANGELOG_MAX_LENGTH:-500}"
+
+    # Convert markdown to plain text
+    local plain_text
+    plain_text=$(echo "$markdown_content" | \
+        sed 's/^### //' | \
+        sed 's/\*\*//g' | \
+        sed 's/`//g' | \
+        sed '/^$/N;/^\n$/D')
+
+    # Truncate if exceeds max length
+    if [[ ${#plain_text} -gt $max_length ]]; then
+        # Find last complete sentence/bullet within limit
+        local truncated
+        truncated=$(echo "$plain_text" | cut -c1-$((max_length - 3)))
+
+        # Trim to last newline or period
+        truncated=$(echo "$truncated" | sed 's/\(.*[.\n]\).*/\1/')
+
+        echo "${truncated}..."
+    else
+        echo "$plain_text"
+    fi
+}
+
+translate_changelog_with_llm() {
+    local english_content="$1"
+    local target_language="$2"
+    local max_length="${FASTLANE_CHANGELOG_MAX_LENGTH:-500}"
+
+    local prompt
+    prompt=$(cat <<EOF
+You are a professional translator for mobile app store listings.
+
+Translate the following changelog from English to $target_language.
+
+Requirements:
+1. Preserve the exact structure (sections, bullet points, line breaks)
+2. Keep technical terms accurate and localized appropriately
+3. Maintain professional tone suitable for app store listings
+4. Keep the translation concise - maximum $max_length characters
+5. Do NOT add explanations or extra text - only output the translated changelog
+
+English changelog:
+$english_content
+
+Translate to $target_language:
+EOF
+)
+
+    call_llm "$prompt"
+}
+
 parse_version_response() {
     local response="$1"
 
@@ -430,6 +501,19 @@ cleanup_backups() {
         rm -rf "$BACKUP_DIR"
         log "Cleaned up backup directory"
     fi
+}
+
+create_fastlane_changelogs_structure() {
+    local locales=("en-US" "es-ES" "ru-RU" "pl-PL" "be-BY")
+
+    log "Creating fastlane changelogs directory structure..."
+
+    for locale in "${locales[@]}"; do
+        local dir="$PROJECT_ROOT/fastlane/metadata/android/$locale/changelogs"
+        mkdir -p "$dir"
+    done
+
+    success "Fastlane changelogs structure created"
 }
 
 update_pubspec() {
@@ -505,6 +589,85 @@ EOF
     rm -f "$new_entry_file"
 
     success "Updated CHANGELOG.md"
+}
+
+write_fastlane_changelog() {
+    local build_number="$1"
+    local content="$2"
+    local locale="$3"
+
+    local changelog_file="$PROJECT_ROOT/fastlane/metadata/android/$locale/changelogs/${build_number}.txt"
+
+    # Ensure directory exists
+    mkdir -p "$(dirname "$changelog_file")"
+
+    # Write content
+    echo "$content" > "$changelog_file"
+
+    if [[ ! -f "$changelog_file" ]]; then
+        error "Failed to write changelog for locale $locale"
+        return 1
+    fi
+}
+
+get_locale_language() {
+    local locale="$1"
+    case "$locale" in
+        en-US) echo "English" ;;
+        es-ES) echo "Spanish" ;;
+        ru-RU) echo "Russian" ;;
+        pl-PL) echo "Polish" ;;
+        be-BY) echo "Belarusian" ;;
+        *) echo "English" ;;
+    esac
+}
+
+write_all_fastlane_changelogs() {
+    local build_number="$1"
+    local changelog_content="$2"
+
+    # Format English version for Play Store
+    local english_formatted
+    english_formatted=$(format_changelog_for_playstore "$changelog_content")
+
+    # Ensure directory structure exists
+    create_fastlane_changelogs_structure
+
+    if [[ "${TRANSLATE_FASTLANE_CHANGELOGS:-yes}" == "yes" ]]; then
+        log "Writing and translating changelogs for build $build_number..."
+    else
+        log "Writing changelogs for build $build_number (translation disabled)..."
+    fi
+
+    # Write to all locales
+    for locale in "en-US" "es-ES" "ru-RU" "pl-PL" "be-BY"; do
+        local content
+        local language
+        language=$(get_locale_language "$locale")
+
+        if [[ "$locale" == "en-US" ]] || [[ "${TRANSLATE_FASTLANE_CHANGELOGS:-yes}" != "yes" ]]; then
+            # Use English version directly
+            content="$english_formatted"
+            log "  → $locale ($language)"
+        else
+            # Translate to target language
+            log "  → $locale ($language) - translating..."
+            content=$(translate_changelog_with_llm "$english_formatted" "$language") || {
+                warn "Translation failed for $locale, using English as fallback"
+                content="$english_formatted"
+            }
+        fi
+
+        # Write the changelog file
+        write_fastlane_changelog "$build_number" "$content" "$locale" || return 1
+        log "    ✓ $locale"
+    done
+
+    if [[ "${TRANSLATE_FASTLANE_CHANGELOGS:-yes}" == "yes" ]]; then
+        success "Fastlane changelogs written and translated for all locales"
+    else
+        success "Fastlane changelogs written to all locales (English only)"
+    fi
 }
 
 # =============================================================================
@@ -898,6 +1061,27 @@ main() {
     # Update CHANGELOG.md
     update_changelog "$new_version" "$changelog_content"
 
+    # Write fastlane changelogs
+    if [[ "${WRITE_FASTLANE_CHANGELOGS:-yes}" == "yes" ]]; then
+        echo ""
+        log "Generating fastlane changelogs for Play Store..."
+
+        local build_number
+        build_number=$(extract_build_number "$new_version") || {
+            error "Failed to extract build number from version"
+            rollback
+            exit 1
+        }
+
+        write_all_fastlane_changelogs "$build_number" "$changelog_content" || {
+            error "Failed to write fastlane changelogs"
+            rollback
+            exit 1
+        }
+
+        success "Fastlane changelogs written for build $build_number"
+    fi
+
     echo ""
     log "Review CHANGELOG.md entry:"
     echo "─────────────────────────────────────────"
@@ -915,7 +1099,16 @@ main() {
     # Git operations (disable trap during this section)
     log "Creating git commit and tag..."
 
+    # Stage version and changelog files
     git add "$PUBSPEC_FILE" "$CHANGELOG_FILE"
+
+    # Stage fastlane changelogs if they were generated
+    if [[ "${WRITE_FASTLANE_CHANGELOGS:-yes}" == "yes" ]]; then
+        local build_number
+        build_number=$(extract_build_number "$new_version")
+        git add "fastlane/metadata/android/*/changelogs/${build_number}.txt"
+    fi
+
     git commit -m "Release $new_version"
     git tag -a "v$new_version" -m "Release $new_version"
 
