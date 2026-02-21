@@ -1,6 +1,12 @@
 # CHANGELOG
 
 
+## [1.0.2+8] - 2026-02-21
+
+### Changed
+-   Enhanced the build pipeline to ensure reproducible APK builds, providing greater consistency and verifiability for all builds, particularly those distributed via F-Droid. This was achieved by pinning the Flutter SDK version and integrating Docker into the build process.
+
+
 ## [1.0.1+7] - 2026-02-05
 
 ### Added

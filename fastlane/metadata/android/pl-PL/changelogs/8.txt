@@ -1,0 +1,2 @@
+Zmieniono
+-   Ulepszono potok kompilacji, aby zapewnić powtarzalne kompilacje APK, co zwiększa spójność i weryfikowalność wszystkich kompilacji, szczególnie tych dystrybuowanych przez F-Droid. Osiągnięto to poprzez zablokowanie wersji Flutter SDK i integrację Dockera z procesem kompilacji.

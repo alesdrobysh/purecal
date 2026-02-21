@@ -1,0 +1,2 @@
+Cambiado
+- Se mejoró el pipeline de compilación para asegurar compilaciones APK reproducibles, proporcionando mayor consistencia y verificabilidad en todas las compilaciones, en especial las distribuidas vía F-Droid. Esto se logró fijando la versión del SDK de Flutter e integrando Docker al proceso de compilación.

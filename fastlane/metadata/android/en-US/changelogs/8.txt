@@ -1,0 +1,2 @@
+Changed
+-   Enhanced the build pipeline to ensure reproducible APK builds, providing greater consistency and verifiability for all builds, particularly those distributed via F-Droid. This was achieved by pinning the Flutter SDK version and integrating Docker into the build process.
