@@ -38,6 +38,7 @@ PUSH_TO_REMOTE="${PUSH_TO_REMOTE:-yes}"
 WRITE_FASTLANE_CHANGELOGS="${WRITE_FASTLANE_CHANGELOGS:-yes}"
 TRANSLATE_FASTLANE_CHANGELOGS="${TRANSLATE_FASTLANE_CHANGELOGS:-yes}"
 FASTLANE_CHANGELOG_MAX_LENGTH="${FASTLANE_CHANGELOG_MAX_LENGTH:-500}"
+DOCKER_FLUTTER_IMAGE="${DOCKER_FLUTTER_IMAGE:-ghcr.io/cirruslabs/flutter:3.38.4}"
 
 # Trap for error handling (disabled during specific sections)
 TRAP_ENABLED=1
@@ -679,31 +680,29 @@ build_apk() {
 
     log "Building Android APK for version $version..."
 
-    # Check if .env.json exists
     if [[ ! -f "$PROJECT_ROOT/.env.json" ]]; then
         error ".env.json not found. APK build requires this file."
         return 1
     fi
 
-    # Clean previous builds
-    log "Cleaning previous builds..."
-    flutter clean > /dev/null 2>&1
-
-    # Build release APK with environment file
-    log "Building release APK (this may take a few minutes)..."
-    if ! flutter build apk --dart-define-from-file=.env.json --release 2>&1 | grep -E "(Built|ERROR|FAILURE)" >&2; then
+    log "Building release APK in Docker (this may take a few minutes)..."
+    if ! docker run --rm \
+        -v "$PROJECT_ROOT":/app \
+        -w /app \
+        -e SOURCE_DATE_EPOCH=0 \
+        -e PUB_CACHE=/app/.pub-cache \
+        "$DOCKER_FLUTTER_IMAGE" \
+        bash -c "flutter clean > /dev/null 2>&1 && flutter build apk --dart-define-from-file=.env.json --release" 2>&1 | grep -E "(Built|ERROR|FAILURE)" >&2; then
         error "APK build failed"
         return 1
     fi
 
-    # Verify APK exists
     local apk_path="$PROJECT_ROOT/build/app/outputs/flutter-apk/app-release.apk"
     if [[ ! -f "$apk_path" ]]; then
         error "APK not found at $apk_path"
         return 1
     fi
 
-    # Rename APK with version
     local versioned_apk="$PROJECT_ROOT/build/purecal-$version.apk"
     cp "$apk_path" "$versioned_apk"
 
@@ -814,9 +813,9 @@ validate_prerequisites() {
         return 1
     fi
 
-    if [[ "$BUILD_APK" == "yes" ]] && ! command -v flutter &> /dev/null; then
-        error "Flutter not installed (required for APK builds)"
-        error "Install from: https://flutter.dev/"
+    if [[ "$BUILD_APK" == "yes" ]] && ! command -v docker &> /dev/null; then
+        error "Docker not installed (required for reproducible APK builds)"
+        error "Install from: https://docs.docker.com/get-docker/"
         return 1
     fi
 
@@ -1138,7 +1137,7 @@ main() {
             success "APK build completed"
         else
             warn "APK build failed, but release is complete"
-            warn "Build manually with: flutter build apk --dart-define-from-file=.env.json"
+            warn "Build manually with: ./release.sh or run the Docker build command"
         fi
     fi
 
@@ -1184,7 +1183,7 @@ main() {
     fi
 
     if [[ "$BUILD_APK" != "yes" ]]; then
-        log "  - Build APK: flutter build apk --dart-define-from-file=.env.json"
+        log "  - Build APK: run ./release.sh with BUILD_APK=yes"
     fi
 
     if [[ "$CREATE_GITHUB_RELEASE" != "yes" ]] || [[ -z "$release_url" ]]; then
