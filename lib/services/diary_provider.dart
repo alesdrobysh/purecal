@@ -82,11 +82,17 @@ class DiaryProvider with ChangeNotifier {
       FoodProduct product, double portionGrams, MealType mealType) async {
     final nutrition = product.calculateNutrition(portionGrams);
 
+    final now = DateTime.now();
+    final entryDate = DateTime(
+      _selectedDate.year, _selectedDate.month, _selectedDate.day,
+      now.hour, now.minute, now.second,
+    );
+
     final entry = DiaryEntry(
       barcode: product.barcode,
       productName: product.name,
       brand: product.brand,
-      date: _selectedDate,
+      date: entryDate,
       portionGrams: portionGrams,
       calories: nutrition.calories,
       proteins: nutrition.proteins,
@@ -116,10 +122,16 @@ class DiaryProvider with ChangeNotifier {
     required double carbs,
     required MealType mealType,
   }) async {
+    final now = DateTime.now();
+    final entryDate = DateTime(
+      _selectedDate.year, _selectedDate.month, _selectedDate.day,
+      now.hour, now.minute, now.second,
+    );
+
     final entry = DiaryEntry(
       barcode: '', // No barcode for quick add
       productName: productName,
-      date: _selectedDate,
+      date: entryDate,
       portionGrams: 1,
       calories: calories,
       proteins: proteins,
