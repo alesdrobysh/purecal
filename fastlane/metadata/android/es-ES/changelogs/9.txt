@@ -1,0 +1,5 @@
+Corregido
+- Se solucionó un problema donde las entradas de diario con marcas de tiempo de medianoche podían generar errores o datos incorrectos al exportar a CSV.
+
+Cambiado
+- Mejorada la higiene del repositorio para desarrolladores, ignorando caché de Kotlin generado y scripts de compilación locales en el control de versiones.

@@ -1,6 +1,15 @@
 # CHANGELOG
 
 
+## [1.0.3+9] - 2026-05-18
+
+### Fixed
+- Fixed an issue where diary entries created using midnight timestamps could lead to errors or incorrect data when exporting to CSV.
+
+### Changed
+- Improved repository hygiene for developers by ignoring generated Kotlin cache and local build script files from version control.
+
+
 ## [1.0.2+8] - 2026-02-21
 
 ### Changed

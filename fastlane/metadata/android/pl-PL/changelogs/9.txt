@@ -1,0 +1,5 @@
+Poprawki
+- Naprawiono problem: wpisy do dziennika utworzone o północy mogły powodować błędy lub nieprawidłowe dane podczas eksportu do CSV.
+
+Zmiany
+- Ulepszono higienę repozytorium dla deweloperów, ignorując wygenerowane pamięci podręczne Kotlin i lokalne pliki skryptów kompilacji z kontroli wersji.

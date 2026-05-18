@@ -1,0 +1,5 @@
+Fixed
+- Fixed an issue where diary entries created using midnight timestamps could lead to errors or incorrect data when exporting to CSV.
+
+Changed
+- Improved repository hygiene for developers by ignoring generated Kotlin cache and local build script files from version control.
