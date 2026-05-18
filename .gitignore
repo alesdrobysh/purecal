@@ -54,3 +54,9 @@ app.*.map.json
 # Release script files
 .release.config
 .release-backup/
+
+# Generated Kotlin build cache
+android/.kotlin/
+
+# Local build script
+build.sh
