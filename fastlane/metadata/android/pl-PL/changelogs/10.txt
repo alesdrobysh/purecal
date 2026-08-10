@@ -1,0 +1,2 @@
+Naprawiono
+- Rozwiązano problem braku wymaganego uprawnienia do internetu w wersjach produkcyjnych aplikacji, co mogło uniemożliwiać poprawne działanie funkcji sieciowych. Aplikacja teraz prawidłowo żąda i wykorzystuje dostęp do internetu w swoich wersjach produkcyjnych.

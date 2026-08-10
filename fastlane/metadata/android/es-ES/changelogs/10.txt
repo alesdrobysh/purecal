@@ -1,0 +1,2 @@
+Fixed
+- Se solucionó un problema en el que las versiones de lanzamiento de la app carecían del permiso de internet necesario, lo que podía impedir que las funciones que dependen de la red funcionaran correctamente. Ahora, la app solicita y utiliza adecuadamente el acceso a internet en sus versiones de lanzamiento.

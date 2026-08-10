@@ -1,6 +1,12 @@
 # CHANGELOG
 
 
+## [1.0.4+10] - 2026-08-10
+
+### Fixed
+-   Addressed an issue where release builds of the app were missing the necessary internet permission, which could prevent network-dependent features from functioning correctly. The app now properly requests and utilizes internet access in its release versions.
+
+
 ## [1.0.3+9] - 2026-05-18
 
 ### Fixed
