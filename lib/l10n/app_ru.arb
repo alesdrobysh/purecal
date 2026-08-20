@@ -229,5 +229,17 @@
   "fromOpenFoodFacts": "Из OpenFoodFacts",
   "@fromOpenFoodFacts": {
     "description": "Text shown for products from OpenFoodFacts database"
+  },
+  "scanNutritionLabel": "Сканировать этикетку",
+  "@scanNutritionLabel": {
+    "description": "Button/screen title for scanning a nutrition label to prefill macros"
+  },
+  "scanningLabel": "Распознаём этикетку…",
+  "@scanningLabel": {
+    "description": "Loading state shown while OCR is running on the captured label photo"
+  },
+  "labelNotRecognized": "Не удалось распознать этикетку. Введите значения вручную.",
+  "@labelNotRecognized": {
+    "description": "Shown when OCR/parsing found none of the four macro fields"
   }
 }

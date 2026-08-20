@@ -1,14 +1,17 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import '../models/food_product.dart';
 import '../l10n/app_localizations.dart';
+import '../services/ocr/nutrition_label_parser.dart';
 import '../services/product_service.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../widgets/product_image.dart';
 import '../widgets/branded_app_bar.dart';
+import 'scan_nutrition_label_screen.dart';
 
 class CreateLocalProductScreen extends StatefulWidget {
   final FoodProduct? product; // For editing existing local products
@@ -160,6 +163,49 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
         ),
       ),
     );
+  }
+
+  // OCR label scanning ships for Android only in this iteration — the
+  // bundled Tesseract language data isn't wired up for iOS yet (see
+  // docs/superpowers/specs/2026-08-20-nutrition-label-ocr-design.md).
+  bool get _labelScanSupported => !kIsWeb && Platform.isAndroid;
+
+  Future<void> _scanLabel() async {
+    final l10n = AppLocalizations.of(context)!;
+    final result = await Navigator.push<ScannedLabelInfo>(
+      context,
+      MaterialPageRoute(builder: (_) => const ScanNutritionLabelScreen()),
+    );
+
+    if (result == null || !mounted) return;
+
+    if (result.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(l10n.labelNotRecognized)),
+      );
+      return;
+    }
+
+    setState(() {
+      if (result.name != null) {
+        _nameController.text = result.name!;
+      }
+      if (result.brand != null) {
+        _brandController.text = result.brand!;
+      }
+      if (result.caloriesPer100g != null) {
+        _caloriesController.text = result.caloriesPer100g!.toString();
+      }
+      if (result.proteinsPer100g != null) {
+        _proteinsController.text = result.proteinsPer100g!.toString();
+      }
+      if (result.fatPer100g != null) {
+        _fatController.text = result.fatPer100g!.toString();
+      }
+      if (result.carbsPer100g != null) {
+        _carbsController.text = result.carbsPer100g!.toString();
+      }
+    });
   }
 
   String? _validateRequired(String? value) {
@@ -358,12 +404,23 @@ class _CreateLocalProductScreenState extends State<CreateLocalProductScreen> {
             const SizedBox(height: 24),
 
             // Nutrition Section
-            Text(
-              l10n.nutritionPer100g,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  l10n.nutritionPer100g,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                if (_labelScanSupported)
+                  TextButton.icon(
+                    onPressed: _scanLabel,
+                    icon: const Icon(Icons.document_scanner_outlined),
+                    label: Text(l10n.scanNutritionLabel),
+                  ),
+              ],
             ),
             const SizedBox(height: 12),
 

@@ -640,4 +640,14 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get fromOpenFoodFacts => 'Z OpenFoodFacts';
+
+  @override
+  String get scanNutritionLabel => 'Zeskanuj etykietę';
+
+  @override
+  String get scanningLabel => 'Odczytywanie etykiety…';
+
+  @override
+  String get labelNotRecognized =>
+      'Nie udało się odczytać etykiety. Wprowadź wartości ręcznie.';
 }

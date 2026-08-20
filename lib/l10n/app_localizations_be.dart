@@ -639,4 +639,14 @@ class AppLocalizationsBe extends AppLocalizations {
 
   @override
   String get fromOpenFoodFacts => 'З OpenFoodFacts';
+
+  @override
+  String get scanNutritionLabel => 'Сканаваць этыкетку';
+
+  @override
+  String get scanningLabel => 'Счытваем этыкетку…';
+
+  @override
+  String get labelNotRecognized =>
+      'Не ўдалося распазнаць этыкетку. Увядзіце значэнні ўручную.';
 }

@@ -636,4 +636,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fromOpenFoodFacts => 'From OpenFoodFacts';
+
+  @override
+  String get scanNutritionLabel => 'Scan Label';
+
+  @override
+  String get scanningLabel => 'Reading label…';
+
+  @override
+  String get labelNotRecognized =>
+      'Couldn\'t read the label. Please enter values manually.';
 }

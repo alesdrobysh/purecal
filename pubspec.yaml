@@ -26,6 +26,7 @@ dependencies:
   csv: ^6.0.0
   package_info_plus: ^9.0.0
   file_picker: ^10.3.6
+  flutter_tesseract_ocr: ^0.4.31
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +41,8 @@ flutter:
   assets:
     - assets/icon/icon.png
     - assets/icon/splash.png
+    - assets/tessdata_config.json
+    - assets/tessdata/
 
 flutter_launcher_icons:
   android: true

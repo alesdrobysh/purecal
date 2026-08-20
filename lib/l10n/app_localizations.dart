@@ -1249,6 +1249,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From OpenFoodFacts'**
   String get fromOpenFoodFacts;
+
+  /// Button/screen title for scanning a nutrition label to prefill macros
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Label'**
+  String get scanNutritionLabel;
+
+  /// Loading state shown while OCR is running on the captured label photo
+  ///
+  /// In en, this message translates to:
+  /// **'Reading label…'**
+  String get scanningLabel;
+
+  /// Shown when OCR/parsing found none of the four macro fields
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the label. Please enter values manually.'**
+  String get labelNotRecognized;
 }
 
 class _AppLocalizationsDelegate
