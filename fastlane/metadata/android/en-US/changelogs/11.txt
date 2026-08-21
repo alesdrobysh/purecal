@@ -1,0 +1,2 @@
+Added
+-   Introduced a new OCR (Optical Character Recognition) scanning feature, enabling users to effortlessly capture and input nutrition information from product labels when creating custom food entries.

@@ -1,0 +1,2 @@
+Dodano
+- Wprowadzono nową funkcję skanowania OCR (optycznego rozpoznawania znaków), umożliwiającą użytkownikom łatwe przechwytywanie i wprowadzanie informacji o wartościach odżywczych z etykiet produktów przy tworzeniu własnych pozycji żywieniowych.

@@ -1,6 +1,12 @@
 # CHANGELOG
 
 
+## [1.1.0+11] - 2026-08-21
+
+### Added
+-   Introduced a new OCR (Optical Character Recognition) scanning feature, enabling users to effortlessly capture and input nutrition information from product labels when creating custom food entries.
+
+
 ## [1.0.4+10] - 2026-08-10
 
 ### Fixed

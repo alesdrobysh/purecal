@@ -1,0 +1,2 @@
+Añadido
+- Se ha añadido una nueva función de escaneo OCR (Reconocimiento Óptico de Caracteres), que permite a los usuarios capturar e introducir fácilmente información nutricional de etiquetas de productos al crear entradas de alimentos personalizadas.
